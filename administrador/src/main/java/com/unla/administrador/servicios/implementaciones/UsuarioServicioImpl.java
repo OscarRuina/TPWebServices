@@ -1,6 +1,7 @@
 package com.unla.administrador.servicios.implementaciones;
 
 import com.unla.administrador.modelos.datos.Usuario;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.repositorios.UsuarioRepositorio;
@@ -41,6 +42,20 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             throw new RuntimeException("Contraseña incorrecta");
         }
         return usuario;
+    }
+
+    @Override
+    public String primerLogin(long id, SolicitudCambioContraseña cambioContraseña) {
+        Usuario usuario = repositorio.findById(id).orElseThrow();
+        usuario.setContraseña(cambioContraseña.getContraseña());
+        usuario.setPrimerLogin(false);
+        repositorio.save(usuario);
+        return "Contraseña Modificada Correctamente";
+    }
+
+    @Override
+    public String logout() {
+        return "Saliste del Sistema Correctamente";
     }
 
     @Override

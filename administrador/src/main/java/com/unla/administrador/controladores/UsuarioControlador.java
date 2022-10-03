@@ -6,6 +6,8 @@ import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
+@Tag(name = "Usuario Controlador")
 public class UsuarioControlador {
 
     @Autowired
@@ -29,6 +32,7 @@ public class UsuarioControlador {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =
             MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Registro de Usuario")
     public ResponseEntity<RespuestaRegistroUsuario> registro(@Valid @RequestBody SolicitudRegistroUsuario registroUsuario) {
         return new ResponseEntity<>(
                 UsuarioConvertidor.convertirRespuestaRegistroUsuario(

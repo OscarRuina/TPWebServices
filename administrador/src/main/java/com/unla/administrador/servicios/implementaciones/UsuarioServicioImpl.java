@@ -7,6 +7,7 @@ import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuari
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.repositorios.UsuarioRepositorio;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
+import java.util.List;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,12 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
                         "404"
                 )
         );
+    }
+
+    @Override
+    public List<Usuario> listar(String rol) {
+        String roleBuscar = PREFIJO + rol.toUpperCase();
+        return repositorio.findByRolAndActivoTrue(roleBuscar);
     }
 
     @Override

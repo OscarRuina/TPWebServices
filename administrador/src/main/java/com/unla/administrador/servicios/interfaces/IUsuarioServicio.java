@@ -5,10 +5,13 @@ import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
+import java.util.List;
 
 public interface IUsuarioServicio {
 
     Usuario buscarId(long id);
+
+    List<Usuario> listar(String rol);
 
     Usuario login(SolicitudLogin solicitudLogin);
 

@@ -1,15 +1,23 @@
 package com.unla.administrador.servicios.implementaciones;
 
 import com.unla.administrador.modelos.datos.Usuario;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.repositorios.UsuarioRepositorio;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
+import java.util.List;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioServicioImpl implements IUsuarioServicio {
+
+
+    private static final String PREFIJO = "ROLE_";
+    private static final String CONTRASEÑA_TEMPORAL = "foo1234";
 
     @Autowired
     private UsuarioRepositorio repositorio;
@@ -25,6 +33,12 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     }
 
     @Override
+    public List<Usuario> listar(String rol) {
+        String roleBuscar = PREFIJO + rol.toUpperCase();
+        return repositorio.findByRolAndActivoTrue(roleBuscar);
+    }
+
+    @Override
     public Usuario login(SolicitudLogin solicitudLogin) {
         Usuario usuario = repositorio.findByNombreUsuarioIgnoreCase(solicitudLogin.getNombreUsuario()).orElseThrow(
                 () -> new ObjectNotFoundException(
@@ -36,5 +50,67 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             throw new RuntimeException("Contraseña incorrecta");
         }
         return usuario;
+    }
+
+    @Override
+    public String primerLogin(long id, SolicitudCambioContraseña cambioContraseña) {
+        Usuario usuario = repositorio.findById(id).orElseThrow();
+        usuario.setContraseña(cambioContraseña.getContraseña());
+        usuario.setPrimerLogin(false);
+        repositorio.save(usuario);
+        return "Contraseña Modificada Correctamente";
+    }
+
+    @Override
+    public String logout() {
+        return "Saliste del Sistema Correctamente";
+    }
+
+    @Override
+    public Usuario registrar(SolicitudRegistroUsuario registroUsuario) {
+        Usuario usuario = new Usuario();
+        usuario.setNombre(registroUsuario.getNombre());
+        usuario.setApellido(registroUsuario.getApellido());
+        usuario.setDni(registroUsuario.getDni());
+        usuario.setEmail(registroUsuario.getEmail());
+        usuario.setCarrera(registroUsuario.getCarrera());
+
+        String nombreUsuario = registroUsuario.getNombre().toLowerCase() + registroUsuario.getApellido().toLowerCase();
+        String contraseñaTemporal = CONTRASEÑA_TEMPORAL;
+        String rol = PREFIJO + registroUsuario.getRol().toUpperCase();
+
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setContraseña(contraseñaTemporal);
+        usuario.setPrimerLogin(true);
+        usuario.setActivo(true);
+        usuario.setRol(rol);
+
+        return repositorio.save(usuario);
+    }
+
+    @Override
+    public Usuario modificar(long id, SolicitudModificacionUsuario modificacionUsuario) {
+        Usuario usuario = buscarId(id);
+        usuario.setNombre(modificacionUsuario.getNombre());
+        usuario.setApellido(modificacionUsuario.getApellido());
+        usuario.setDni(modificacionUsuario.getDni());
+        usuario.setEmail(modificacionUsuario.getEmail());
+        usuario.setCarrera(modificacionUsuario.getCarrera());
+
+        String nombreUsuario = modificacionUsuario.getNombre().toLowerCase() + modificacionUsuario.getApellido().toLowerCase();
+        String rol = PREFIJO + modificacionUsuario.getRol().toUpperCase();
+
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setRol(rol);
+
+        return repositorio.save(usuario);
+    }
+
+    @Override
+    public String eliminar(long id) {
+        Usuario usuario = buscarId(id);
+        usuario.setActivo(false);
+        repositorio.save(usuario);
+        return "Usuario Eliminado Correctamente";
     }
 }

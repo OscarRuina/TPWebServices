@@ -3,6 +3,7 @@ package com.unla.administrador.servicios.implementaciones;
 import com.unla.administrador.modelos.datos.Usuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.repositorios.UsuarioRepositorio;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
@@ -78,5 +79,31 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
         usuario.setRol(rol);
 
         return repositorio.save(usuario);
+    }
+
+    @Override
+    public Usuario modificar(long id, SolicitudModificacionUsuario modificacionUsuario) {
+        Usuario usuario = buscarId(id);
+        usuario.setNombre(modificacionUsuario.getNombre());
+        usuario.setApellido(modificacionUsuario.getApellido());
+        usuario.setDni(modificacionUsuario.getDni());
+        usuario.setEmail(modificacionUsuario.getEmail());
+        usuario.setCarrera(modificacionUsuario.getCarrera());
+
+        String nombreUsuario = modificacionUsuario.getNombre().toLowerCase() + modificacionUsuario.getApellido().toLowerCase();
+        String rol = PREFIJO + modificacionUsuario.getRol().toUpperCase();
+
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setRol(rol);
+
+        return repositorio.save(usuario);
+    }
+
+    @Override
+    public String eliminar(long id) {
+        Usuario usuario = buscarId(id);
+        usuario.setActivo(false);
+        repositorio.save(usuario);
+        return "Usuario Eliminado Correctamente";
     }
 }

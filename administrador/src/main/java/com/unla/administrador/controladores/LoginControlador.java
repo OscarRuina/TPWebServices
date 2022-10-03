@@ -45,8 +45,7 @@ public class LoginControlador {
     }
 
     @PutMapping(value = "/auth/primer-login/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces =
-            MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Pedido de Cambio de Contraseña Usuario")
     public ResponseEntity<String> primerLogin(
             @PathVariable("id") @Pattern(regexp = "[0-9]+") String id,
@@ -56,8 +55,7 @@ public class LoginControlador {
         );
     }
 
-    @GetMapping(value = "/auth/logout", produces =
-                    MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/auth/logout", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Salida del Sistema Usuario")
     public ResponseEntity<String> logout() {
         return new ResponseEntity<>(

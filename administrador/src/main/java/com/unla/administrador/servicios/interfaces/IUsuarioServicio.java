@@ -3,6 +3,7 @@ package com.unla.administrador.servicios.interfaces;
 import com.unla.administrador.modelos.datos.Usuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 
 public interface IUsuarioServicio {
@@ -16,5 +17,9 @@ public interface IUsuarioServicio {
     String logout();
 
     Usuario registrar(SolicitudRegistroUsuario registroUsuario);
+
+    Usuario modificar(long id,SolicitudModificacionUsuario modificacionUsuario);
+
+    String eliminar(long id);
 
 }

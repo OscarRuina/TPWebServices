@@ -84,4 +84,15 @@ public class UsuarioControlador {
         return new ResponseEntity<>(registroUsuarios,HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Busqueda  Usuario")
+    public ResponseEntity<RespuestaRegistroUsuario> buscar(
+            @PathVariable("id") @Pattern(regexp = "[0-9]+") String id) {
+        return new ResponseEntity<>(
+                UsuarioConvertidor.convertirRespuestaRegistroUsuario(
+                        servicio.buscarId(Long.parseLong(id))
+                ), HttpStatus.OK
+        );
+    }
+
 }

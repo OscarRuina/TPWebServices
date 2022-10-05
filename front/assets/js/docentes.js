@@ -1,5 +1,5 @@
 btn_agregar.addEventListener("click", (e) => {
-    var url = "registro.html?rol=" + "DOCENTE"
+    var url = "registroDocente.html?rol=" + "DOCENTE"
     window.location.replace(url);
     e.preventDefault();
 });

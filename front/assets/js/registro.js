@@ -23,7 +23,7 @@ async function guardarUsuario() {
         "dni": $('#dni').val(),
         "email": $('#mail').val(),
         "carrera": $('#carrera').val(),
-        "rol": $('#roles').val(),
+        "rol": valores['rol'],
     };
     
     fetch(url, {

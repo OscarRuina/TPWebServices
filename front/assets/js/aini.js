@@ -8,16 +8,6 @@ if (login === null || login == "null"){
 	}
 }
 
-btn_salir.addEventListener('click', (e) => {
-    salir();
-    e.preventDefault();
-})
-
-btn_perfil.addEventListener('click', (e) => {
-    //perfil();
-    e.preventDefault();
-})
-
 function getGET() {
     // capturamos la url
     var loc = document.location.href;

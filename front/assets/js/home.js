@@ -1,3 +1,13 @@
+btn_salir.addEventListener('click', (e) => {
+    salir();
+    e.preventDefault();
+})
+
+btn_perfil.addEventListener('click', (e) => {
+    //perfil();
+    e.preventDefault();
+})
+
 $(document).ready( ()=> {
     
     const usuario = ()=>{

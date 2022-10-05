@@ -17,7 +17,7 @@ async function guardarUsuario() {
     };
     
     var valores = getGET();
-    if (user != null) {    
+    if (valores != null) {    
         var user = valores['user'];
         url = URLADMIN + "api/usuarios/" + user;
         var method = "PUT";

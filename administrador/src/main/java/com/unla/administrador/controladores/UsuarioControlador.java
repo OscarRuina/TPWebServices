@@ -1,11 +1,7 @@
 package com.unla.administrador.controladores;
 
 import com.unla.administrador.convertidores.UsuarioConvertidor;
-import com.unla.administrador.modelos.datos.Usuario;
-import com.unla.administrador.modelos.dtos.respuesta.RespuestaLogin;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
-import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
-import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;

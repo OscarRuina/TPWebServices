@@ -1,0 +1,57 @@
+.login-clean {
+  background: #f1f7fc;
+  padding: 80px 0;
+}
+
+.login-clean form {
+  max-width: 320px;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 4px;
+  color: #505e6c;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.login-clean .illustration {
+  text-align: center;
+  padding: 0 0 20px;
+  font-size: 100px;
+  color: rgb(244,71,107);
+}
+
+.login-clean form .btn-primary:hover, .login-clean form .btn-primary:active {
+  background: #eb3b60;
+}
+
+.login-clean form .btn-primary:active {
+  transform: translateY(1px);
+}
+
+.login-clean form .forgot {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #6f7a85;
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.login-clean form .forgot:hover, .login-clean form .forgot:active {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.bg-gradient-primary {
+  /*background-color: #4e73df;*/
+  /*background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);*/
+  /*background-size: cover;*/
+}
+
+.bg-gradient-primary {
+  /*background-color: #4e73df;*/
+  /*background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);*/
+  /*background-size: cover;*/
+}
+

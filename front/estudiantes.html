@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>Usuario</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=e564b31f94419a9cd8f5a15ab12571f6">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css?h=1ccd59155201f54e983ef3bc062fd66b">
@@ -35,8 +35,8 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/docentes.html"><i class="fas fa-user-circle"></i><span>Docente</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -67,7 +67,40 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="container-fluid"></div>
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Estudiantes&nbsp;<a class="btn btn-primary btn-sm d-sm-inline-block" role="button" id="btn_agregar" href="/registro.html" style="float: right;"><i class="fas fa-hand-point-right fa-sm text-white-50"></i>&nbsp;Agregar</a></h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Información</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTables">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>DNI</th>
+                                            <th>Email</th>
+                                            <th>Carrera</th>
+                                            <th>nombreUsuario</th>
+                                            <th>Rol</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userbody"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>&nbsp;</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
@@ -81,6 +114,7 @@
     <script src="/assets/js/home.js?h=92f4da3d6e60ffd048836cf41c00ada6"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="/assets/js/theme.js?h=79f403485707cf2617c5bc5a2d386bb0"></script>
+    <script src="/assets/js/usuarios.js?h=d1ebc6c4360490a12dab33afd9134f2e"></script>
 </body>
 
 </html>

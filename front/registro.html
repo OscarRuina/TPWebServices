@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Usuario</title>
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=dc8d051ac641485a3610abb8f61bebe1">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=e564b31f94419a9cd8f5a15ab12571f6">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css?h=1ccd59155201f54e983ef3bc062fd66b">
     <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css?h=1ccd59155201f54e983ef3bc062fd66b">
@@ -36,9 +36,8 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/registro.html"><i class="fas fa-user-circle"></i><span>Registrar Usuario</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/usuarios.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i><span>Docente</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/docentes.html"><i class="fas fa-user-circle"></i><span>Docente</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -69,7 +68,7 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Usuario</h3>
+                    <h3 class="text-dark mb-4">Registrar</h3>
                     <div class="row">
                         <div class="col-auto text-start">
                             <div class="row">
@@ -103,16 +102,17 @@
                                                         <div class="mb-3"><label class="form-label" for="roles"><strong>Carrera</strong><br></label><select class="form-select" id="carrera">
                                                                 <optgroup label="Carreras">
                                                                     <option value="Licenciatura en sistemas" selected="">Licenciatura en sistemas</option>
+                                                                    <option value="Turismo">Turismo</option>
+                                                                    <option value="Medicina">Medicina</option>
                                                                 </optgroup>
                                                             </select></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Rol</strong><br></label><select class="form-select" id="roles">
+                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Rol</strong><br></label><select class="form-select" id="roles" disabled="">
                                                                 <optgroup label="Roles">
-                                                                    <option value="USER" selected="">Usuario</option>
-                                                                    <option value="ADMIN">Administrador</option>
+                                                                    <option value="ESTUDIANTE" selected="">Estudiante</option>
                                                                     <option value="DOCENTE">Docente</option>
                                                                 </optgroup>
                                                             </select></div>
@@ -149,7 +149,7 @@
     <script src="/assets/js/bs-init.js?h=7563c52cc0a72a92d96ce0159b71241c"></script>
     <script src="/assets/js/home.js?h=92f4da3d6e60ffd048836cf41c00ada6"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script src="/assets/js/registro.js?h=9fecff64eb567706a85c1e83a6ee14a8"></script>
+    <script src="/assets/js/registro.js?h=9232486673046f6ac256d949cc76f001"></script>
     <script src="/assets/js/theme.js?h=79f403485707cf2617c5bc5a2d386bb0"></script>
 </body>
 

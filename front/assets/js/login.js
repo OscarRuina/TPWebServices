@@ -29,15 +29,21 @@ async function validarUsuario() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res => res.json()
-            .then(data => {
-                sessionStorage.setItem('id', data.id); 
-                sessionStorage.setItem('nombreUsuario', data.nombreUsuario);
-                if (contraseña == 'foo1234') { 
-                    window.location.replace("cambioContraseña.html");
+        }).then(res => res.text()
+          .then(data => {
+                const json = JSON.parse(data);
+                //console.log(json);
+                if (json.error) {
+                   alerta()
                 } else {
-                    window.location.replace("index.html");
-                }
+                    sessionStorage.setItem('id', json.id); 
+                    sessionStorage.setItem('nombreUsuario', json.nombreUsuario);
+                    if (json.primerLogin == true) {
+                        window.location.replace("cambioContraseña.html");
+                    } else {
+                        window.location.replace("index.html");
+                    } 
+                }  
             }))
-            .catch(error => alerta());
+          .catch(error => alerta());
 }

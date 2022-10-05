@@ -6,8 +6,18 @@ btn_confirmar.addEventListener("click", (e) => {
 async function guardarUsuario() {    
     //Agregar, validar que no exista ese mail de usuario.
     var url = "";
-
-    const data = {
+    var valores = getGET();
+    
+    if (valores['user'] != null) {    
+        var user = valores['user'];
+        url = URLADMIN + "api/usuarios/" + user;
+        var method = "PUT";
+    } else {
+        url = URLADMIN + "api/usuarios";
+        var method = "POST";
+    }
+        
+    var data = {
         "nombre": $('#nombre').val(),
         "apellido": $('#apellido').val(),
         "dni": $('#dni').val(),
@@ -16,16 +26,6 @@ async function guardarUsuario() {
         "rol": $('#roles').val(),
     };
     
-    var valores = getGET();
-    if (valores != null) {    
-        var user = valores['user'];
-        url = URLADMIN + "api/usuarios/" + user;
-        var method = "PUT";
-    } else {
-        url = URLADMIN + "api/usuarios";
-        var method = "POST";
-    }
-
     fetch(url, {
         method: method,
         body: JSON.stringify(data),
@@ -33,10 +33,14 @@ async function guardarUsuario() {
           "Content-Type": "application/json",
         },
     }).then(response => response.json())
-    .then(data => success("index.html")) // Manipulate the data retrieved back
-    .catch(err => error(err)) // Do something with the error
-    //.then((response) => console.error("Success:", response) );
-
+    .then(data => {
+        if (valores['rol'] == "DOCENTE"){
+            success("docentes.html")
+        } else {
+            success("estudiantes.html")
+        }
+    })
+    .catch(err => error(err))
 }
 
 
@@ -44,7 +48,9 @@ $(document).ready( ()=> {
      
     const detalles = () => {
         var valores = getGET();
-        if (valores != null) {
+        $('#roles').val(valores['rol']);
+        
+        if (valores['user'] != null) {
             var user = valores['user'];
             $.ajax({
                 url: URLADMIN + 'api/usuarios/' + user,

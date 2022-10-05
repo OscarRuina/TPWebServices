@@ -1,5 +1,5 @@
 btn_agregar.addEventListener("click", (e) => {
-    var url = "registro.html?rol=" + "ESTUDIANTE"
+    var url = "registro.html?rol=" + "DOCENTE"
     window.location.replace(url);
     e.preventDefault();
 });
@@ -7,7 +7,7 @@ btn_agregar.addEventListener("click", (e) => {
 $(document).ready( ()=> {
 
     const list=()=>{
-            var rol = "ESTUDIANTE";
+            var rol = "DOCENTE";
             var url = URLADMIN + "api/usuarios?rol=" + rol;
             var table = $('#dataTables').DataTable({
                 "destroy": true, 

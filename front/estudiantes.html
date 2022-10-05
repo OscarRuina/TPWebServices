@@ -36,7 +36,7 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="docentes.html"><i class="fas fa-user-circle"></i><span>Docente</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -68,71 +68,35 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Registrar</h3>
-                    <div class="row">
-                        <div class="col-auto text-start">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Usuario</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nombre</strong></label><input class="form-control" type="text" id="nombre" placeholder="Nombre" name="first_name" required=""></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="apellido"><strong>Apellido</strong></label><input class="form-control" type="text" id="apellido" placeholder="Apellido" name="last_name" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>DNI</strong><br></label><input class="form-control" type="number" id="dni" placeholder="12345678"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Mail</strong></label><input class="form-control" type="email" id="mail" placeholder="user@example.com" name="email" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Carrera</strong><br></label><select class="form-select" id="carrera">
-                                                                <optgroup label="Carreras">
-                                                                    <option value="Licenciatura en sistemas" selected="">Licenciatura en sistemas</option>
-                                                                    <option value="Turismo">Turismo</option>
-                                                                    <option value="Medicina">Medicina</option>
-                                                                </optgroup>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Rol</strong><br></label><select class="form-select" id="roles" disabled="">
-                                                                <optgroup label="Roles">
-                                                                    <option value="ESTUDIANTE" selected="">Estudiante</option>
-                                                                    <option value="DOCENTE">Docente</option>
-                                                                </optgroup>
-                                                            </select></div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-3"></div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <form>
-                                        <div class="mb-3"></div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <form>
-                                                    <div class="mb-3"><button class="btn btn-primary btn-sm" id="btn_confirmar" type="submit">Confirmar</button></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                    <h3 class="text-dark mb-4">Estudiantes&nbsp;<a class="btn btn-primary btn-sm d-sm-inline-block" role="button" id="btn_agregar" href="registro.html" style="float: right;"><i class="fas fa-hand-point-right fa-sm text-white-50"></i>&nbsp;Agregar</a></h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Información</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTables">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>DNI</th>
+                                            <th>Email</th>
+                                            <th>Carrera</th>
+                                            <th>nombreUsuario</th>
+                                            <th>Rol</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userbody"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>&nbsp;</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -149,8 +113,8 @@
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script src="assets/js/registro.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/usuarios.js"></script>
 </body>
 
 </html>

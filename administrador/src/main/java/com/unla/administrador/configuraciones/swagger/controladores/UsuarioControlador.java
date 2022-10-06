@@ -1,4 +1,4 @@
-package com.unla.administrador.controladores;
+package com.unla.administrador.configuraciones.swagger.controladores;
 
 import com.unla.administrador.convertidores.UsuarioConvertidor;
 import com.unla.administrador.modelos.datos.Usuario;

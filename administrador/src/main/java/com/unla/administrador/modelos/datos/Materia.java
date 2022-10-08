@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Setter
@@ -41,9 +42,7 @@ public class Materia {
     @Size(max = 250)
     private String carrera;
 
-    @NotBlank
     @Column(name = "año")
-    @Size(max = 250)
     private int año;
 
     @NotBlank

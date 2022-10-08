@@ -18,8 +18,15 @@ public class SolicitudRegistroMateria {
     @Size(max = 250)
     private String carrera;
 
+    @NotBlank
+    @Size(max = 250)
+    private String cuatrimestre;
+
     @NotNull
-    private int año;
+    private int añoCuatrimestre;
+
+    @NotNull
+    private int añoMateria;
 
     @NotBlank
     @Size(max = 250)
@@ -33,5 +40,8 @@ public class SolicitudRegistroMateria {
     @Size(max = 250)
     private String horaFinalizacion;
 
+    @NotBlank
+    @Size(max = 250)
+    private String turno;
 
 }

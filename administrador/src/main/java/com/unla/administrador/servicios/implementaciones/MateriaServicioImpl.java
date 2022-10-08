@@ -28,11 +28,14 @@ public class MateriaServicioImpl implements IMateriaServicio {
         Materia materia = new Materia();
         materia.setActivo(true);
         materia.setDia(altaMateria.getDia());
-        materia.setAño(altaMateria.getAño());
+        materia.setAñoMateria(altaMateria.getAñoMateria());
         materia.setNombre(altaMateria.getNombre());
         materia.setCarrera(altaMateria.getCarrera());
+        materia.setCuatrimestre(altaMateria.getCuatrimestre());
+        materia.setAñoCuatrimestre(altaMateria.getAñoCuatrimestre());
         materia.setHoraInicio(altaMateria.getHoraInicio());
         materia.setHoraFinalizacion(altaMateria.getHoraFinalizacion());
+        materia.setTurno(altaMateria.getTurno());
         return materiaRepositorio.save(materia);
     }
 
@@ -54,12 +57,15 @@ public class MateriaServicioImpl implements IMateriaServicio {
     @Override
     public Materia modificar(long id, SolicitudRegistroMateria modificacionMateria) {
         Materia materia = buscarId(id);
-        materia.setAño(modificacionMateria.getAño());
+        materia.setAñoMateria(modificacionMateria.getAñoMateria());
         materia.setDia(modificacionMateria.getDia());
         materia.setCarrera(modificacionMateria.getCarrera());
+        materia.setCuatrimestre(modificacionMateria.getCuatrimestre());
+        materia.setAñoCuatrimestre(modificacionMateria.getAñoCuatrimestre());
         materia.setNombre(modificacionMateria.getNombre());
         materia.setHoraInicio(modificacionMateria.getHoraInicio());
         materia.setHoraFinalizacion(modificacionMateria.getHoraFinalizacion());
+        materia.setTurno(modificacionMateria.getTurno());
         return materiaRepositorio.save(materia);
     }
 

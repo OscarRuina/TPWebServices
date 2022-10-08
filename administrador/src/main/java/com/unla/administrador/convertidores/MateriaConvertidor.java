@@ -17,10 +17,13 @@ public final class MateriaConvertidor {
         respuestaMateria.setId(materia.getId());
         respuestaMateria.setNombre(materia.getNombre());
         respuestaMateria.setCarrera(materia.getCarrera());
-        respuestaMateria.setAño(materia.getAño());
+        respuestaMateria.setCuatrimestre(materia.getCuatrimestre());
+        respuestaMateria.setAñoMateria(materia.getAñoMateria());
+        respuestaMateria.setAñoCuatrimestre(materia.getAñoCuatrimestre());
         respuestaMateria.setDia(materia.getDia());
         respuestaMateria.setHoraInicio(materia.getHoraInicio());
         respuestaMateria.setHoraFinalizacion(materia.getHoraFinalizacion());
+        respuestaMateria.setTurno(materia.getTurno());
         return respuestaMateria;
     }
 }

@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Setter
@@ -42,8 +41,16 @@ public class Materia {
     @Size(max = 250)
     private String carrera;
 
-    @Column(name = "año")
-    private int año;
+    @NotBlank
+    @Column(name = "cuatrimestre")
+    @Size(max = 250)
+    private String cuatrimestre;
+
+    @Column(name = "año_cuatrimestre")
+    private int añoCuatrimestre;
+
+    @Column(name = "año_materia")
+    private int añoMateria;
 
     @NotBlank
     @Column(name = "dia")
@@ -60,6 +67,11 @@ public class Materia {
     @Size(max = 250)
     private String horaFinalizacion;
 
+    @NotBlank
+    @Column(name = "turno")
+    @Size(max = 250)
+    private String turno;
+
     @Column(name = "activo")
     private boolean activo;
 
@@ -67,11 +79,5 @@ public class Materia {
             CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     private List<UsuarioMateria> usuarios;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "materia", cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
-    private List<MateriaCuatrimestre> cuatrimestres;
-
 
 }

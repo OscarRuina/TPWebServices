@@ -15,12 +15,18 @@ public class RespuestaRegistroMateria {
 
     private String carrera;
 
-    private int año;
+    private String cuatrimestre;
+
+    private int añoCuatrimestre;
+
+    private int añoMateria;
 
     private String dia;
 
     private String horaInicio;
 
     private String horaFinalizacion;
+
+    private String turno;
 
 }

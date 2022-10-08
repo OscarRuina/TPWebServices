@@ -1,20 +1,13 @@
 package com.unla.administrador.servicios.implementaciones;
 
-import com.unla.administrador.convertidores.MateriaConvertidor;
 import com.unla.administrador.modelos.datos.Materia;
-import com.unla.administrador.modelos.datos.Usuario;
-import com.unla.administrador.modelos.datos.UsuarioMateria;
-import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMateria;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMateria;
 import com.unla.administrador.repositorios.MateriaRepositorio;
-import com.unla.administrador.repositorios.UsuarioMateriaRepositorio;
-import com.unla.administrador.repositorios.UsuarioRepositorio;
 import com.unla.administrador.servicios.interfaces.IMateriaServicio;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -75,5 +68,10 @@ public class MateriaServicioImpl implements IMateriaServicio {
         materia.setActivo(false);
         materiaRepositorio.save(materia);
         return "Materia eliminada correctamente";
+    }
+
+    @Override
+    public List<Materia> listarPdf(String turno) {
+        return materiaRepositorio.findByActivoTrueAndTurnoOrderByAñoMateriaAsc(turno);
     }
 }

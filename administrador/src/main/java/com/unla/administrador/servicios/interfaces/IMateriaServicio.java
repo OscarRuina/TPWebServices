@@ -18,4 +18,6 @@ public interface IMateriaServicio {
 
     String eliminar(long id);
 
+    List<Materia> listarPdf(String turno);
+
 }

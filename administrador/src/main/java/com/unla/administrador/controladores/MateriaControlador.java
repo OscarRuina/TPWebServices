@@ -81,4 +81,16 @@ public class MateriaControlador {
 
     }
 
+    @GetMapping(value = "/pdf",produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Lista Materias")
+    public ResponseEntity<List<RespuestaRegistroMateria>> listarPdf(@RequestParam String turno) {
+        List<RespuestaRegistroMateria> materias = new ArrayList<>();
+        servicio.listarPdf(turno).forEach(
+                materia -> {
+                    materias.add(MateriaConvertidor.convertirRespuestaMateria(materia));
+                }
+        );
+        return new ResponseEntity<>(materias, HttpStatus.OK);
+    }
+
 }

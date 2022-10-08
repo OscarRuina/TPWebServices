@@ -1,7 +1,6 @@
 package com.unla.administrador.controladores;
 
 import com.unla.administrador.convertidores.UsuarioConvertidor;
-import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateria;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudAsignarDocente;

@@ -1,7 +1,10 @@
 package com.unla.administrador.controladores;
 
 import com.unla.administrador.convertidores.UsuarioConvertidor;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateria;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudAsignarDocente;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
@@ -40,7 +43,8 @@ public class UsuarioControlador {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =
             MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Registro de Usuario")
-    public ResponseEntity<RespuestaRegistroUsuario> registro(@Valid @RequestBody SolicitudRegistroUsuario registroUsuario) {
+    public ResponseEntity<RespuestaRegistroUsuario> registro(
+            @Valid @RequestBody SolicitudRegistroUsuario registroUsuario) {
         return new ResponseEntity<>(
                 UsuarioConvertidor.convertirRespuestaRegistroUsuario(
                         servicio.registrar(registroUsuario)
@@ -56,7 +60,7 @@ public class UsuarioControlador {
             @Valid @RequestBody SolicitudModificacionUsuario modificacionUsuario) {
         return new ResponseEntity<>(
                 UsuarioConvertidor.convertirRespuestaRegistroUsuario(
-                        servicio.modificar(Long.parseLong(id),modificacionUsuario)
+                        servicio.modificar(Long.parseLong(id), modificacionUsuario)
                 ), HttpStatus.OK
         );
     }
@@ -65,19 +69,20 @@ public class UsuarioControlador {
     @Operation(summary = "Eliminacion Usuario")
     public ResponseEntity<String> eliminacion(
             @PathVariable("id") @Pattern(regexp = "[0-9]+") String id) {
-        return new ResponseEntity<>(servicio.eliminar(Long.parseLong(id)),HttpStatus.OK);
+        return new ResponseEntity<>(servicio.eliminar(Long.parseLong(id)), HttpStatus.OK);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Lista Usuarios por Rol")
-    public ResponseEntity<List<RespuestaRegistroUsuario>> listar(@RequestParam String rol){
+    public ResponseEntity<List<RespuestaRegistroUsuario>> listar(@RequestParam String rol) {
         List<RespuestaRegistroUsuario> registroUsuarios = new ArrayList<>();
         servicio.listar(rol).forEach(
-                usuario ->  {
-                    registroUsuarios.add(UsuarioConvertidor.convertirRespuestaRegistroUsuario(usuario));
+                usuario -> {
+                    registroUsuarios.add(
+                            UsuarioConvertidor.convertirRespuestaRegistroUsuario(usuario));
                 }
         );
-        return new ResponseEntity<>(registroUsuarios,HttpStatus.OK);
+        return new ResponseEntity<>(registroUsuarios, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -89,6 +94,31 @@ public class UsuarioControlador {
                         servicio.buscarId(Long.parseLong(id))
                 ), HttpStatus.OK
         );
+    }
+
+    @PutMapping(value = "/{id}/materias", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+            MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Asigno Docente a Materia")
+    public ResponseEntity<String> asignar(
+            @PathVariable("id") @Pattern(regexp = "[0-9]+") String id, @Valid @RequestBody
+    SolicitudAsignarDocente asignarDocente) {
+        return new ResponseEntity<>(
+                servicio.asignarMateriaDocente(Long.parseLong(id), asignarDocente), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Listado de Materias del Docente")
+    public ResponseEntity<List<RespuestaUsuarioMateria>> usuarioMaterias(
+            @PathVariable("id") @Pattern(regexp = "[0-9]+") String id
+    ) {
+        List<RespuestaUsuarioMateria> usuarioMaterias = new ArrayList<>();
+        servicio.listarMaterias(Long.parseLong(id)).forEach(
+                usuarioMateria -> {
+                    usuarioMaterias.add(
+                            UsuarioConvertidor.convertirRespuestaUsuarioMateria(usuarioMateria));
+                }
+        );
+        return new ResponseEntity<>(usuarioMaterias, HttpStatus.OK);
     }
 
 }

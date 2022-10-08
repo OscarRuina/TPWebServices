@@ -1,10 +1,14 @@
 package com.unla.administrador.servicios.implementaciones;
 
+import com.unla.administrador.modelos.datos.Materia;
 import com.unla.administrador.modelos.datos.Usuario;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudAsignarDocente;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
+import com.unla.administrador.repositorios.MateriaRepositorio;
 import com.unla.administrador.repositorios.UsuarioRepositorio;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
 import java.util.List;
@@ -21,6 +25,9 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 
     @Autowired
     private UsuarioRepositorio repositorio;
+
+    @Autowired
+    private MateriaRepositorio materiaRepositorio;
 
     @Override
     public Usuario buscarId(long id) {
@@ -112,5 +119,33 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
         usuario.setActivo(false);
         repositorio.save(usuario);
         return "Usuario Eliminado Correctamente";
+    }
+
+    @Override
+    public String asignarMateriaDocente(long id, SolicitudAsignarDocente asignarDocente) {
+        Usuario docente = buscarId(id);
+        Materia materia = materiaRepositorio.findById(asignarDocente.getIdMateria()).orElseThrow();
+
+        UsuarioMateria usuarioMateria = new UsuarioMateria();
+
+        usuarioMateria.setUsuario(docente);
+        usuarioMateria.setMateria(materia);
+
+        usuarioMateria.setNotaCursada(0);
+        usuarioMateria.setNotaParcial1(0);
+        usuarioMateria.setNotaParcial2(0);
+
+        docente.getMaterias().add(usuarioMateria);
+
+        repositorio.save(docente);
+
+        return "Materia Agregada Correctamente";
+
+    }
+
+    @Override
+    public List<UsuarioMateria> listarMaterias(long idUsuario) {
+        Usuario usuario = buscarId(idUsuario);
+        return usuario.getMaterias();
     }
 }

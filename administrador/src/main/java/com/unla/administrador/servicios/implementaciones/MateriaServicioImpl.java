@@ -1,8 +1,11 @@
 package com.unla.administrador.servicios.implementaciones;
 
+import com.unla.administrador.convertidores.MateriaConvertidor;
 import com.unla.administrador.modelos.datos.Materia;
 import com.unla.administrador.modelos.datos.Usuario;
 import com.unla.administrador.modelos.datos.UsuarioMateria;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaMateria;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudRelacionMateriaCuatrimestre;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionMateria;
 import com.unla.administrador.repositorios.MateriaRepositorio;
 import com.unla.administrador.repositorios.UsuarioMateriaRepositorio;
@@ -12,6 +15,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,14 +32,24 @@ public class MateriaServicioImpl implements IMateriaServicio {
 
     @Override
     public Materia Agregar(SolicitudModificacionMateria altaMateria) {
+        System.out.println(altaMateria);
         Materia materia = new Materia();
         materia.setActivo(true);
         materia.setDia(altaMateria.getDia());
-        materia.setAño(Integer.getInteger(altaMateria.getAño()));
+        materia.setAño(Integer.parseInt(altaMateria.getAño()));
         materia.setNombre(altaMateria.getNombre());
         materia.setCarrera(altaMateria.getCarrera());
         materia.setHoraInicio(altaMateria.getHoraInicio());
         materia.setHoraFinalizacion(altaMateria.getHoraFinalizacion());
+        UsuarioMateria usuarioMateria = new UsuarioMateria();
+        Usuario profesor = usuarioRepositorio.findById(Long.parseLong(altaMateria.getIdProfesor())).orElseThrow();
+        if(profesor != null){
+            usuarioMateria.setUsuario(profesor);
+        }
+        usuarioMateria.setMateria(materia);
+        List<UsuarioMateria> listaUsuario = new ArrayList<>();
+        listaUsuario.add(usuarioMateria);
+        materia.setUsuarios(listaUsuario);
 
         return materiaRepositorio.save(materia);
     }
@@ -56,14 +70,20 @@ public class MateriaServicioImpl implements IMateriaServicio {
     }
 
     @Override
-    public List<Materia> listar() {
-        return materiaRepositorio.findAll();
+    public List<RespuestaMateria> listar() {
+        List<RespuestaMateria> listaMaterias = new ArrayList<>();
+        List<Materia> materiasBD = materiaRepositorio.findAll();
+        for (Materia materia:
+             materiasBD) {
+            listaMaterias.add(MateriaConvertidor.convertirRespuestaMateria(materia));
+        }
+        return  listaMaterias;
     }
 
     @Override
     public Materia modificar(long id, SolicitudModificacionMateria modificacionMateria) {
         Materia materia = buscarId(id);
-        materia.setAño(Integer.getInteger(modificacionMateria.getAño()));
+        materia.setAño(Integer.parseInt(modificacionMateria.getAño()));
         materia.setDia(modificacionMateria.getDia());
         materia.setCarrera(modificacionMateria.getCarrera());
         materia.setNombre(modificacionMateria.getNombre());

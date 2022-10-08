@@ -2,6 +2,7 @@ package com.unla.administrador.configuraciones.swagger.controladores;
 
 import com.unla.administrador.convertidores.UsuarioConvertidor;
 import com.unla.administrador.modelos.datos.Materia;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionMateria;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
@@ -60,13 +61,9 @@ public class MateriaControlador {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Lista Materias")
-    public ResponseEntity<List<Materia>> listar(){
-        List<Materia> materias = new ArrayList<>();
-        servicio.listar().forEach(
-                materia ->  {
-                    materias.add(materia);
-                }
-        );
+    public ResponseEntity<List<RespuestaMateria>> listar(){
+        List<RespuestaMateria> materias = servicio.listar();
+
         return new ResponseEntity<>(materias,HttpStatus.OK);
     }
 }

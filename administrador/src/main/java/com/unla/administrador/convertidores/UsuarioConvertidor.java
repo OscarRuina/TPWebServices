@@ -1,8 +1,10 @@
 package com.unla.administrador.convertidores;
 
 import com.unla.administrador.modelos.datos.Usuario;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaLogin;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateria;
 
 public final class UsuarioConvertidor {
 
@@ -35,6 +37,14 @@ public final class UsuarioConvertidor {
         dto.setPrimerLogin(usuario.isPrimerLogin());
         dto.setRol(usuario.getRol());
         return dto;
+    }
+
+    public static RespuestaUsuarioMateria convertirRespuestaUsuarioMateria(UsuarioMateria usuarioMateria){
+        RespuestaUsuarioMateria respuestaUsuarioMateria = new RespuestaUsuarioMateria();
+        respuestaUsuarioMateria.setNombreMateria(usuarioMateria.getMateria().getNombre());
+        respuestaUsuarioMateria.setDocente(usuarioMateria.getUsuario().getNombre() + " " + usuarioMateria.getUsuario().getApellido());
+        respuestaUsuarioMateria.setId(usuarioMateria.getId());
+        return respuestaUsuarioMateria;
     }
 
 }

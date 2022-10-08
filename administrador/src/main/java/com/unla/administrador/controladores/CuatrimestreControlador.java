@@ -85,12 +85,14 @@ public class CuatrimestreControlador {
                 ), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}/materias", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+            MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Agregar Materia a Cuatrimestre")
     public ResponseEntity<String> agregarMateria(
             @PathVariable("id") @Pattern(regexp = "[0-9]+") String id,
             @Valid @RequestBody SolicitudAsignarMateria asignarMateria) {
-        return new ResponseEntity<>(servicio.asignarMateria(Long.parseLong(id), asignarMateria), HttpStatus.OK);
+        return new ResponseEntity<>(servicio.asignarMateria(Long.parseLong(id), asignarMateria),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/materias", produces = MediaType.APPLICATION_JSON_VALUE)

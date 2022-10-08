@@ -1,6 +1,8 @@
 package com.unla.administrador.servicios.interfaces;
 
 import com.unla.administrador.modelos.datos.Usuario;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
+import com.unla.administrador.modelos.dtos.solicitud.SolicitudAsignarDocente;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudCambioContraseña;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
@@ -24,5 +26,9 @@ public interface IUsuarioServicio {
     Usuario modificar(long id,SolicitudModificacionUsuario modificacionUsuario);
 
     String eliminar(long id);
+
+    String asignarMateriaDocente(long id, SolicitudAsignarDocente asignarDocente);
+
+    List<UsuarioMateria> listarMaterias(long idUsuario);
 
 }

@@ -1,6 +1,8 @@
 package com.unla.administrador.modelos.dtos.respuesta;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RespuestaRegistroMesaExamen {
+public class RespuestaMesaExamenNotasFinales {
 
     private long id;
 
@@ -21,5 +23,9 @@ public class RespuestaRegistroMesaExamen {
     private String docente;
 
     private boolean activo;
+
+    private List<RespuestaNotasFinales> notas;
+
+
 
 }

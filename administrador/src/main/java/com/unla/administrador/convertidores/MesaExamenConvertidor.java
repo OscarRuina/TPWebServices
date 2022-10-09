@@ -1,7 +1,12 @@
 package com.unla.administrador.convertidores;
 
 import com.unla.administrador.modelos.datos.MesaExamen;
+import com.unla.administrador.modelos.datos.NotaFinal;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaMesaExamenNotasFinales;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaNotasFinales;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMesaExamen;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public final class MesaExamenConvertidor {
@@ -30,6 +35,53 @@ public final class MesaExamenConvertidor {
         dto.setDocente(String.valueOf(docente));
 
         dto.setActivo(mesaExamen.isActivo());
+        return dto;
+    }
+
+    public static RespuestaMesaExamenNotasFinales convertirRespuestaMesaExamenNotasFinales(MesaExamen mesaExamen){
+        RespuestaMesaExamenNotasFinales dto = new RespuestaMesaExamenNotasFinales();
+
+        dto.setId(mesaExamen.getId());
+        dto.setDia(mesaExamen.getDia());
+        dto.setHora(mesaExamen.getHora());
+
+        dto.setMateria(mesaExamen.getMateria().getNombre());
+
+        AtomicReference<String> docente = new AtomicReference<>("");
+        mesaExamen.getMateria().getUsuarios().forEach(
+                usuarioMateria -> {
+                    if(usuarioMateria.getUsuario().getRol().equals("ROLE_DOCENTE")){
+                        docente.set(usuarioMateria.getUsuario().getNombre() + " "
+                                + usuarioMateria.getUsuario().getApellido());
+                    }
+                }
+        );
+
+        dto.setDocente(String.valueOf(docente));
+
+        dto.setActivo(mesaExamen.isActivo());
+
+        List<RespuestaNotasFinales> notasFinales = new ArrayList<>();
+
+        mesaExamen.getNotasFinales().forEach(
+                notaFinal -> {
+                    notasFinales.add(convertirRespuestaNotasFinales(notaFinal));
+                }
+        );
+
+        dto.setNotas(notasFinales);
+
+        return dto;
+    }
+
+    public static RespuestaNotasFinales convertirRespuestaNotasFinales(NotaFinal notaFinal){
+        RespuestaNotasFinales dto = new RespuestaNotasFinales();
+
+        dto.setId(notaFinal.getId());
+        dto.setAlumno(notaFinal.getEstudiante().getNombre() + " " + notaFinal.getEstudiante().getApellido());
+        dto.setNotaExamen(notaFinal.getNotaExamen());
+        dto.setNotaFinal(notaFinal.getNotaFinal());
+
         return dto;
     }
 

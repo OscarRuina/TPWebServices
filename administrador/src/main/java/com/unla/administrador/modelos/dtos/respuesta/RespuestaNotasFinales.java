@@ -1,6 +1,5 @@
 package com.unla.administrador.modelos.dtos.respuesta;
 
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,18 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RespuestaRegistroMesaExamen {
+public class RespuestaNotasFinales {
 
     private long id;
 
-    private LocalDate dia;
+    private String alumno;
 
-    private String hora;
+    private double notaExamen;
 
-    private String materia;
-
-    private String docente;
-
-    private boolean activo;
+    private double notaFinal;
 
 }

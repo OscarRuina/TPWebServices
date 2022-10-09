@@ -1,6 +1,7 @@
 package com.unla.administrador.controladores;
 
 import com.unla.administrador.convertidores.MesaExamenConvertidor;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaMesaExamenNotasFinales;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMesaExamen;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMesaExamen;
 import com.unla.administrador.servicios.interfaces.IMesaExamenServicio;
@@ -47,10 +48,10 @@ public class MesaExamenControlador {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Busqueda  Mesa de Examen")
-    public ResponseEntity<RespuestaRegistroMesaExamen> buscar(
+    public ResponseEntity<RespuestaMesaExamenNotasFinales> buscar(
             @PathVariable("id") @Pattern(regexp = "[0-9]+") String id) {
         return new ResponseEntity<>(
-                MesaExamenConvertidor.convertirRespuestaMesaExamen(
+                MesaExamenConvertidor.convertirRespuestaMesaExamenNotasFinales(
                         mesaExamenServicio.buscarId(Long.parseLong(id))
                 ), HttpStatus.OK);
 

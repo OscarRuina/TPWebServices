@@ -21,7 +21,7 @@ function guardar() {
         },
     }).then(response => response.json())
     .then(data => {
-        //success("mesaExamen.html")
+        success("mesaExamen.html")
     })
     .catch(err => error(err))
 }

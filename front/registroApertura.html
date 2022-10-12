@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>Titulo</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -34,7 +34,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="docentes.html"><i class="fa fa-angle-double-right"></i><span>Docente</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="materias.html"><i class="fa fa-angle-double-right"></i><span>Materia</span></a></li>
@@ -63,7 +63,55 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="container-fluid"></div>
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Registrar Apertura</h3>
+                    <div class="row">
+                        <div class="col-auto col-sm-9 col-md-7 col-lg-6 col-xl-7 col-xxl-4 text-start">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Inscripciones</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Tipo</strong><br></label><select class="form-select" id="tipo">
+                                                                <option value="Cursada">Cursada</option>
+                                                                <option value="Finales">Finales</option>
+                                                            </select></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Inicio</strong></label><input class="form-control" id="inicio" type="date"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Fin</strong><br></label><input class="form-control" id="fin" type="date"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <form>
+                                        <div class="mb-3"></div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <form>
+                                                    <div class="mb-3"><button class="btn btn-primary btn-sm" id="btn_confirmar" type="submit">Confirmar</button></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
@@ -76,6 +124,7 @@
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
+    <script src="assets/js/registroApertura.js"></script>
     <script src="assets/js/theme.js"></script>
 </body>
 

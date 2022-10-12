@@ -16,4 +16,6 @@ public class RespuestaInscripcion {
 
     private LocalDate fin;
 
+    private String tipo;
+
 }

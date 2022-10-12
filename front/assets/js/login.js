@@ -30,7 +30,7 @@ async function validarUsuario() {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.text()
-          .then(data => {
+            .then(data => {
                 const json = JSON.parse(data);
                 //console.log(json);
                 if (json.error) {

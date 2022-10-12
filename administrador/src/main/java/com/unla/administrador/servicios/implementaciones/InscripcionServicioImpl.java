@@ -30,6 +30,7 @@ public class InscripcionServicioImpl implements IInscripcionServicio {
         Inscripcion inscripcion = new Inscripcion();
         inscripcion.setInicio(solicitudInscripcion.getInicio());
         inscripcion.setFin(solicitudInscripcion.getFin());
+        inscripcion.setTipo(solicitudInscripcion.getTipo());
         return repositorio.save(inscripcion);
     }
 

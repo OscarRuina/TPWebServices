@@ -12,6 +12,7 @@ public final class InscripcionConvertidor {
         dto.setId(inscripcion.getId());
         dto.setInicio(inscripcion.getInicio());
         dto.setFin(inscripcion.getFin());
+        dto.setTipo(inscripcion.getTipo());
         return dto;
     }
 

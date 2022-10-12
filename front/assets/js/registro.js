@@ -68,5 +68,24 @@ $(document).ready( ()=> {
         }
     }
     
+    const listCarreras = () => {
+        var url = URLADMIN + "api/carreras"
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(res){
+                let data = '';
+                res.forEach(element => {
+                    data+=`
+                    <option value=${element.dato}>${element.dato}</option>
+                    `
+                });
+                $('#carrera').html(data);
+            }
+        })
+    } 
+    
+    listCarreras();
     detalles();
 })

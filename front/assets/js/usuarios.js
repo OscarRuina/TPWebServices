@@ -50,13 +50,8 @@ $(document).ready( ()=> {
                 "columnDefs": [
                     {
                       "data": null,
-                      "defaultContent": '<a id="btn-edit" href="#"><i class="fa fa-edit"></i></a>',
+                      "defaultContent": '<div class="dropdown"><a class="btn btn-sm btn-icon-only text-dark" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"><a class="dropdown-item" id="btn-edit" href="#">Editar</a><a class="dropdown-item" id="btn-delete" href="#">Borrar</a></div></div>',
                       "targets": 8
-                    },
-                    {
-                      "data": null,
-                      "defaultContent": '<a id="btn-delete" href="#"><i class="fa fa-trash-o"></i></a>',
-                      "targets": 9
                     },
                 ], 
             });
@@ -78,7 +73,7 @@ $(document).ready( ()=> {
                 confirmButtonText: 'Si, eliminar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let btnDelete = $(this)[0].parentElement.parentElement;
+                    let btnDelete = $(this)[0].parentElement.parentElement.parentElement.parentElement;
                     let id = $(btnDelete).find("td").eq(0).html();
                     var url = URLADMIN + "api/usuarios/" + id;
                     fetch(url, {
@@ -103,9 +98,9 @@ $(document).ready( ()=> {
     
     const editUsuario = () => {
         $(document).on('click','#btn-edit', function(){
-            let btnEdit = $(this)[0].parentElement.parentElement;
+            let btnEdit = $(this)[0].parentElement.parentElement.parentElement.parentElement;
             let id = $(btnEdit).find("td").eq(0).html();
-            var url = "registro.html?user=" + id
+            var url = "registroEstudiante.html?user=" + id + "&rol=ESTUDIANTE"
             window.location.replace(url);
         })
     } 

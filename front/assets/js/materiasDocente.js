@@ -1,15 +1,11 @@
-btn_agregar.addEventListener("click", (e) => {
-    var url = "registroMesaExamen.html"
-    window.location.replace(url);
-    e.preventDefault();
-});
-
 $(document).ready( ()=> {
 
     const list=()=>{
-        $(document).on('click','#btn_filtro', function(){
-            var idMateria = $('#nombre').val();
-            var url = URLADMIN + "api/mesas-examen/materia/" + idMateria;
+        //http://localhost:8081/api/usuarios/%id%/materias
+        var valores = getGET();
+        if (valores['user'] != null) {
+            var id = valores['user'];
+            var url = URLADMIN + "api/usuarios/" + id + "/materias";
             console.log(url);
             var table = $('#dataTables').DataTable({
                 "destroy": true, 
@@ -41,33 +37,12 @@ $(document).ready( ()=> {
                 }, 
                 "columns": [
                     {data: 'id', defaultContent: "<i> </i>"}, 
-                    {data: 'materia', defaultContent: "<i> </i>"},       
+                    {data: 'nombreMateria', defaultContent: "<i> </i>"},  
                     {data: 'docente', defaultContent: "<i> </i>"},
-                    {data: 'dia', defaultContent: "<i> </i>"},
-                    {data: 'hora', defaultContent: "<i> </i>"},
-                ],
+                ], 
             });
-        });
+         }   
     }
 
-    const listMaterias = () => {
-        var url = URLADMIN + "api/materias"
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            success: function(res){
-                let data = '';
-                res.forEach(element => {
-                    data+=`
-                    <option value=${element.id}>${element.nombre}</option>
-                    `
-                });
-                $('#nombre').html(data);
-            }
-        })
-    } 
-    
-    listMaterias();
     list(); 
 })

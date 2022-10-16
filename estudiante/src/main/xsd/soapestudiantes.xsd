@@ -1,0 +1,40 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.unla.com/estudiante/soapEstudiantes"
+  xmlns:tns="http://www.unla.com/estudiante/soapEstudiantes"
+  elementFormDefault="qualified">
+
+  <xsd:element name="SolicitudModificacion">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long" />
+        <xsd:element name="email" type="xsd:string" />
+        <xsd:element name="contraseña" type="xsd:string" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaModificacion">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="modificado" type="xsd:boolean" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudBaja">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaBaja">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="baja" type="xsd:boolean" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

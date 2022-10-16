@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
+Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+Generado el: 2022.10.16 a las 05:05:37 PM ART 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.unla.com/estudiante/soapEstudiantes">
+    <schemaBindings map="false">
+      <package name="com.unla.estudiante.soapestudiantes"/>
+    </schemaBindings>
+    <bindings scd="tns:SolicitudModificacion">
+      <class ref="com.unla.estudiante.soapestudiantes.SolicitudModificacion"/>
+    </bindings>
+    <bindings scd="tns:RespuestaModificacion">
+      <class ref="com.unla.estudiante.soapestudiantes.RespuestaModificacion"/>
+    </bindings>
+    <bindings scd="tns:SolicitudBaja">
+      <class ref="com.unla.estudiante.soapestudiantes.SolicitudBaja"/>
+    </bindings>
+    <bindings scd="tns:RespuestaBaja">
+      <class ref="com.unla.estudiante.soapestudiantes.RespuestaBaja"/>
+    </bindings>
+  </bindings>
+</bindings>
+

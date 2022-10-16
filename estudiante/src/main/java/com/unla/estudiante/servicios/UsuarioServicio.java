@@ -16,7 +16,7 @@ public class UsuarioServicio {
     public RespuestaModificacion modificacion(SolicitudModificacion solicitudModificacion){
         Usuario usuario = repositorio.findById(solicitudModificacion.getId()).orElseThrow();
         usuario.setEmail(solicitudModificacion.getEmail());
-        usuario.setContraseña(solicitudModificacion.getContraseña());
+        usuario.setContraseña(solicitudModificacion.getContrasenia());
         repositorio.save(usuario);
         RespuestaModificacion respuestaModificacion = new RespuestaModificacion();
         respuestaModificacion.setModificado(true);

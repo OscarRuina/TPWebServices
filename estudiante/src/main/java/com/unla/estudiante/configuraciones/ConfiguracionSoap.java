@@ -24,10 +24,10 @@ public class ConfiguracionSoap {
         return new ServletRegistrationBean(servlet, "/soapWS/*");
     }
 
-    @Bean
+    @Bean(name = "usuario")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
         DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
-        defaultWsdl11Definition.setPortTypeName("UsuarioPort");
+        defaultWsdl11Definition.setPortTypeName("Usuario");
         defaultWsdl11Definition.setLocationUri("/soapWS");
         defaultWsdl11Definition.setTargetNamespace(
                 "http://www.unla.com/estudiante/soapEstudiantes");

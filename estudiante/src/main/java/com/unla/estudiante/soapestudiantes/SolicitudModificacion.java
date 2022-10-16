@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2022.10.16 a las 05:56:19 PM ART 
+// Generado el: 2022.10.16 a las 07:02:20 PM ART 
 //
 
 
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="contraseña" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="contrasenia" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "id",
     "email",
-    "contrase\u00f1a"
+    "contrasenia"
 })
 @XmlRootElement(name = "SolicitudModificacion")
 public class SolicitudModificacion {
@@ -49,7 +49,7 @@ public class SolicitudModificacion {
     @XmlElement(required = true)
     protected String email;
     @XmlElement(required = true)
-    protected String contraseña;
+    protected String contrasenia;
 
     /**
      * Obtiene el valor de la propiedad id.
@@ -92,27 +92,27 @@ public class SolicitudModificacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad contraseña.
+     * Obtiene el valor de la propiedad contrasenia.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
     /**
-     * Define el valor de la propiedad contraseña.
+     * Define el valor de la propiedad contrasenia.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setContraseña(String value) {
-        this.contraseña = value;
+    public void setContrasenia(String value) {
+        this.contrasenia = value;
     }
 
 }

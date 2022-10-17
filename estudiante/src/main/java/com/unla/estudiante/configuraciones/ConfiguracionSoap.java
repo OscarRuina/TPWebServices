@@ -17,18 +17,18 @@ import org.springframework.xml.xsd.XsdSchema;
 public class ConfiguracionSoap extends WsConfigurerAdapter {
 
     @Bean
-    public ServletRegistrationBean messageDispatcherServlet(
+    public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(
             ApplicationContext context) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(context);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(servlet, "/soapWS/*");
+        return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/soapWS/*");
     }
 
-    @Bean(name = "usuario")
+    @Bean(name = "estudiantes")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
         DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
-        defaultWsdl11Definition.setPortTypeName("Usuario");
+        defaultWsdl11Definition.setPortTypeName("SoapEstudianteModificacion");
         defaultWsdl11Definition.setLocationUri("/soapWS");
         defaultWsdl11Definition.setTargetNamespace(
                 "http://www.unla.com/estudiante/soapEstudiantes");
@@ -39,7 +39,7 @@ public class ConfiguracionSoap extends WsConfigurerAdapter {
 
     @Bean
     public XsdSchema schema() {
-        return new SimpleXsdSchema(new ClassPathResource("xsd/soapestudiantes.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("xsd/soapestudiantemodificacion.xsd"));
     }
 
 }

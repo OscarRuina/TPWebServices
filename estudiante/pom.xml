@@ -61,6 +61,12 @@
 		<dependency>
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>2.3.1</version>
 		</dependency>
 	</dependencies>
 
@@ -92,9 +98,9 @@
 				</executions>
 				<configuration>
 					<sources>
-						<source>${project.basedir}/src/main/xsd/soapestudiantes.xsd</source>
+						<source>${project.basedir}/src/main/resources/xsd</source>
 					</sources>
-					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+					<outputDirectory>${project.build.directory}/generated-sources/jaxb/</outputDirectory>
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>

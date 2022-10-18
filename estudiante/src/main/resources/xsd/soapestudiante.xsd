@@ -21,4 +21,38 @@
     </xsd:complexType>
   </xsd:element>
 
+  <xsd:element name="SolicitudInscripcionMateriaEstudiante">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idEstudiante" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaInscripcionMateriaEstudiante">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="inscripto" type="xsd:boolean" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudBajaInscripcionMateriaEstudiante">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idEstudiante" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaBajaInscripcionMateriaEstudiante">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="dadoDeBaja" type="xsd:boolean" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
 </xsd:schema>

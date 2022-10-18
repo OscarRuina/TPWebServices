@@ -181,4 +181,29 @@
     </xsd:complexType>
   </xsd:element>
 
+  <xsd:element name="SolicitudIdEstudiante">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="Analitico">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="nota" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="materia" type="xsd:string" />
+              <xsd:element name="notaExamen" type="xsd:double" />
+              <xsd:element name="notaFinal" type="xsd:double" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
 </xsd:schema>

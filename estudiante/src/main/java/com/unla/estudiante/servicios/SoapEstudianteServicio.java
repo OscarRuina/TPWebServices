@@ -10,6 +10,8 @@ import com.unla.estudiante.repositorios.MesaExamenRepositorio;
 import com.unla.estudiante.repositorios.NotaFinalRepositorio;
 import com.unla.estudiante.repositorios.UsuarioMateriaRepositorio;
 import com.unla.estudiante.repositorios.UsuarioRepositorio;
+import com.unla.estudiante.soapestudiantes.Analitico;
+import com.unla.estudiante.soapestudiantes.Analitico.Nota;
 import com.unla.estudiante.soapestudiantes.Materias;
 import com.unla.estudiante.soapestudiantes.Materias.Item;
 import com.unla.estudiante.soapestudiantes.MesasExamen;
@@ -20,6 +22,7 @@ import com.unla.estudiante.soapestudiantes.RespuestaInscripcionMesaExamenEstudia
 import com.unla.estudiante.soapestudiantes.RespuestaModificacion;
 import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMesaExamenEstudiante;
+import com.unla.estudiante.soapestudiantes.SolicitudIdEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudListaMaterias;
@@ -236,6 +239,22 @@ public class SoapEstudianteServicio {
             mesas.getItem().add(item);
         });
         return mesas;
+    }
+
+    public Analitico getAnalitico(SolicitudIdEstudiante id){
+        Analitico analitico = new Analitico();
+        List<NotaFinal> notas = notaFinalRepositorio.findByEstudiante_IdAndAprobadoTrue(id.getId());
+
+        notas.forEach(notaFinal -> {
+            Nota nota = new Nota();
+            nota.setId(notaFinal.getId());
+            nota.setMateria(notaFinal.getMesaExamen().getMateria().getNombre());
+            nota.setNotaExamen(notaFinal.getNotaExamen());
+            nota.setNotaFinal(notaFinal.getNotaFinal());
+            analitico.getNota().add(nota);
+        });
+
+        return analitico;
     }
 
 }

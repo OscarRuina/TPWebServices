@@ -1,6 +1,7 @@
 package com.unla.estudiante.endpoints;
 
 import com.unla.estudiante.servicios.SoapEstudianteServicio;
+import com.unla.estudiante.soapestudiantes.Analitico;
 import com.unla.estudiante.soapestudiantes.Materia;
 import com.unla.estudiante.soapestudiantes.Materias;
 import com.unla.estudiante.soapestudiantes.MesaExamen;
@@ -12,6 +13,7 @@ import com.unla.estudiante.soapestudiantes.RespuestaInscripcionMesaExamenEstudia
 import com.unla.estudiante.soapestudiantes.RespuestaModificacion;
 import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMesaExamenEstudiante;
+import com.unla.estudiante.soapestudiantes.SolicitudIdEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudListaMaterias;
@@ -88,6 +90,12 @@ public class SoapEstudianteEndpoint {
     @ResponsePayload
     public MesasExamen getMesasExamen(@RequestPayload SolicitudMesasExamen mesas){
         return servicio.getMesasExamen(mesas);
+    }
+
+    @PayloadRoot(namespace = NOMBRE_URL, localPart = "SolicitudIdEstudiante")
+    @ResponsePayload
+    public Analitico getAnalitico(@RequestPayload SolicitudIdEstudiante idEstudiante){
+        return servicio.getAnalitico(idEstudiante);
     }
 
 }

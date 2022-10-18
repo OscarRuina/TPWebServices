@@ -2,10 +2,14 @@ package com.unla.estudiante.endpoints;
 
 import com.unla.estudiante.servicios.SoapEstudianteServicio;
 import com.unla.estudiante.soapestudiantes.RespuestaBajaInscripcionMateriaEstudiante;
+import com.unla.estudiante.soapestudiantes.RespuestaBajaInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.RespuestaInscripcionMateriaEstudiante;
+import com.unla.estudiante.soapestudiantes.RespuestaInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.RespuestaModificacion;
 import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMateriaEstudiante;
+import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMateriaEstudiante;
+import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudModificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -39,6 +43,20 @@ public class SoapEstudianteEndpoint {
     public RespuestaBajaInscripcionMateriaEstudiante bajaMateria(@RequestPayload
             SolicitudBajaInscripcionMateriaEstudiante solicitudBajaInscripcionMateriaEstudiante){
         return servicio.bajaMateria(solicitudBajaInscripcionMateriaEstudiante);
+    }
+
+    @PayloadRoot(namespace = NOMBRE_URL,localPart = "SolicitudInscripcionMesaExamenEstudiante")
+    @ResponsePayload
+    public RespuestaInscripcionMesaExamenEstudiante inscripcionMesaExamen(@RequestPayload
+    SolicitudInscripcionMesaExamenEstudiante inscripcionMesaExamenEstudiante){
+        return servicio.inscripcionMesaExamen(inscripcionMesaExamenEstudiante);
+    }
+
+    @PayloadRoot(namespace = NOMBRE_URL,localPart = "SolicitudBajaInscripcionMesaExamenEstudiante")
+    @ResponsePayload
+    public RespuestaBajaInscripcionMesaExamenEstudiante bajaMesaExamen(@RequestPayload
+    SolicitudBajaInscripcionMesaExamenEstudiante bajaInscripcionMesaExamenEstudiante){
+        return servicio.bajaMesaExamen(bajaInscripcionMesaExamenEstudiante);
     }
 
 }

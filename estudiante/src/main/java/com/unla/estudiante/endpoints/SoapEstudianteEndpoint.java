@@ -10,7 +10,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
-public class SoapEstudianteModificacionEndpoint {
+public class SoapEstudianteEndpoint {
 
     private static final String NOMBRE_URL = "http://www.unla.com/estudiante/soapEstudiantes";
 

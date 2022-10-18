@@ -103,6 +103,65 @@ $(document).ready( ()=> {
         })
     } 
     
+    const listCuatrimestre = () => {
+        var url = URLADMIN + "api/cuatrimestres"
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(res){
+                let data = '';
+                res.forEach(element => {
+                    data+=`
+                    <option value=${element.dato}>${element.dato}</option>
+                    `
+                });
+                $('#cuatrimestre').html(data);
+            }
+        })
+    }
+    
+    const reporte = () => {
+        $(document).on('click','#btn_reporte', function(){
+            $("#myModal").modal("show");
+        }) 
+    }
+    
+    const reporteDescargar = () => {
+        $(document).on('click','#btn_descargar_reporte', function(){
+            //"URLADMIN"+ "pdf/materias?""
+            //127.0.0.1:5000/pdf/materias?cuatrimestre=PRIMERO&añoCuatrimestre=2022
+            //cuatrimestre = 2
+            //añoCuatrimestre = 2022
+            var cuatrimestre = $('#cuatrimestre').val();
+            var anioCuatrimestre = $('#anioCuatrimestre').val();
+            
+            var url = URLREPORT + "pdf/materias?cuatrimestre=" + cuatrimestre + "&añoCuatrimestre=" + anioCuatrimestre;
+            
+            console.log(url);
+            
+            var method = "GET";
+            fetch(url, {
+                method: method,
+                headers: {
+                  "Content-Type": "application/json",
+                },
+            }).then(res => res.text()
+                .then(data => {
+                    const linkSource = `data:application/pdf;base64,${data}`;
+                    const downloadLink = document.createElement("a");
+                    const fileName = "listado_de_materias_por_cuatrimestre.pdf";
+                    downloadLink.href = linkSource;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
+                 }))
+                .catch(err => error(err))
+            }) 
+    }
+    
+    listCuatrimestre();
+    reporteDescargar();
+    reporte();
     edit();
     deleteM();
     list(); 

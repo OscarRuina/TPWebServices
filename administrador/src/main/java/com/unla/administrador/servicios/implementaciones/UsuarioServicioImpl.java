@@ -134,6 +134,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
         usuarioMateria.setNotaCursada(0);
         usuarioMateria.setNotaParcial1(0);
         usuarioMateria.setNotaParcial2(0);
+        usuarioMateria.setInscripto(true);
 
         docente.getMaterias().add(usuarioMateria);
 

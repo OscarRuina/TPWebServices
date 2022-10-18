@@ -4,6 +4,7 @@ import com.unla.estudiante.modelos.datos.Materia;
 import com.unla.estudiante.modelos.datos.Usuario;
 import com.unla.estudiante.modelos.datos.UsuarioMateria;
 import com.unla.estudiante.repositorios.MateriaRepositorio;
+import com.unla.estudiante.repositorios.UsuarioMateriaRepositorio;
 import com.unla.estudiante.repositorios.UsuarioRepositorio;
 import com.unla.estudiante.soapestudiantes.RespuestaBajaInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.RespuestaInscripcionMateriaEstudiante;
@@ -16,13 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SoapEstudianteModificacionServicio {
+public class SoapEstudianteServicio {
 
     @Autowired
     private UsuarioRepositorio repositorio;
 
     @Autowired
     private MateriaRepositorio materiaRepositorio;
+
+    @Autowired
+    private UsuarioMateriaRepositorio usuarioMateriaRepositorio;
 
     public RespuestaModificacion modificacion(SolicitudModificacion solicitudModificacion) {
         Usuario usuario = repositorio.findById(solicitudModificacion.getId()).orElseThrow();
@@ -58,6 +62,7 @@ public class SoapEstudianteModificacionServicio {
             usuarioMateria.setNotaParcial1(0);
             usuarioMateria.setNotaParcial2(0);
             usuarioMateria.setNotaCursada(0);
+            usuarioMateria.setInscripto(true);
 
             estudiante.getMaterias().add(usuarioMateria);
             repositorio.save(estudiante);
@@ -78,9 +83,15 @@ public class SoapEstudianteModificacionServicio {
         Materia materia = materiaRepositorio.findById(
                 bajaInscripcionMateriaEstudiante.getIdMateria()).orElseThrow();
 
+        UsuarioMateria usuarioMateria = usuarioMateriaRepositorio.findByMateria_IdAndUsuario_Id(
+                materia.getId(), estudiante.getId());
+
+        usuarioMateria.setInscripto(false);
+        usuarioMateriaRepositorio.save(usuarioMateria);
+
         RespuestaBajaInscripcionMateriaEstudiante respuesta =
                 new RespuestaBajaInscripcionMateriaEstudiante();
-        respuesta.setDadoDeBaja(estudiante.getMaterias().remove(materia));
+        respuesta.setDadoDeBaja(true);
         return respuesta;
 
     }

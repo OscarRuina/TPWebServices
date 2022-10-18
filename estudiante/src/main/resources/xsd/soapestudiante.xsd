@@ -89,4 +89,96 @@
     </xsd:complexType>
   </xsd:element>
 
+  <xsd:element name="SolicitudNombre">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="nombre" type="xsd:string"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudListaMaterias">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="carrera" type="xsd:string"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudMesaExamen">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudMesasExamen">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="activo" type="xsd:boolean"></xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="Materia">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long" />
+        <xsd:element name="nombre" type="xsd:string" />
+        <xsd:element name="docente" type="xsd:string" />
+        <xsd:element name="dia" type="xsd:string" />
+        <xsd:element name="hora" type="xsd:string" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="Materias">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="item" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="nombre" type="xsd:string" />
+              <xsd:element name="docente" type="xsd:string" />
+              <xsd:element name="dia" type="xsd:string" />
+              <xsd:element name="hora" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="MesaExamen">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long" />
+        <xsd:element name="nombre" type="xsd:string" />
+        <xsd:element name="docente" type="xsd:string" />
+        <xsd:element name="dia" type="xsd:string" />
+        <xsd:element name="hora" type="xsd:string" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="MesasExamen">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="item" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="nombre" type="xsd:string" />
+              <xsd:element name="docente" type="xsd:string" />
+              <xsd:element name="dia" type="xsd:string" />
+              <xsd:element name="hora" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
 </xsd:schema>

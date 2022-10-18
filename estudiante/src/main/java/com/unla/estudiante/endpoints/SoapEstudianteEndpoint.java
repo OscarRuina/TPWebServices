@@ -1,6 +1,10 @@
 package com.unla.estudiante.endpoints;
 
 import com.unla.estudiante.servicios.SoapEstudianteServicio;
+import com.unla.estudiante.soapestudiantes.Materia;
+import com.unla.estudiante.soapestudiantes.Materias;
+import com.unla.estudiante.soapestudiantes.MesaExamen;
+import com.unla.estudiante.soapestudiantes.MesasExamen;
 import com.unla.estudiante.soapestudiantes.RespuestaBajaInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.RespuestaBajaInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.RespuestaInscripcionMateriaEstudiante;
@@ -10,7 +14,11 @@ import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMateriaEstudi
 import com.unla.estudiante.soapestudiantes.SolicitudBajaInscripcionMesaExamenEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMateriaEstudiante;
 import com.unla.estudiante.soapestudiantes.SolicitudInscripcionMesaExamenEstudiante;
+import com.unla.estudiante.soapestudiantes.SolicitudListaMaterias;
+import com.unla.estudiante.soapestudiantes.SolicitudMesaExamen;
+import com.unla.estudiante.soapestudiantes.SolicitudMesasExamen;
 import com.unla.estudiante.soapestudiantes.SolicitudModificacion;
+import com.unla.estudiante.soapestudiantes.SolicitudNombre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -57,6 +65,29 @@ public class SoapEstudianteEndpoint {
     public RespuestaBajaInscripcionMesaExamenEstudiante bajaMesaExamen(@RequestPayload
     SolicitudBajaInscripcionMesaExamenEstudiante bajaInscripcionMesaExamenEstudiante){
         return servicio.bajaMesaExamen(bajaInscripcionMesaExamenEstudiante);
+    }
+    @PayloadRoot(namespace = NOMBRE_URL, localPart = "SolicitudNombre")
+    @ResponsePayload
+    public Materia getMateria(@RequestPayload  SolicitudNombre nombre){
+        return servicio.getMateria(nombre);
+    }
+
+    @PayloadRoot(namespace = NOMBRE_URL, localPart = "SolicitudListaMaterias")
+    @ResponsePayload
+    public Materias getMaterias(@RequestPayload SolicitudListaMaterias listaMaterias){
+        return servicio.getMaterias(listaMaterias);
+    }
+
+    @PayloadRoot(namespace = NOMBRE_URL, localPart = "SolicitudMesaExamen")
+    @ResponsePayload
+    public MesaExamen getMesaExamen(@RequestPayload SolicitudMesaExamen mesa){
+        return servicio.getMesaExamen(mesa);
+    }
+
+    @PayloadRoot(namespace = NOMBRE_URL, localPart = "SolicitudMesasExamen")
+    @ResponsePayload
+    public MesasExamen getMesasExamen(@RequestPayload SolicitudMesasExamen mesas){
+        return servicio.getMesasExamen(mesas);
     }
 
 }

@@ -1,6 +1,6 @@
-package com.unla.administrador.repositorios;
+package com.unla.docente.repositorios;
 
-import com.unla.administrador.modelos.datos.Materia;
+import com.unla.docente.modelos.datos.Materia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

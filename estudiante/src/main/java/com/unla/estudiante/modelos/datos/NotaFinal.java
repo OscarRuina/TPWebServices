@@ -43,4 +43,10 @@ public class NotaFinal {
     @Column(name = "nota_final")
     private double notaFinal;
 
+    @Column(name = "inscripto")
+    private boolean inscripto;
+
+    @Column(name = "aprobado")
+    private boolean aprobado;
+
 }

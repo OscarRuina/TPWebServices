@@ -1,5 +1,6 @@
 var URLADMIN = "http://localhost:8081/";
-var login = sessionStorage.getItem("nombreUsuario")
+var URLREPORT = "http://localhost:5000/";
+var login = sessionStorage.getItem("nombreUsuario");
 
 if (login === null || login == "null"){
     var URLactual = window.location.pathname;

@@ -28,7 +28,7 @@ public class ConfiguracionSoap extends WsConfigurerAdapter {
     @Bean(name = "estudiantes")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema schema) {
         DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
-        defaultWsdl11Definition.setPortTypeName("SoapEstudianteModificacion");
+        defaultWsdl11Definition.setPortTypeName("SoapEstudiante");
         defaultWsdl11Definition.setLocationUri("/soapWS");
         defaultWsdl11Definition.setTargetNamespace(
                 "http://www.unla.com/estudiante/soapEstudiantes");
@@ -39,7 +39,7 @@ public class ConfiguracionSoap extends WsConfigurerAdapter {
 
     @Bean
     public XsdSchema schema() {
-        return new SimpleXsdSchema(new ClassPathResource("xsd/soapestudiantemodificacion.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("xsd/soapestudiante.xsd"));
     }
 
 }

@@ -46,4 +46,7 @@ public class UsuarioMateria {
     @Column(name = "nota_cursada")
     private double notaCursada;
 
+    @Column(name = "inscripto")
+    private boolean inscripto;
+
 }

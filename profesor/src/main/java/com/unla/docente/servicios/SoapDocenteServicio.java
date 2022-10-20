@@ -52,6 +52,8 @@ public class SoapDocenteServicio {
 
     public RespuestaAlumnosPorMateria traerAlumnosPorMateria(SolicitudAlumnosPorMateria solicitudAlumnosPorMateria){
         Materia materia = materiaRepositorio.findById(solicitudAlumnosPorMateria.getIdMateria()).orElseThrow();
+        //aca hacer
+        List<UsuarioMateria> usuarioMateriaList = usuarioMateriaRepositorio.findByMateria_Id(materia.getId());
 
         RespuestaAlumnosPorMateria respuestaAlumnosPorMateria = new RespuestaAlumnosPorMateria();
         respuestaAlumnosPorMateria.setNombre(materia.getNombre());
@@ -59,8 +61,9 @@ public class SoapDocenteServicio {
         respuestaAlumnosPorMateria.setCuatrimestre(materia.getCuatrimestre());
         respuestaAlumnosPorMateria.setAñoCuatrimestre(materia.getAñoCuatrimestre());
 
+
         for (UsuarioMateria alumnoMateria:
-             materia.getUsuarios()) {
+                usuarioMateriaList) {
 
             if (alumnoMateria.getUsuario().getId() != solicitudAlumnosPorMateria.getIdDocente()){
 
@@ -129,7 +132,7 @@ public class SoapDocenteServicio {
             double notaFinalAlumno = (notaAlumnoFinal.getNotaExamen() + usuarioMateria.getNotaCursada())/2;
             notaFinal.setNotaFinal(notaFinalAlumno);
 
-            if (notaFinalAlumno >= 7) {
+            if (notaFinal.getNotaExamen() >= 7) {
                 notaFinal.setAprobado(true);
             }else{
                 notaFinal.setAprobado(false);

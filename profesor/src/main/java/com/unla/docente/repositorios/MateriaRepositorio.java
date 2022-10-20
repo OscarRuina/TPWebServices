@@ -11,6 +11,8 @@ public interface MateriaRepositorio extends JpaRepository<Materia,Long> {
 
     List<Materia> findByActivoTrue();
 
+
+
     List<Materia> findByActivoTrueAndTurnoOrderByAñoMateriaAsc(String turno);
 
 

@@ -10,10 +10,9 @@ from decimal import Decimal
 import base64
 
 
-def title(quarter, quarter_year):
+def title(title_text):
     title_table = Table(number_of_rows=1, number_of_columns=1)
-    title_table.add(Paragraph("Materias del " + quarter +
-                    " cuatrimestre del año " + quarter_year, font="Helvetica-Bold"))
+    title_table.add(Paragraph(title_text, font="Helvetica-Bold"))
     title_table.no_borders()
     return title_table
 
@@ -37,30 +36,33 @@ def subjects(quarter_subjects):
 
     for subject in quarter_subjects:
         subject_table.add(
-            Paragraph(subject['nombre'], horizontal_alignment=Alignment.CENTERED))
+            Paragraph(subject['nombre'].capitalize(), horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
-            Paragraph(str(subject['carrera']), horizontal_alignment=Alignment.CENTERED))
+            Paragraph(str(subject['carrera'].capitalize()), horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
             Paragraph(str(subject['añoMateria']), horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
-            Paragraph(str(subject['dia']), horizontal_alignment=Alignment.CENTERED))
+            Paragraph(str(subject['dia'].capitalize()), horizontal_alignment=Alignment.CENTERED))
         time = str(subject['horaInicio'] + " a " + subject['horaFinalizacion'])
         subject_table.add(
             Paragraph(time, horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
-            Paragraph(str(subject['turno']), horizontal_alignment=Alignment.CENTERED))
+            Paragraph(str(subject['turno'].capitalize()), horizontal_alignment=Alignment.CENTERED))
 
     subject_table.set_padding_on_all_cells(
         Decimal(1), Decimal(1), Decimal(1), Decimal(1))
     return subject_table
 
 
-def subjects_by_quarter_pdf_generator(quarter, quarter_year, quarter_subjects):
+def subjects_by_quarter_and_year_pdf_generator(quarter, quarter_year, quarter_subjects):
     pdf = Document()
     page = Page()
     pdf.insert_page(page)
     page_layout = SingleColumnLayout(page)
-    page_layout.add(title(quarter, quarter_year))
+
+    title_text = "Materias de " + quarter + " cuatrimestre del año " + quarter_year
+
+    page_layout.add(title(title_text))
     page_layout.add(Paragraph(" "))
     page_layout.add(subjects(quarter_subjects))
 
@@ -72,6 +74,31 @@ def subjects_by_quarter_pdf_generator(quarter, quarter_year, quarter_subjects):
         encoded_pdf = base64.b64encode(pdf_file.read())
 
     file = Path("listado_de_materias_por_cuatrimestre.pdf")
+    file.unlink()
+
+    return encoded_pdf
+
+
+def subjects_by_quarter_pdf_generator(quarter, shift, quarter_subjects):
+    pdf = Document()
+    page = Page()
+    pdf.insert_page(page)
+    page_layout = SingleColumnLayout(page)
+
+    title_text = "Materias de " + quarter + " cuatrimestre del turno " + shift
+
+    page_layout.add(title(title_text))
+    page_layout.add(Paragraph(" "))
+    page_layout.add(subjects(quarter_subjects))
+
+    # store the PDF
+    with open(Path("listado_de_materias_por_cuatrimestre.pdf"), "wb") as pdf_file_handle:
+        PDF.dumps(pdf_file_handle, pdf)
+
+    with open("listado_de_materias_por_cuatrimestre.pdf", "rb") as pdf_file:
+        encoded_pdf = base64.b64encode(pdf_file.read())
+
+    file = Path("listado_de_materias_por_cuatrimestre_por_turno.pdf")
     file.unlink()
 
     return encoded_pdf

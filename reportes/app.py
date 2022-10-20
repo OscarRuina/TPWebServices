@@ -1,6 +1,6 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
-from pdf_generator import subjects_by_quarter_pdf_generator
+from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator
 import json
 import requests
 import logging
@@ -25,8 +25,33 @@ def pdf_download():
             if quarter in str(subject['cuatrimestre']) and quarter_year in str(subject['añoCuatrimestre']):
                 quarter_subjects.append(subject)
 
+        encoded_pdf = subjects_by_quarter_and_year_pdf_generator(
+            quarter.lower(), quarter_year.lower(), quarter_subjects)
+        return Response(encoded_pdf, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/pdf/materias-turno", methods=["GET"])
+def quarter_shift_subjects():
+    try:
+        subject_data = requests.get(
+            'http://localhost:8081/api/materias').json()
+
+        quarter = request.args.get('cuatrimestre')
+        shift = request.args.get('turno')
+       
+        quarter_subjects = []
+
+        for subject in subject_data:
+            if quarter in str(subject['cuatrimestre']) and shift in str(subject['turno']):
+                quarter_subjects.append(subject)
+
+        sorted_quarter_subjects = sorted(quarter_subjects, key=lambda d: d['añoMateria'])
+
         encoded_pdf = subjects_by_quarter_pdf_generator(
-            quarter, quarter_year, quarter_subjects)
+            quarter.lower(), shift.lower(), sorted_quarter_subjects)
         return Response(encoded_pdf, status=200, mimetype='application/json')
 
     except Exception as e:

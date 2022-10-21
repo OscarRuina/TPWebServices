@@ -2,7 +2,10 @@ package com.unla.administrador.controladores;
 
 
 import com.unla.administrador.convertidores.MateriaConvertidor;
+import com.unla.administrador.convertidores.UsuarioConvertidor;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMateria;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudiante;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudianteLista;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMateria;
 import com.unla.administrador.servicios.interfaces.IMateriaServicio;
 import io.swagger.v3.oas.annotations.Operation;
@@ -91,6 +94,21 @@ public class MateriaControlador {
                 }
         );
         return new ResponseEntity<>(materias, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/estudiantes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Lista de Alumnos por Materia")
+    public ResponseEntity<List<RespuestaUsuarioMateriaEstudianteLista>> listarAlumnos(
+            @PathVariable("id") @Pattern(regexp = "[0-9]+") String id) {
+        List<RespuestaUsuarioMateriaEstudianteLista> usuarioMaterias = new ArrayList<>();
+        servicio.listarEstudiantes(Long.parseLong(id)).forEach(
+                usuarioMateria -> {
+                    usuarioMaterias.add(
+                            UsuarioConvertidor.convertirRespuestaUsuarioMateriaEstudianteLista(usuarioMateria));
+                }
+        );
+        return new ResponseEntity<>(usuarioMaterias, HttpStatus.OK);
+
     }
 
 }

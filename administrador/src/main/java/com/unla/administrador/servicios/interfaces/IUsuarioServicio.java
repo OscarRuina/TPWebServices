@@ -31,4 +31,6 @@ public interface IUsuarioServicio {
 
     List<UsuarioMateria> listarMaterias(long idUsuario);
 
+    List<UsuarioMateria> listarMateriasEstudiante(long idUsuario);
+
 }

@@ -10,4 +10,6 @@ public interface MesaExamenRepositorio extends JpaRepository<MesaExamen,Long> {
 
     List<MesaExamen> findByMateria_IdAndActivoTrue(long materiaId);
 
+    List<MesaExamen> findByActivoTrue();
+
 }

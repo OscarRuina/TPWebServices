@@ -2,9 +2,12 @@ package com.unla.administrador.convertidores;
 
 import com.unla.administrador.modelos.datos.MesaExamen;
 import com.unla.administrador.modelos.datos.NotaFinal;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaMesaExamenNotasFinales;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaNotasFinales;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMesaExamen;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudianteLista;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMesaExamenEstudianteLista;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -83,6 +86,16 @@ public final class MesaExamenConvertidor {
         dto.setNotaFinal(notaFinal.getNotaFinal());
 
         return dto;
+    }
+
+    public static RespuestaUsuarioMesaExamenEstudianteLista convertirRespuestaUsuarioMesaExamenEstudianteLista(
+            NotaFinal notaFinal){
+        RespuestaUsuarioMesaExamenEstudianteLista respuestaUsuarioMateria = new RespuestaUsuarioMesaExamenEstudianteLista();
+        respuestaUsuarioMateria.setId(notaFinal.getId());
+        respuestaUsuarioMateria.setEstudiante(notaFinal.getEstudiante().getNombre() + " " + notaFinal.getEstudiante().getApellido());
+        respuestaUsuarioMateria.setDni(notaFinal.getEstudiante().getDni());
+        respuestaUsuarioMateria.setEmail(notaFinal.getEstudiante().getEmail());
+        return respuestaUsuarioMateria;
     }
 
 }

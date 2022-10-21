@@ -1,9 +1,12 @@
 package com.unla.administrador.servicios.implementaciones;
 
 import com.unla.administrador.modelos.datos.Materia;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMateria;
 import com.unla.administrador.repositorios.MateriaRepositorio;
+import com.unla.administrador.repositorios.UsuarioMateriaRepositorio;
 import com.unla.administrador.servicios.interfaces.IMateriaServicio;
+import java.util.ArrayList;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,9 @@ public class MateriaServicioImpl implements IMateriaServicio {
 
     @Autowired
     private MateriaRepositorio materiaRepositorio;
+
+    @Autowired
+    private UsuarioMateriaRepositorio usuarioMateriaRepositorio;
 
     @Override
     public Materia agregar(SolicitudRegistroMateria altaMateria) {
@@ -73,5 +79,19 @@ public class MateriaServicioImpl implements IMateriaServicio {
     @Override
     public List<Materia> listarPdf(String turno) {
         return materiaRepositorio.findByActivoTrueAndTurnoOrderByAñoMateriaAsc(turno);
+    }
+
+    @Override
+    public List<UsuarioMateria> listarEstudiantes(long id) {
+        Materia materia = buscarId(id);
+        List<UsuarioMateria> listaARetornar = new ArrayList<>();
+        usuarioMateriaRepositorio.findByMateria_IdAndInscriptoTrue(materia.getId()).forEach(
+                usuarioMateria -> {
+                    if (usuarioMateria.getUsuario().getRol().equalsIgnoreCase("ROLE_ESTUDIANTE")){
+                        listaARetornar.add(usuarioMateria);
+                    }
+                }
+        );
+        return listaARetornar;
     }
 }

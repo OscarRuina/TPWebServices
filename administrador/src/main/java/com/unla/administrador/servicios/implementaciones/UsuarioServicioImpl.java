@@ -9,6 +9,7 @@ import com.unla.administrador.modelos.dtos.solicitud.SolicitudLogin;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
 import com.unla.administrador.repositorios.MateriaRepositorio;
+import com.unla.administrador.repositorios.UsuarioMateriaRepositorio;
 import com.unla.administrador.repositorios.UsuarioRepositorio;
 import com.unla.administrador.servicios.interfaces.IUsuarioServicio;
 import java.util.List;
@@ -28,6 +29,9 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 
     @Autowired
     private MateriaRepositorio materiaRepositorio;
+
+    @Autowired
+    private UsuarioMateriaRepositorio usuarioMateriaRepositorio;
 
     @Override
     public Usuario buscarId(long id) {
@@ -148,5 +152,11 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     public List<UsuarioMateria> listarMaterias(long idUsuario) {
         Usuario usuario = buscarId(idUsuario);
         return usuario.getMaterias();
+    }
+
+    @Override
+    public List<UsuarioMateria> listarMateriasEstudiante(long idUsuario) {
+        Usuario usuario = buscarId(idUsuario);
+        return usuarioMateriaRepositorio.findByUsuario_IdAndInscriptoTrue(usuario.getId());
     }
 }

@@ -1,8 +1,11 @@
 package com.unla.administrador.controladores;
 
 import com.unla.administrador.convertidores.MesaExamenConvertidor;
+import com.unla.administrador.convertidores.UsuarioConvertidor;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaMesaExamenNotasFinales;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMesaExamen;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudianteLista;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMesaExamenEstudianteLista;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMesaExamen;
 import com.unla.administrador.servicios.interfaces.IMesaExamenServicio;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,6 +71,33 @@ public class MesaExamenControlador {
                 }
         );
         return new ResponseEntity<>(registroMesaExamen,HttpStatus.OK);
+    }
+
+    @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Lista de Mesas de Examen Activas")
+    public ResponseEntity<List<RespuestaRegistroMesaExamen>> listarActivas(){
+        List<RespuestaRegistroMesaExamen> registroMesaExamen = new ArrayList<>();
+        mesaExamenServicio.listarActivas().forEach(
+                mesaExamen -> {
+                    registroMesaExamen.add(MesaExamenConvertidor.convertirRespuestaMesaExamen(mesaExamen));
+                }
+        );
+        return new ResponseEntity<>(registroMesaExamen,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/estudiantes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Lista de Alumnos por Mesa de Examen")
+    public ResponseEntity<List<RespuestaUsuarioMesaExamenEstudianteLista>> listarAlumnosMesaExamen(
+            @PathVariable("id") @Pattern(regexp = "[0-9]+") String id) {
+        List<RespuestaUsuarioMesaExamenEstudianteLista> notasfinales = new ArrayList<>();
+        mesaExamenServicio.listarAlumnosInscriptos(Long.parseLong(id)).forEach(
+                notaFinal -> {
+                    notasfinales.add(
+                            MesaExamenConvertidor.convertirRespuestaUsuarioMesaExamenEstudianteLista(notaFinal));
+                }
+        );
+        return new ResponseEntity<>(notasfinales, HttpStatus.OK);
+
     }
 
 }

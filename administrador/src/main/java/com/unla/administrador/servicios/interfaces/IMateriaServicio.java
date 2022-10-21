@@ -1,6 +1,7 @@
 package com.unla.administrador.servicios.interfaces;
 
 import com.unla.administrador.modelos.datos.Materia;
+import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroMateria;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMateria;
 
@@ -19,5 +20,7 @@ public interface IMateriaServicio {
     String eliminar(long id);
 
     List<Materia> listarPdf(String turno);
+
+    List<UsuarioMateria> listarEstudiantes(long id);
 
 }

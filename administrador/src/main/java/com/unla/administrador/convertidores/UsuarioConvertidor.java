@@ -5,6 +5,8 @@ import com.unla.administrador.modelos.datos.UsuarioMateria;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaLogin;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateria;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudiante;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudianteLista;
 
 public final class UsuarioConvertidor {
 
@@ -44,6 +46,25 @@ public final class UsuarioConvertidor {
         respuestaUsuarioMateria.setNombreMateria(usuarioMateria.getMateria().getNombre());
         respuestaUsuarioMateria.setDocente(usuarioMateria.getUsuario().getNombre() + " " + usuarioMateria.getUsuario().getApellido());
         respuestaUsuarioMateria.setId(usuarioMateria.getId());
+        return respuestaUsuarioMateria;
+    }
+
+    public static RespuestaUsuarioMateriaEstudiante convertirRespuestaUsuarioMateriaEstudiante(UsuarioMateria usuarioMateria){
+        RespuestaUsuarioMateriaEstudiante respuestaUsuarioMateria = new RespuestaUsuarioMateriaEstudiante();
+        respuestaUsuarioMateria.setNombreMateria(usuarioMateria.getMateria().getNombre());
+        respuestaUsuarioMateria.setId(usuarioMateria.getId());
+        respuestaUsuarioMateria.setNotaParcial1(usuarioMateria.getNotaParcial1());
+        respuestaUsuarioMateria.setNotaParcial2(usuarioMateria.getNotaParcial2());
+        respuestaUsuarioMateria.setNotaCursada(usuarioMateria.getNotaCursada());
+        return respuestaUsuarioMateria;
+    }
+
+    public static RespuestaUsuarioMateriaEstudianteLista convertirRespuestaUsuarioMateriaEstudianteLista(UsuarioMateria usuarioMateria){
+        RespuestaUsuarioMateriaEstudianteLista respuestaUsuarioMateria = new RespuestaUsuarioMateriaEstudianteLista();
+        respuestaUsuarioMateria.setId(usuarioMateria.getId());
+        respuestaUsuarioMateria.setEstudiante(usuarioMateria.getUsuario().getNombre() + " " + usuarioMateria.getUsuario().getApellido());
+        respuestaUsuarioMateria.setDni(usuarioMateria.getUsuario().getDni());
+        respuestaUsuarioMateria.setEmail(usuarioMateria.getUsuario().getEmail());
         return respuestaUsuarioMateria;
     }
 

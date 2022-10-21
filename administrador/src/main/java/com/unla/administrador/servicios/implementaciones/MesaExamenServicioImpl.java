@@ -2,9 +2,11 @@ package com.unla.administrador.servicios.implementaciones;
 
 import com.unla.administrador.modelos.datos.Materia;
 import com.unla.administrador.modelos.datos.MesaExamen;
+import com.unla.administrador.modelos.datos.NotaFinal;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroMesaExamen;
 import com.unla.administrador.repositorios.MateriaRepositorio;
 import com.unla.administrador.repositorios.MesaExamenRepositorio;
+import com.unla.administrador.repositorios.NotaFinalRepositorio;
 import com.unla.administrador.servicios.interfaces.IMesaExamenServicio;
 import java.util.List;
 import org.hibernate.ObjectNotFoundException;
@@ -19,6 +21,9 @@ public class MesaExamenServicioImpl implements IMesaExamenServicio {
 
     @Autowired
     private MateriaRepositorio materiaRepositorio;
+
+    @Autowired
+    private NotaFinalRepositorio notaFinalRepositorio;
 
     @Override
     public MesaExamen buscarId(long id) {
@@ -48,6 +53,17 @@ public class MesaExamenServicioImpl implements IMesaExamenServicio {
         mesaExamen.setMateria(materia);
 
         return repositorio.save(mesaExamen);
+    }
+
+    @Override
+    public List<MesaExamen> listarActivas() {
+        return repositorio.findByActivoTrue();
+    }
+
+    @Override
+    public List<NotaFinal> listarAlumnosInscriptos(long id) {
+        MesaExamen mesaExamen = buscarId(id);
+        return notaFinalRepositorio.findByMesaExamen_IdAndInscriptoTrue(mesaExamen.getId());
     }
 
 }

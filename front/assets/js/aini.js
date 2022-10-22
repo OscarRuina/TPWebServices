@@ -1,4 +1,5 @@
 var URLADMIN = "http://localhost:8081/";
+var URLESTUDIANTE = "http://localhost:8082/";
 var URLREPORT = "http://localhost:5000/";
 var login = sessionStorage.getItem("nombreUsuario");
 

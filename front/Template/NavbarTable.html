@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Usuario</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -32,12 +32,9 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="docentes.html"><i class="fa fa-angle-double-right"></i><span>Docente</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="materias.html"><i class="fa fa-angle-double-right"></i><span>Materia</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="mesaExamen.html"><i class="fa fa-angle-double-right"></i><span>Mesas de examen</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="apertura.html"><i class="fa fa-angle-double-right"></i><span>Habilitar inscripciones</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="indexEstudiante.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="indexEstudiante.html"><i class="fa fa-asterisk"></i><span>Inscripcion Materias</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="indexEstudiante.html"><i class="fa fa-asterisk"></i><span>Inscripcion Examenes</span></a><a class="nav-link" href="indexEstudiante.html"><i class="fa fa-asterisk"></i><span>Inscripciones actuales</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -59,7 +56,9 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Docentes&nbsp;<a class="btn btn-primary btn-sm d-sm-inline-block" role="button" id="btn_agregar" style="float: right;"><i class="fas fa-hand-point-right fa-sm text-white-50"></i>&nbsp;Agregar</a></h3>
+                    <h3 class="text-dark mb-4">Materias<a class="btn btn-primary btn-sm d-sm-inline-block" role="button" id="btn_agregar" href="../registroMateria.html" style="float: right;"><i class="fas fa-hand-point-right fa-sm text-white-50"></i>&nbsp;Agregar</a><a class="btn btn-primary btn-sm d-sm-inline-block" role="button" id="btn_reporte" style="float: right;margin-right: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" fill="none" class="fs-6 fa-sm text-white-50">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.89543 2 4 2.89543 4 4V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V7.41421C16 6.88378 15.7893 6.37507 15.4142 6L12 2.58579C11.6249 2.21071 11.1162 2 10.5858 2H6ZM8 12C8 11.4477 7.55228 11 7 11C6.44772 11 6 11.4477 6 12V15C6 15.5523 6.44772 16 7 16C7.55228 16 8 15.5523 8 15V12ZM10 9C10.5523 9 11 9.44772 11 10V15C11 15.5523 10.5523 16 10 16C9.44772 16 9 15.5523 9 15V10C9 9.44772 9.44772 9 10 9ZM14 8C14 7.44772 13.5523 7 13 7C12.4477 7 12 7.44772 12 8V15C12 15.5523 12.4477 16 13 16C13.5523 16 14 15.5523 14 15V8Z" fill="currentColor"></path>
+                            </svg>&nbsp;Reporte</a></h3>
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Información</p>
@@ -71,12 +70,14 @@
                                         <tr>
                                             <th>id</th>
                                             <th>Nombre</th>
-                                            <th>Apellido</th>
-                                            <th>DNI</th>
-                                            <th>Email</th>
                                             <th>Carrera</th>
-                                            <th>nombreUsuario</th>
-                                            <th>Rol</th>
+                                            <th>Cuatrimestre</th>
+                                            <th>Año Materia</th>
+                                            <th>Año Cuatrimestre</th>
+                                            <th>Dia</th>
+                                            <th>Turno</th>
+                                            <th>Hora Inicio</th>
+                                            <th>Hora Fin</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -91,44 +92,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Asignar Materia</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3"><label class="form-label" for="roles"><strong>Materia</strong><br></label><select class="form-select" id="materias">
-                                                    <optgroup label="Carreras"></optgroup>
-                                                </select></div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3"></div>
-                                </form>
-                            </div>
-                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" id="btn_guardarMateriaAsignada" type="button">Guardar</button></div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © TP2022</span></div>
                 </div>
             </footer>
+            <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Reporte</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Ingrese Cuatrimestre y año</p>
+                            <form>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="email"><strong>Cuatrimestre</strong><br></label><select class="form-select" id="cuatrimestre"></select></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Año&nbsp;Cuatrimestre</strong><br></label><input class="form-control" type="number" id="anioCuatrimestre"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3"></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" id="btn_descargar_reporte" type="button">Descargar</button></div>
+                    </div>
+                </div>
+            </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/aini.js"></script>
-    <script src="assets/js/docentes.js"></script>
-    <script src="assets/js/home.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/bs-init.js"></script>
+    <script src="../assets/js/aini.js"></script>
+    <script src="../assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="assets/js/XMLHttpRequest.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/XMLHttpRequest.js"></script>
 </body>
 
 </html>

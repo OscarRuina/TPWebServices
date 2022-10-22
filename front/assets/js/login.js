@@ -39,9 +39,18 @@ async function validarUsuario() {
                     sessionStorage.setItem('id', json.id); 
                     sessionStorage.setItem('nombreUsuario', json.nombreUsuario);
                     if (json.primerLogin == true) {
-                        window.location.replace("cambioContraseña.html");
+                        url = "cambioContraseña.html?rol=" + json.rol
+                        window.location.replace(url);
                     } else {
-                        window.location.replace("index.html");
+                        if (json.rol == "ROLE_ADMIN"){
+                            window.location.replace("index.html");
+                        }
+                        if (json.rol == "ROLE_ESTUDIANTE"){
+                            window.location.replace("./Estudiante/indexEstudiante.html");
+                        }
+                        if (json.rol == "ROLE_DOCENTE"){
+                            window.location.replace("index.html");
+                        }
                     } 
                 }  
             }))

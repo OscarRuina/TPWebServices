@@ -54,32 +54,60 @@ def subjects(quarter_subjects):
     return subject_table
 
 
-def academic_record_table(qualifications):
-    subject_table = Table(number_of_rows=len(
+def academic_record_table_generator(qualifications):
+    academic_record_table = Table(number_of_rows=len(
         qualifications)+1, number_of_columns=4)
 
-    subject_table.add(
+    academic_record_table.add(
         Paragraph("Materia", horizontal_alignment=Alignment.CENTERED))
-    subject_table.add(
+    academic_record_table.add(
         Paragraph("1er Parcial", horizontal_alignment=Alignment.CENTERED))
-    subject_table.add(
+    academic_record_table.add(
         Paragraph("2do Parcial", horizontal_alignment=Alignment.CENTERED))
-    subject_table.add(
+    academic_record_table.add(
         Paragraph("Cursada", horizontal_alignment=Alignment.CENTERED))
 
     for subject in qualifications:
-        subject_table.add(
+        academic_record_table.add(
             Paragraph(subject['nombreMateria'].capitalize().replace('_', ' '), horizontal_alignment=Alignment.CENTERED))
-        subject_table.add(
+        academic_record_table.add(
             Paragraph(str(subject['notaParcial1']), horizontal_alignment=Alignment.CENTERED))
-        subject_table.add(
+        academic_record_table.add(
             Paragraph(str(subject['notaParcial2']), horizontal_alignment=Alignment.CENTERED))
-        subject_table.add(
+        academic_record_table.add(
             Paragraph(str(subject['notaCursada']), horizontal_alignment=Alignment.CENTERED))
 
-    subject_table.set_padding_on_all_cells(
+    academic_record_table.set_padding_on_all_cells(
         Decimal(1), Decimal(1), Decimal(1), Decimal(1))
-    return subject_table
+    return academic_record_table
+
+
+def final_exams_table_generator(final_exams):
+    final_exams_table = Table(number_of_rows=len(
+        final_exams)+1, number_of_columns=4)
+
+    final_exams_table.add(
+        Paragraph("Materia", horizontal_alignment=Alignment.CENTERED))
+    final_exams_table.add(
+        Paragraph("Día", horizontal_alignment=Alignment.CENTERED))
+    final_exams_table.add(
+        Paragraph("Hora", horizontal_alignment=Alignment.CENTERED))
+    final_exams_table.add(
+        Paragraph("Docente", horizontal_alignment=Alignment.CENTERED))
+
+    for final_exam in final_exams:
+        final_exams_table.add(
+            Paragraph(final_exam['materia'].capitalize().replace('_', ' '), horizontal_alignment=Alignment.CENTERED))
+        final_exams_table.add(
+            Paragraph(str(final_exam['dia']), horizontal_alignment=Alignment.CENTERED))
+        final_exams_table.add(
+            Paragraph(str(final_exam['hora']), horizontal_alignment=Alignment.CENTERED))
+        final_exams_table.add(
+            Paragraph(str(final_exam['docente']), horizontal_alignment=Alignment.CENTERED))
+
+    final_exams_table.set_padding_on_all_cells(
+        Decimal(1), Decimal(1), Decimal(1), Decimal(1))
+    return final_exams_table
 
 
 def subjects_by_quarter_and_year_pdf_generator(quarter, quarter_year, quarter_subjects):
@@ -142,7 +170,7 @@ def academic_record_pdf_generator(student_name, qualifications):
 
     page_layout.add(title(title_text))
     page_layout.add(Paragraph(" "))
-    page_layout.add(academic_record_table(qualifications))
+    page_layout.add(academic_record_table_generator(qualifications))
 
     # store the PDF
     with open(Path("analítico.pdf"), "wb") as pdf_file_handle:
@@ -152,6 +180,31 @@ def academic_record_pdf_generator(student_name, qualifications):
         encoded_pdf = base64.b64encode(pdf_file.read())
 
     file = Path("analítico.pdf")
+    file.unlink()
+
+    return encoded_pdf
+
+
+def final_exams_pdf_generator(final_exams):
+    pdf = Document()
+    page = Page()
+    pdf.insert_page(page)
+    page_layout = SingleColumnLayout(page)
+
+    title_text = "Llamado a mesa de examenes finales"
+
+    page_layout.add(title(title_text))
+    page_layout.add(Paragraph(" "))
+    page_layout.add(final_exams_table_generator(final_exams))
+
+    # store the PDF
+    with open(Path("llamado_finales.pdf"), "wb") as pdf_file_handle:
+        PDF.dumps(pdf_file_handle, pdf)
+
+    with open("llamado_finales.pdf", "rb") as pdf_file:
+        encoded_pdf = base64.b64encode(pdf_file.read())
+
+    file = Path("llamado_finales.pdf")
     file.unlink()
 
     return encoded_pdf

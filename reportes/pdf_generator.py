@@ -36,7 +36,7 @@ def subjects(quarter_subjects):
 
     for subject in quarter_subjects:
         subject_table.add(
-            Paragraph(subject['nombre'].capitalize(), horizontal_alignment=Alignment.CENTERED))
+            Paragraph(subject['nombre'].capitalize().replace('_', ' '), horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
             Paragraph(str(subject['carrera'].capitalize()), horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
@@ -48,6 +48,34 @@ def subjects(quarter_subjects):
             Paragraph(time, horizontal_alignment=Alignment.CENTERED))
         subject_table.add(
             Paragraph(str(subject['turno'].capitalize()), horizontal_alignment=Alignment.CENTERED))
+
+    subject_table.set_padding_on_all_cells(
+        Decimal(1), Decimal(1), Decimal(1), Decimal(1))
+    return subject_table
+
+
+def academic_record_table(qualifications):
+    subject_table = Table(number_of_rows=len(
+        qualifications)+1, number_of_columns=4)
+
+    subject_table.add(
+        Paragraph("Materia", horizontal_alignment=Alignment.CENTERED))
+    subject_table.add(
+        Paragraph("1er Parcial", horizontal_alignment=Alignment.CENTERED))
+    subject_table.add(
+        Paragraph("2do Parcial", horizontal_alignment=Alignment.CENTERED))
+    subject_table.add(
+        Paragraph("Cursada", horizontal_alignment=Alignment.CENTERED))
+
+    for subject in qualifications:
+        subject_table.add(
+            Paragraph(subject['nombreMateria'].capitalize().replace('_', ' '), horizontal_alignment=Alignment.CENTERED))
+        subject_table.add(
+            Paragraph(str(subject['notaParcial1']), horizontal_alignment=Alignment.CENTERED))
+        subject_table.add(
+            Paragraph(str(subject['notaParcial2']), horizontal_alignment=Alignment.CENTERED))
+        subject_table.add(
+            Paragraph(str(subject['notaCursada']), horizontal_alignment=Alignment.CENTERED))
 
     subject_table.set_padding_on_all_cells(
         Decimal(1), Decimal(1), Decimal(1), Decimal(1))
@@ -103,16 +131,18 @@ def subjects_by_quarter_pdf_generator(quarter, shift, quarter_subjects):
 
     return encoded_pdf
 
-def academic_record_pdf_generator(student, qualifications):
+
+def academic_record_pdf_generator(student_name, qualifications):
     pdf = Document()
     page = Page()
     pdf.insert_page(page)
     page_layout = SingleColumnLayout(page)
 
-    title_text = f"Analítico del alumno "
+    title_text = f"Analítico del alumno {student_name}"
 
     page_layout.add(title(title_text))
     page_layout.add(Paragraph(" "))
+    page_layout.add(academic_record_table(qualifications))
 
     # store the PDF
     with open(Path("analítico.pdf"), "wb") as pdf_file_handle:
@@ -122,6 +152,6 @@ def academic_record_pdf_generator(student, qualifications):
         encoded_pdf = base64.b64encode(pdf_file.read())
 
     file = Path("analítico.pdf")
-    #file.unlink()
+    file.unlink()
 
     return encoded_pdf

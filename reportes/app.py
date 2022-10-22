@@ -18,15 +18,15 @@ def pdf_download():
             'http://localhost:8081/api/materias').json()
 
         quarter = request.args.get('cuatrimestre')
-        quarter_year = request.args.get('añoCuatrimestre')
+        subject_year = request.args.get('añoCuatrimestre')
         quarter_subjects = []
 
         for subject in subject_data:
-            if quarter in str(subject['cuatrimestre']) and quarter_year in str(subject['añoCuatrimestre']):
+            if quarter in str(subject['cuatrimestre']) and subject_year in str(subject['añoMateria']):
                 quarter_subjects.append(subject)
 
         encoded_pdf = subjects_by_quarter_and_year_pdf_generator(
-            quarter.lower(), quarter_year.lower(), quarter_subjects)
+            quarter.lower(), subject_year.lower(), quarter_subjects)
         return Response(encoded_pdf, status=200, mimetype='application/json')
 
     except Exception as e:
@@ -68,12 +68,12 @@ def academic_record():
         student_data = requests.get(
             f'http://localhost:8081/api/usuarios/{student_id}').json()
 
-        print("student_data")
-        print(student_data)
+        student_name = f'{student_data["nombre"]} {student_data["apellido"]}'
 
-        qualifications = 2
+        qualifications = requests.get(
+            f'http://localhost:8081/api/usuarios/{student_id}/materiasEstudiante').json()
         
-        encoded_pdf = academic_record_pdf_generator(student_data, qualifications)
+        encoded_pdf = academic_record_pdf_generator(student_name, qualifications)
 
         return Response(encoded_pdf, status=200, mimetype='application/json')
 

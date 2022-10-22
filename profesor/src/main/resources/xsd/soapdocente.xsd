@@ -1,0 +1,142 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.unla.com/docente/soapDocentes"
+  xmlns:tns="http://www.unla.com/docente/soapDocentes"
+  elementFormDefault="qualified">
+
+  <xsd:element name="SolicitudMateriasAsignadas">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="id" type="xsd:long" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaMateriasAsignadas">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="item" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="nombre" type="xsd:string" />
+              <xsd:element name="carrera" type="xsd:string" />
+              <xsd:element name="cuatrimestre" type="xsd:string" />
+              <xsd:element name="añoCuatrimestre" type="xsd:int" />
+              <xsd:element name="añoMateria" type="xsd:int" />
+              <xsd:element name="dia" type="xsd:string" />
+              <xsd:element name="horaInicio" type="xsd:string" />
+              <xsd:element name="horaFinalizacion" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudAlumnosPorMateria">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idDocente" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaAlumnosPorMateria">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="nombre" type="xsd:string" />
+        <xsd:element name="carrera" type="xsd:string" />
+        <xsd:element name="cuatrimestre" type="xsd:string" />
+        <xsd:element name="añoCuatrimestre" type="xsd:int" />
+        <xsd:element name="Alumno" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="nombre" type="xsd:string" />
+              <xsd:element name="apellido" type="xsd:string" />
+              <xsd:element name="dni" type="xsd:string" />
+              <xsd:element name="email" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudAlumnosCursada">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idDocente" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+        <xsd:element name="NotaAlumnoCursada" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="notaParcial1" type="xsd:double" />
+              <xsd:element name="notaParcial2" type="xsd:double" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaAlumnosCursada">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idDocente" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+        <xsd:element name="NotaAlumnoCursada" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="notaParcial1" type="xsd:double" />
+              <xsd:element name="notaParcial2" type="xsd:double" />
+              <xsd:element name="notaCursada" type="xsd:double" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SolicitudAlumnosFinal">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idDocente" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+        <xsd:element name="idMesaExamen" type="xsd:long" />
+        <xsd:element name="NotaAlumnoFinal" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="notaExamen" type="xsd:double" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RespuestaAlumnosFinal">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="idDocente" type="xsd:long" />
+        <xsd:element name="idMateria" type="xsd:long" />
+        <xsd:element name="idMesaExamen" type="xsd:long" />
+        <xsd:element name="NotaAlumnoFinal" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="id" type="xsd:long" />
+              <xsd:element name="notaCursada" type="xsd:double" />
+              <xsd:element name="notaExamen" type="xsd:double" />
+              <xsd:element name="notaFinal" type="xsd:double" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

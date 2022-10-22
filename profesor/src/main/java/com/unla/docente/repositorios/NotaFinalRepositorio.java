@@ -1,12 +1,10 @@
-package com.unla.administrador.repositorios;
+package com.unla.docente.repositorios;
 
-import com.unla.administrador.modelos.datos.NotaFinal;
-import java.util.List;
+import com.unla.docente.modelos.datos.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NotaFinalRepositorio extends JpaRepository<NotaFinal,Long> {
-
-    List<NotaFinal> findByMesaExamen_IdAndInscriptoTrue(long id);
+    NotaFinal findByEstudiante_IdAndMesaExamen_Id(long usuarioId, long mesaExamenId);
 }

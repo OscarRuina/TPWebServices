@@ -3,6 +3,7 @@ package com.unla.administrador.controladores;
 import com.unla.administrador.convertidores.UsuarioConvertidor;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaRegistroUsuario;
 import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateria;
+import com.unla.administrador.modelos.dtos.respuesta.RespuestaUsuarioMateriaEstudiante;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudAsignarDocente;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudModificacionUsuario;
 import com.unla.administrador.modelos.dtos.solicitud.SolicitudRegistroUsuario;
@@ -115,6 +116,21 @@ public class UsuarioControlador {
                 usuarioMateria -> {
                     usuarioMaterias.add(
                             UsuarioConvertidor.convertirRespuestaUsuarioMateria(usuarioMateria));
+                }
+        );
+        return new ResponseEntity<>(usuarioMaterias, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/materiasEstudiante", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Listado de Materias del Estudiante")
+    public ResponseEntity<List<RespuestaUsuarioMateriaEstudiante>> usuarioMateriasEstudiante(
+            @PathVariable("id") @Pattern(regexp = "[0-9]+") String id
+    ) {
+        List<RespuestaUsuarioMateriaEstudiante> usuarioMaterias = new ArrayList<>();
+        servicio.listarMateriasEstudiante(Long.parseLong(id)).forEach(
+                usuarioMateria -> {
+                    usuarioMaterias.add(
+                            UsuarioConvertidor.convertirRespuestaUsuarioMateriaEstudiante(usuarioMateria));
                 }
         );
         return new ResponseEntity<>(usuarioMaterias, HttpStatus.OK);

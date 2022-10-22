@@ -1,6 +1,6 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
-from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
+from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator, subject_students_pdf_generator
 import json
 import requests
 import logging
@@ -88,6 +88,25 @@ def final_exams_pdf():
             f'http://localhost:8081/api/mesas-examen').json()
 
         encoded_pdf = final_exams_pdf_generator(final_exams)
+
+        return Response(encoded_pdf, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/pdf/cursada-materia", methods=["GET"])
+def subject_students_pdf():
+    try:
+        subject_id = request.args.get('idMateria')
+        
+        subject = requests.get(
+            f'http://localhost:8081/api/materias/{subject_id}').json()
+
+        students = requests.get(
+            f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
+
+        encoded_pdf = subject_students_pdf_generator(subject, students)
 
         return Response(encoded_pdf, status=200, mimetype='application/json')
 

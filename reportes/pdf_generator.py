@@ -110,6 +110,30 @@ def final_exams_table_generator(final_exams):
     return final_exams_table
 
 
+def subject_students_table_generator(students):
+    subject_students_table = Table(number_of_rows=len(
+        students)+1, number_of_columns=3)
+
+    subject_students_table.add(
+        Paragraph("Nombre", horizontal_alignment=Alignment.CENTERED))
+    subject_students_table.add(
+        Paragraph("DNI", horizontal_alignment=Alignment.CENTERED))
+    subject_students_table.add(
+        Paragraph("Email", horizontal_alignment=Alignment.CENTERED))
+
+    for student in students:
+        subject_students_table.add(
+            Paragraph(student['estudiante'].capitalize().replace('_', ' '), horizontal_alignment=Alignment.CENTERED))
+        subject_students_table.add(
+            Paragraph(str(student['dni']), horizontal_alignment=Alignment.CENTERED))
+        subject_students_table.add(
+            Paragraph(str(student['email']), horizontal_alignment=Alignment.CENTERED))
+
+    subject_students_table.set_padding_on_all_cells(
+        Decimal(1), Decimal(1), Decimal(1), Decimal(1))
+    return subject_students_table
+
+
 def subjects_by_quarter_and_year_pdf_generator(quarter, quarter_year, quarter_subjects):
     pdf = Document()
     page = Page()
@@ -206,5 +230,30 @@ def final_exams_pdf_generator(final_exams):
 
     file = Path("llamado_finales.pdf")
     file.unlink()
+
+    return encoded_pdf
+
+
+def subject_students_pdf_generator(subject, students):
+    pdf = Document()
+    page = Page()
+    pdf.insert_page(page)
+    page_layout = SingleColumnLayout(page)
+
+    title_text = f"Listado de alumnos inscriptos a la cursada de {subject['nombre'].capitalize()}"
+
+    page_layout.add(title(title_text))
+    page_layout.add(Paragraph(" "))
+    page_layout.add(subject_students_table_generator(students))
+
+    # store the PDF
+    with open(Path("estudiantes_inscriptos_a_materia.pdf"), "wb") as pdf_file_handle:
+        PDF.dumps(pdf_file_handle, pdf)
+
+    with open("estudiantes_inscriptos_a_materia.pdf", "rb") as pdf_file:
+        encoded_pdf = base64.b64encode(pdf_file.read())
+
+    file = Path("llamado_finales.pdf")
+    #file.unlink()
 
     return encoded_pdf

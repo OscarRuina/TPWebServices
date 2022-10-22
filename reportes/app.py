@@ -1,6 +1,6 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
-from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator
+from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator
 import json
 import requests
 import logging
@@ -41,17 +41,40 @@ def quarter_shift_subjects():
 
         quarter = request.args.get('cuatrimestre')
         shift = request.args.get('turno')
-       
+
         quarter_subjects = []
 
         for subject in subject_data:
             if quarter in str(subject['cuatrimestre']) and shift in str(subject['turno']):
                 quarter_subjects.append(subject)
 
-        sorted_quarter_subjects = sorted(quarter_subjects, key=lambda d: d['añoMateria'])
+        sorted_quarter_subjects = sorted(
+            quarter_subjects, key=lambda d: d['añoMateria'])
 
         encoded_pdf = subjects_by_quarter_pdf_generator(
             quarter.lower(), shift.lower(), sorted_quarter_subjects)
+        return Response(encoded_pdf, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/pdf/analitico", methods=["GET"])
+def academic_record():
+    try:
+
+        student_id = request.args.get('idEstudiante')
+
+        student_data = requests.get(
+            f'http://localhost:8081/api/usuarios/{student_id}').json()
+
+        print("student_data")
+        print(student_data)
+
+        qualifications = 2
+        
+        encoded_pdf = academic_record_pdf_generator(student_data, qualifications)
+
         return Response(encoded_pdf, status=200, mimetype='application/json')
 
     except Exception as e:

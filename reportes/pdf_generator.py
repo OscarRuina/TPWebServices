@@ -92,13 +92,36 @@ def subjects_by_quarter_pdf_generator(quarter, shift, quarter_subjects):
     page_layout.add(subjects(quarter_subjects))
 
     # store the PDF
-    with open(Path("listado_de_materias_por_cuatrimestre.pdf"), "wb") as pdf_file_handle:
+    with open(Path("listado_de_materias_por_cuatrimestre_por_turno.pdf"), "wb") as pdf_file_handle:
         PDF.dumps(pdf_file_handle, pdf)
 
-    with open("listado_de_materias_por_cuatrimestre.pdf", "rb") as pdf_file:
+    with open("listado_de_materias_por_cuatrimestre_por_turno.pdf", "rb") as pdf_file:
         encoded_pdf = base64.b64encode(pdf_file.read())
 
     file = Path("listado_de_materias_por_cuatrimestre_por_turno.pdf")
     file.unlink()
+
+    return encoded_pdf
+
+def academic_record_pdf_generator(student, qualifications):
+    pdf = Document()
+    page = Page()
+    pdf.insert_page(page)
+    page_layout = SingleColumnLayout(page)
+
+    title_text = f"Analítico del alumno "
+
+    page_layout.add(title(title_text))
+    page_layout.add(Paragraph(" "))
+
+    # store the PDF
+    with open(Path("analítico.pdf"), "wb") as pdf_file_handle:
+        PDF.dumps(pdf_file_handle, pdf)
+
+    with open("analítico.pdf", "rb") as pdf_file:
+        encoded_pdf = base64.b64encode(pdf_file.read())
+
+    file = Path("analítico.pdf")
+    #file.unlink()
 
     return encoded_pdf

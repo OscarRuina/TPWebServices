@@ -253,7 +253,32 @@ def subject_students_pdf_generator(subject, students):
     with open("estudiantes_inscriptos_a_materia.pdf", "rb") as pdf_file:
         encoded_pdf = base64.b64encode(pdf_file.read())
 
-    file = Path("llamado_finales.pdf")
+    file = Path("estudiantes_inscriptos_a_materia.pdf")
     file.unlink()
 
+    return encoded_pdf
+
+
+def final_exam_students_pdf_generator(subject, students):
+    pdf = Document()
+    page = Page()
+    pdf.insert_page(page)
+    page_layout = SingleColumnLayout(page)
+
+    title_text = f"Listado de alumnos inscriptos al examen final de {subject['nombre'].capitalize()}"
+
+    page_layout.add(title(title_text))
+    page_layout.add(Paragraph(" "))
+    page_layout.add(subject_students_table_generator(students))
+
+    # store the PDF
+    with open(Path("estudiantes_inscriptos_a_final.pdf"), "wb") as pdf_file_handle:
+        PDF.dumps(pdf_file_handle, pdf)
+
+    with open("estudiantes_inscriptos_a_final.pdf", "rb") as pdf_file:
+        encoded_pdf = base64.b64encode(pdf_file.read())
+
+    file = Path("estudiantes_inscriptos_a_final.pdf")
+    file.unlink()
+    
     return encoded_pdf

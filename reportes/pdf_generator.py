@@ -254,6 +254,6 @@ def subject_students_pdf_generator(subject, students):
         encoded_pdf = base64.b64encode(pdf_file.read())
 
     file = Path("llamado_finales.pdf")
-    #file.unlink()
+    file.unlink()
 
     return encoded_pdf

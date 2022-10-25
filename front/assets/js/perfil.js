@@ -68,7 +68,7 @@ function guardar() {
 
 
 function guardar() {    
-    var url = URLESTUDIANTE + "soapWS?wsdl";
+    var url = URLESTUDIANTE + "soapWS";
     console.log(url);
     var id = sessionStorage.getItem("id");
     var mail = $('#mail').val()
@@ -90,17 +90,17 @@ function guardar() {
     
 	var data = dataHeader + dataBody + dataEnd;
     const beautifiedXmlText = new XmlBeautify().beautify(data);
-    console.log(beautifiedXmlText);
+    
+    var codigo = new DOMParser();
+    var oDOM = codigo.parseFromString(beautifiedXmlText, "text/xml");
+    console.log(oDOM.documentElement);
     
     fetch(url, {
         method: 'POST',
-        body: beautifiedXmlText,
+        body: oDOM.documentElement,
         headers: {
-            "Content-Type": 'text/xml',
-            "Host": 'http://127.0.0.1:8001',
-            "Content-Lenght": beautifiedXmlText.Length
-        },
-        //mode: "no-cors"
+            "Content-Type": "text/xml"
+        }
     }).then(response => response.text()
         .then(data => {
             console.log(data);

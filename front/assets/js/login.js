@@ -38,6 +38,7 @@ async function validarUsuario() {
                 } else {
                     sessionStorage.setItem('id', json.id); 
                     sessionStorage.setItem('nombreUsuario', json.nombreUsuario);
+                    sessionStorage.setItem('rol', json.rol);
                     if (json.primerLogin == true) {
                         url = "cambioContraseña.html?rol=" + json.rol
                         window.location.replace(url);

@@ -30,12 +30,6 @@ function getGET() {
     }
 }
 
-async function salir() {
-    sessionStorage.removeItem('id');
-    sessionStorage.removeItem('nombreUsuario');
-    window.location.replace("index.html");
-}
-
 async function success(Ubicacion){
     Swal.fire({
         position: 'center',

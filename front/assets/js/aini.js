@@ -1,4 +1,5 @@
 var URLADMIN = "http://localhost:8081/";
+var URLESTUDIANTE = "http://localhost:8082/";
 var URLREPORT = "http://localhost:5000/";
 var login = sessionStorage.getItem("nombreUsuario");
 
@@ -27,12 +28,6 @@ function getGET() {
         }
         return get;
     }
-}
-
-async function salir() {
-    sessionStorage.removeItem('id');
-    sessionStorage.removeItem('nombreUsuario');
-    window.location.replace("index.html");
 }
 
 async function success(Ubicacion){

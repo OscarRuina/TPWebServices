@@ -68,6 +68,39 @@ $(document).ready( ()=> {
         })
     } 
     
+    const reporteDescargar = () => {
+        $(document).on('click','#btn_reporte', function(){
+            //"URLADMIN"+ "pdf/materias?""
+            //127.0.0.1:5000/pdf/materias?cuatrimestre=PRIMERO&añoCuatrimestre=2022
+            //cuatrimestre = 2
+            //añoCuatrimestre = 2022
+            var cuatrimestre = $('#cuatrimestre').val();
+            var anioCuatrimestre = $('#anioCuatrimestre').val();
+            
+            var url = URLREPORT + "pdf/llamado-final";
+            
+            console.log(url);
+            
+            var method = "GET";
+            fetch(url, {
+                method: method,
+                headers: {
+                  "Content-Type": "application/json",
+                },
+            }).then(res => res.text()
+                .then(data => {
+                    const linkSource = `data:application/pdf;base64,${data}`;
+                    const downloadLink = document.createElement("a");
+                    const fileName = "listado_de_materias_por_cuatrimestre.pdf";
+                    downloadLink.href = linkSource;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
+                 }))
+                .catch(err => error(err))
+            }) 
+    }
+    
+    reporteDescargar();
     listMaterias();
     list(); 
 })

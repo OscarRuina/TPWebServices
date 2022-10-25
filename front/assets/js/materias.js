@@ -117,13 +117,38 @@ $(document).ready( ()=> {
                     `
                 });
                 $('#cuatrimestre').html(data);
+                $('#cuatrimestre2').html(data);
             }
         })
     }
     
-    const reporte = () => {
+    const listTurno = () => {
+        var url = URLADMIN + "api/turnos"
+        let data = '';
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(res){
+                res.forEach(element => {
+                    data+=`
+                    <option value=${element.dato}>${element.dato}</option>
+                    `
+                });
+                $('#turno').html(data);
+            }
+        })
+    }
+    
+    const reporteAnio = () => {
         $(document).on('click','#btn_reporte', function(){
-            $("#myModal").modal("show");
+            $("#ReporteAnios").modal("show");
+        }) 
+    }
+    
+    const reporteTurnos = () => {
+        $(document).on('click','#btn_reporte-1', function(){
+            $("#ReporteTurnos").modal("show");
         }) 
     }
     
@@ -159,9 +184,40 @@ $(document).ready( ()=> {
             }) 
     }
     
+    const reporteDescargarTurnos = () => {
+        $(document).on('click','#btn_descargar_reporteTurno', function(){
+            var cuatrimestre = $('#cuatrimestre').val();
+            var turno = $('#turno').val();
+
+            var url = URLREPORT + "pdf/materias-turno?cuatrimestre=" + cuatrimestre + "&turno=" + turno;
+
+            console.log(url);
+
+            var method = "GET";
+            fetch(url, {
+                method: method,
+                headers: {
+                  "Content-Type": "application/json",
+                },
+            }).then(res => res.text()
+                .then(data => {
+                    const linkSource = `data:application/pdf;base64,${data}`;
+                    const downloadLink = document.createElement("a");
+                    const fileName = "listado_de_materias_por_cuatrimestre.pdf";
+                    downloadLink.href = linkSource;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
+                 }))
+                .catch(err => error(err))
+        })    
+    }
+    
     listCuatrimestre();
+    listTurno();
     reporteDescargar();
-    reporte();
+    reporteDescargarTurnos();
+    reporteTurnos();
+    reporteAnio();
     edit();
     deleteM();
     list(); 

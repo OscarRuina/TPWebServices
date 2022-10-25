@@ -6,6 +6,8 @@ btn_confirmar.addEventListener('click', (e) => {
 async function confirmar() {
     var password = $('#password').val();
     var passwordRepeat = $('#passwordRepeat').val();
+    var valores = getGET();
+    var rol = valores['rol'];
     
     if (password == passwordRepeat) {
         var id = sessionStorage.getItem('id');
@@ -14,7 +16,6 @@ async function confirmar() {
         var data = {
             'contraseña': password
         };
-        console.log(data)
         
         var response = fetch(url, {
             method: 'PUT',
@@ -31,7 +32,15 @@ async function confirmar() {
               showConfirmButton: false,
               timer: 1000
         }).then( function() {
-          window.location.replace("index.html");
+            if (rol == "ROLE_ADMIN"){
+                window.location.replace("index.html");
+            }
+            if (rol == "ROLE_ESTUDIANTE"){
+                window.location.replace("./Estudiante/IndexEstudiante.html");
+            }
+            if (rol == "ROLE_DOCENTE"){
+                window.location.replace("index.html");
+            }
         });
 
     } else {

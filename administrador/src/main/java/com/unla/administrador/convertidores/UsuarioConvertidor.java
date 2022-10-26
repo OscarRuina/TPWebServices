@@ -61,7 +61,7 @@ public final class UsuarioConvertidor {
 
     public static RespuestaUsuarioMateriaEstudianteLista convertirRespuestaUsuarioMateriaEstudianteLista(UsuarioMateria usuarioMateria){
         RespuestaUsuarioMateriaEstudianteLista respuestaUsuarioMateria = new RespuestaUsuarioMateriaEstudianteLista();
-        respuestaUsuarioMateria.setId(usuarioMateria.getId());
+        respuestaUsuarioMateria.setId(usuarioMateria.getUsuario().getId());
         respuestaUsuarioMateria.setEstudiante(usuarioMateria.getUsuario().getNombre() + " " + usuarioMateria.getUsuario().getApellido());
         respuestaUsuarioMateria.setDni(usuarioMateria.getUsuario().getDni());
         respuestaUsuarioMateria.setEmail(usuarioMateria.getUsuario().getEmail());

@@ -280,5 +280,5 @@ def final_exam_students_pdf_generator(subject, students):
 
     file = Path("estudiantes_inscriptos_a_final.pdf")
     file.unlink()
-    
+
     return encoded_pdf

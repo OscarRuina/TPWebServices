@@ -1,6 +1,7 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
-from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator, subject_students_pdf_generator, final_exam_students_pdf_generator
+from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
+from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator
 import json
 import requests
 import logging
@@ -106,9 +107,9 @@ def subject_students_pdf():
         students = requests.get(
             f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
 
-        encoded_pdf = subject_students_pdf_generator(subject, students)
+        encoded_excel = subject_students_excel_generator(subject, students)
 
-        return Response(encoded_pdf, status=200, mimetype='application/json')
+        return Response(encoded_excel, status=200, mimetype='application/json')
 
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
@@ -125,10 +126,10 @@ def final_exam_students_pdf():
         subject = requests.get(
             f'http://localhost:8081/api/materias/{subject_id}').json()
 
-        encoded_pdf = final_exam_students_pdf_generator(
+        encoded_excel = final_exam_students_excel_generator(
             subject, final_exam_students)
 
-        return Response(encoded_pdf, status=200, mimetype='application/json')
+        return Response(encoded_excel, status=200, mimetype='application/json')
 
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')

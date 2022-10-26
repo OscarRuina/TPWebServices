@@ -80,7 +80,7 @@ public final class MesaExamenConvertidor {
     public static RespuestaNotasFinales convertirRespuestaNotasFinales(NotaFinal notaFinal){
         RespuestaNotasFinales dto = new RespuestaNotasFinales();
 
-        dto.setId(notaFinal.getId());
+        dto.setId(notaFinal.getEstudiante().getId());
         dto.setAlumno(notaFinal.getEstudiante().getNombre() + " " + notaFinal.getEstudiante().getApellido());
         dto.setNotaExamen(notaFinal.getNotaExamen());
         dto.setNotaFinal(notaFinal.getNotaFinal());
@@ -91,7 +91,7 @@ public final class MesaExamenConvertidor {
     public static RespuestaUsuarioMesaExamenEstudianteLista convertirRespuestaUsuarioMesaExamenEstudianteLista(
             NotaFinal notaFinal){
         RespuestaUsuarioMesaExamenEstudianteLista respuestaUsuarioMateria = new RespuestaUsuarioMesaExamenEstudianteLista();
-        respuestaUsuarioMateria.setId(notaFinal.getId());
+        respuestaUsuarioMateria.setId(notaFinal.getEstudiante().getId());
         respuestaUsuarioMateria.setEstudiante(notaFinal.getEstudiante().getNombre() + " " + notaFinal.getEstudiante().getApellido());
         respuestaUsuarioMateria.setDni(notaFinal.getEstudiante().getDni());
         respuestaUsuarioMateria.setEmail(notaFinal.getEstudiante().getEmail());

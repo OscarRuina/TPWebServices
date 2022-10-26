@@ -60,6 +60,6 @@ def final_exam_students_excel_generator(subject, students):
 
     file = Path(
         f"estudiantes_inscriptos_a_final_{subject['nombre'].capitalize()}.xlsx")
-    #file.unlink()
+    file.unlink()
 
     return encoded_excel

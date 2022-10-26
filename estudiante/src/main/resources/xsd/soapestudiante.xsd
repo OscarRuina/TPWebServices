@@ -92,7 +92,7 @@
   <xsd:element name="SolicitudNombre">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="nombre" type="xsd:string"></xsd:element>
+        <xsd:element name="nombre" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -100,7 +100,7 @@
   <xsd:element name="SolicitudListaMaterias">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="carrera" type="xsd:string"></xsd:element>
+        <xsd:element name="carrera" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -108,7 +108,7 @@
   <xsd:element name="SolicitudMesaExamen">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="id" type="xsd:long"></xsd:element>
+        <xsd:element name="id" type="xsd:long"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -116,7 +116,7 @@
   <xsd:element name="SolicitudMesasExamen">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="activo" type="xsd:boolean"></xsd:element>
+        <xsd:element name="activo" type="xsd:boolean"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -184,7 +184,7 @@
   <xsd:element name="SolicitudIdEstudiante">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="id" type="xsd:long"></xsd:element>
+        <xsd:element name="id" type="xsd:long"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>

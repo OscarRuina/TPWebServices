@@ -63,9 +63,9 @@ function guardar() {
     }
 
     xhr.setRequestHeader('Content-Type', 'text/xml');
-    xhr.send(str);
-}*/
-
+    xhr.send(data);
+}
+*/
 
 function guardar() {    
     var url = URLESTUDIANTE + "soapWS";
@@ -90,14 +90,15 @@ function guardar() {
     
 	var data = dataHeader + dataBody + dataEnd;
     const beautifiedXmlText = new XmlBeautify().beautify(data);
+    console.log(beautifiedXmlText);
     
-    var codigo = new DOMParser();
-    var oDOM = codigo.parseFromString(beautifiedXmlText, "text/xml");
-    console.log(oDOM.documentElement);
+    //var codigo = new DOMParser();
+    //var oDOM = codigo.parseFromString(beautifiedXmlText, "text/xml");
+    //console.log(oDOM.documentElement);
     
     fetch(url, {
         method: 'POST',
-        body: oDOM.documentElement,
+        body: beautifiedXmlText,
         headers: {
             "Content-Type": "text/xml"
         }

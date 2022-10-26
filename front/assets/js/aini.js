@@ -1,6 +1,6 @@
-var URLADMIN = "http://localhost:8081/";
-var URLESTUDIANTE = "http://localhost:8082/";
-var URLREPORT = "http://localhost:5000/";
+var URLADMIN = "http://127.0.0.1:8081/";
+var URLESTUDIANTE = "http://127.0.0.1:8082/";
+var URLREPORT = "http://127.0.0.1:5000/";
 var login = sessionStorage.getItem("nombreUsuario");
 
 if (login === null || login == "null"){

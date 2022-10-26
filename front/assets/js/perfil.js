@@ -99,12 +99,14 @@ function guardar() {
         method: 'POST',
         body: oDOM.documentElement,
         headers: {
-            "Content-Type": "text/xml"
-        }
+            "Content-Type": "text/xml",
+            "Origin": "http://localhost:5500" 
+        },
+        
     }).then(response => response.text()
         .then(data => {
             console.log(data);
             //success("indexEstudiante.html")
     }))
-    .catch(err => error(err))
+    .catch(err => console.error(err))
 }

@@ -42,9 +42,8 @@ def students_subject_qualifications_excel_generator(subject_id, students):
     email_data = []
     first_exam = []
     second_exam = []
-    subject_qualification = []
+    course_qualification = []
     subject_name = None
-
 
     for student in students:
         names_data.append(student['estudiante'].capitalize().replace('_', ' '))
@@ -55,15 +54,13 @@ def students_subject_qualifications_excel_generator(subject_id, students):
         qualifications = requests.get(
             f'http://localhost:8081/api/usuarios/{student_id}/materiasEstudiante').json()
 
-        print(qualifications)
-        
-        subject_qualifications = next((item for item in qualifications if item['id'] == subject_id), None)
+        subject_qualifications = next(
+            (item for item in qualifications if int(item['id']) == int(subject_id)), None)
 
-        subject_name = 'juan' #subject_qualifications['nombreMateria']
-
-        print("subject_qualifications")
-        print(subject_qualifications)
-        
+        subject_name = subject_qualifications['nombreMateria']
+        first_exam.append(subject_qualifications['notaParcial1'])
+        second_exam.append(subject_qualifications['notaParcial2'])
+        course_qualification.append(subject_qualifications['notaCursada'])
 
     df = pd.DataFrame(
         {
@@ -72,7 +69,7 @@ def students_subject_qualifications_excel_generator(subject_id, students):
             'Email': email_data,
             'Primer parcial': first_exam,
             'Segundo parcial': second_exam,
-            'Cursada': subject_qualification
+            'Cursada': course_qualification
         }
     )
 

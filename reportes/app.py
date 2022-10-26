@@ -96,8 +96,8 @@ def final_exams_pdf():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
-@app.route("/pdf/cursada-materia", methods=["GET"])
-def subject_students_pdf():
+@app.route("/excel/cursada-materia", methods=["GET"])
+def subject_students_excel():
     try:
         subject_id = request.args.get('idMateria')
 
@@ -109,7 +109,22 @@ def subject_students_pdf():
 
         encoded_excel = subject_students_excel_generator(subject, students)
 
-        students_subject_qualifications_excel_generator(subject_id, students)
+        return Response(encoded_excel, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/excel/cursada-materia-notas", methods=["GET"])
+def subject_students_qualifications_excel():
+    try:
+        subject_id = request.args.get('idMateria')
+
+        students = requests.get(
+            f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
+
+        encoded_excel = students_subject_qualifications_excel_generator(
+            subject_id, students)
 
         return Response(encoded_excel, status=200, mimetype='application/json')
 
@@ -117,8 +132,8 @@ def subject_students_pdf():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
-@app.route("/pdf/inscriptos-final", methods=["GET"])
-def final_exam_students_pdf():
+@app.route("/excel/inscriptos-final", methods=["GET"])
+def final_exam_students_excel():
     try:
         subject_id = request.args.get('idMateria')
 

@@ -1,7 +1,7 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
 from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
-from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator
+from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator, final_exam_students_qualifications_excel_generator
 import json
 import requests
 import logging
@@ -145,6 +145,22 @@ def final_exam_students_excel():
 
         encoded_excel = final_exam_students_excel_generator(
             subject, final_exam_students)
+
+        return Response(encoded_excel, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/excel/inscriptos-final-notas", methods=["GET"])
+def final_exam_students_qualifications_excel():
+    try:
+        final_exam_id = request.args.get('idMesaExamen')
+
+        final_exam = requests.get(
+            f'http://localhost:8081/api/mesas-examen/{final_exam_id}').json()
+
+        encoded_excel = final_exam_students_qualifications_excel_generator(final_exam)
 
         return Response(encoded_excel, status=200, mimetype='application/json')
 

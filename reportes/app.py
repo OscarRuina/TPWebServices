@@ -1,7 +1,7 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
 from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
-from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator
+from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator
 import json
 import requests
 import logging
@@ -108,6 +108,8 @@ def subject_students_pdf():
             f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
 
         encoded_excel = subject_students_excel_generator(subject, students)
+
+        students_subject_qualifications_excel_generator(subject_id, students)
 
         return Response(encoded_excel, status=200, mimetype='application/json')
 

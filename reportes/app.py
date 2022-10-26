@@ -1,7 +1,7 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
 from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
-from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator
+from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator
 import json
 import requests
 import logging
@@ -96,8 +96,8 @@ def final_exams_pdf():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
-@app.route("/pdf/cursada-materia", methods=["GET"])
-def subject_students_pdf():
+@app.route("/excel/cursada-materia", methods=["GET"])
+def subject_students_excel():
     try:
         subject_id = request.args.get('idMateria')
 
@@ -115,8 +115,25 @@ def subject_students_pdf():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
-@app.route("/pdf/inscriptos-final", methods=["GET"])
-def final_exam_students_pdf():
+@app.route("/excel/cursada-materia-notas", methods=["GET"])
+def subject_students_qualifications_excel():
+    try:
+        subject_id = request.args.get('idMateria')
+
+        students = requests.get(
+            f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
+
+        encoded_excel = students_subject_qualifications_excel_generator(
+            subject_id, students)
+
+        return Response(encoded_excel, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/excel/inscriptos-final", methods=["GET"])
+def final_exam_students_excel():
     try:
         subject_id = request.args.get('idMateria')
 

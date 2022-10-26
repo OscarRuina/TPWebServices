@@ -52,7 +52,7 @@ public final class UsuarioConvertidor {
     public static RespuestaUsuarioMateriaEstudiante convertirRespuestaUsuarioMateriaEstudiante(UsuarioMateria usuarioMateria){
         RespuestaUsuarioMateriaEstudiante respuestaUsuarioMateria = new RespuestaUsuarioMateriaEstudiante();
         respuestaUsuarioMateria.setNombreMateria(usuarioMateria.getMateria().getNombre());
-        respuestaUsuarioMateria.setId(usuarioMateria.getId());
+        respuestaUsuarioMateria.setId(usuarioMateria.getMateria().getId());
         respuestaUsuarioMateria.setNotaParcial1(usuarioMateria.getNotaParcial1());
         respuestaUsuarioMateria.setNotaParcial2(usuarioMateria.getNotaParcial2());
         respuestaUsuarioMateria.setNotaCursada(usuarioMateria.getNotaCursada());

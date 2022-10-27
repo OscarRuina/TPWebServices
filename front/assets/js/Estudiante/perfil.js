@@ -10,9 +10,6 @@ function guardar() {
     var mail = $('#mail').val()
 	var password = $('#password').val()
     
-    var dataHeader = '<?xml version="1.0" encoding="utf-8"?>'+
-        '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:us="http://www.unla.com/estudiante/soapEstudiantes"> <soapenv:Header/>';
-    
     var dataBody = 
         '<soapenv:Body>'+
             '<us:SolicitudModificacion>'+
@@ -21,8 +18,6 @@ function guardar() {
                 '<us:password>' + password + '</us:password>'+
             '</us:SolicitudModificacion>'+
         '</soapenv:Body>';
-    
-    var dataEnd = '</soapenv:Envelope>';
     
 	var data = dataHeader + dataBody + dataEnd;
     const beautifiedXmlText = new XmlBeautify().beautify(data);
@@ -40,7 +35,7 @@ function guardar() {
         }
     }).then(response => response.text()
         .then(data => {
-            success("indexEstudiante.html");
+            success("homeEstudiante.html");
     }))
     .catch(err => error(err))
 }

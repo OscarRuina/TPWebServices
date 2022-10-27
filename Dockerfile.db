@@ -1,0 +1,4 @@
+FROM mysql
+EXPOSE 3306
+WORKDIR /usr/TPWebServices
+COPY services.sql /docker-entrypoint-initdb.d/services.sql/

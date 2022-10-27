@@ -79,6 +79,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>dockerProfesor</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

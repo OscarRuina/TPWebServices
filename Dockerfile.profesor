@@ -1,0 +1,5 @@
+FROM openjdk:11
+EXPOSE 8083
+WORKDIR /usr/TPWebServices
+COPY profesor/target/dockerProfesor.jar dockerProfesor.jar
+ENTRYPOINT ["java", "-jar", "dockerProfesor.jar"]

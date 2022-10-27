@@ -44,13 +44,14 @@ async function validarUsuario() {
                         window.location.replace(url);
                     } else {
                         if (json.rol == "ROLE_ADMIN"){
-                            window.location.replace("index.html");
+                            window.location.replace("./Administrador/home.html");
                         }
                         if (json.rol == "ROLE_ESTUDIANTE"){
-                            window.location.replace("./Estudiante/indexEstudiante.html");
+                            sessionStorage.setItem('carrera', json.carrera);
+                            window.location.replace("./Estudiante/homeEstudiante.html");
                         }
                         if (json.rol == "ROLE_DOCENTE"){
-                            window.location.replace("index.html");
+                            window.location.replace("./Administrador/home.html");
                         }
                     } 
                 }  

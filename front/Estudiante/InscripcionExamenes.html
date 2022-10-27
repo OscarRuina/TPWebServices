@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Page Not Found - Brand</title>
+    <title>Usuario</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
@@ -56,12 +56,34 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="text-center mt-5">
-                        <div class="error mx-auto" data-text="404">
-                            <p class="m-0">404</p>
+                    <h3 class="text-dark mb-4">Inscripcion Examenes</h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Información</p>
                         </div>
-                        <p class="text-dark mb-5 lead">Page Not Found</p>
-                        <p class="text-black-50 mb-0">It looks like you found a glitch in the matrix...</p><a href="/">← Back to Dashboard</a>
+                        <div class="card-body">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTables">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Nombre</th>
+                                            <th>Docente</th>
+                                            <th>Dia</th>
+                                            <th>Hora</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userbody"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>&nbsp;</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,12 +92,39 @@
                     <div class="text-center my-auto copyright"><span>Copyright © TP2022</span></div>
                 </div>
             </footer>
+            <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Reporte</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Ingrese Cuatrimestre y año</p>
+                            <form>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="email"><strong>Cuatrimestre</strong><br></label><select class="form-select" id="cuatrimestre"></select></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Año&nbsp;Cuatrimestre</strong><br></label><input class="form-control" type="number" id="anioCuatrimestre"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3"></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" id="btn_descargar_reporte" type="button">Descargar</button></div>
+                    </div>
+                </div>
+            </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/js/bs-init.js"></script>
     <script src="../assets/js/aini.js"></script>
     <script src="../assets/js/axml2json.js"></script>
+    <script src="../assets/js/Estudiante/inscripcionExamenes.js"></script>
     <script src="../assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xml-beautify@1.2.1/dist/XmlBeautify.js"></script>

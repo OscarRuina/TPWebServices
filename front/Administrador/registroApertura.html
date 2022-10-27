@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Usuario</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <title>Titulo</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <script src="assets/js/aini.js"></script>
 
@@ -34,7 +34,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="home.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="estudiantes.html"><i class="fas fa-user-circle"></i><span>Estudiantes</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="docentes.html"><i class="fa fa-angle-double-right"></i><span>Docente</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="materias.html"><i class="fa fa-angle-double-right"></i><span>Materia</span></a></li>
@@ -59,38 +59,33 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Registrar Estudiante</h3>
+                    <h3 class="text-dark mb-4">Registrar Apertura</h3>
                     <div class="row">
-                        <div class="col-auto text-start">
+                        <div class="col-auto col-sm-9 col-md-7 col-lg-6 col-xl-7 col-xxl-4 text-start">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-xl-12">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Usuario</p>
+                                            <p class="text-primary m-0 fw-bold">Inscripciones</p>
                                         </div>
                                         <div class="card-body">
                                             <form>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Nombre</strong></label><input class="form-control" type="text" id="nombre" placeholder="Nombre" name="first_name" required=""></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="apellido"><strong>Apellido</strong></label><input class="form-control" type="text" id="apellido" placeholder="Apellido" name="last_name" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>DNI</strong><br></label><input class="form-control" type="number" id="dni" placeholder="12345678"></div>
+                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Tipo</strong><br></label><select class="form-select" id="tipo">
+                                                                <option value="Cursada">Cursada</option>
+                                                                <option value="Finales">Finales</option>
+                                                            </select></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Mail</strong></label><input class="form-control" type="email" id="mail" placeholder="user@example.com" name="email" required=""></div>
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Inicio</strong></label><input class="form-control" id="inicio" type="date"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Carrera</strong><br></label><select class="form-select" id="carrera"></select></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Fin</strong><br></label><input class="form-control" id="fin" type="date"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"></div>
@@ -120,13 +115,15 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/aini.js"></script>
-    <script src="assets/js/home.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/js/bs-init.js"></script>
+    <script src="../assets/js/Administracion/registroApertura.js"></script>
+    <script src="../assets/js/aini.js"></script>
+    <script src="../assets/js/axml2json.js"></script>
+    <script src="../assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script src="assets/js/registro.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xml-beautify@1.2.1/dist/XmlBeautify.js"></script>
+    <script src="../assets/js/theme.js"></script>
 </body>
 
 </html>

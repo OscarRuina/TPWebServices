@@ -1,6 +1,7 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
+from swagger_ui import api_doc
 import json
 import requests
 import logging
@@ -15,6 +16,8 @@ ALLOWED_EXTENSIONS = {'xlsx'}
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+api_doc(app, config_path='./docs/swagger.yml',
+        url_prefix='/api/docs', title='API doc')
 
 
 def allowed_file(filename):
@@ -142,7 +145,7 @@ def subject_students_qualifications_excel():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
-@app.route("/excel/cursada-materia-notas", methods=["POST"])
+@app.route("/excel/carga-cursada-materia-notas", methods=["POST"])
 def subject_students_qualifications_excel_reader():
     try:
         subject_id = request.args.get('idMateria')
@@ -203,7 +206,7 @@ def final_exam_students_qualifications_excel():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
-@app.route("/excel/inscriptos-final-notas", methods=["POST"])
+@app.route("/excel/carga-inscriptos-final-notas", methods=["POST"])
 def final_exam_students_qualifications_excel_reader():
     try:
         final_exam_id = request.args.get('idMesaExamen')

@@ -1,0 +1,337 @@
+openapi: 3.0.3
+info:
+  title: Reportes API - Web Services
+  description: |-
+    Documentación de la API de Reportes basada en OpenAPI 3.0. Para más información sobre Swagger ingrese a [https://swagger.io](https://swagger.io). 
+
+    Algunos links útilies:
+    - [Repositorio de Web Services](https://github.com/OscarRuina/TPWebServices)
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:5000/
+tags:
+  - name: pdf
+    description: Descarga de documentos PDF
+  - name: excel
+    description: Descarga de documentos Excel o carga masiva mediante Excel
+
+paths:
+  /pdf/materias:
+    get:
+      tags:
+        - pdf
+      summary: Materias de un cuatrimestre
+      description: Obtener el documento PDF de las materias existentes a un cuatrimestre.
+      operationId: obtenerMateria
+      parameters:
+        - name: cuatrimestre
+          in: query
+          description: Indica el cuatrimestre a filtrar
+          required: true
+          schema:
+            type: string
+            enum:
+              - PRIMERO
+              - SEGUNDO
+        - name: añoCuatrimestre
+          in: query
+          description: Indica el año del cuatrimestre a filtrar
+          required: true
+          schema:
+            type: number
+            example: 2022
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /pdf/materias-turno:
+    get:
+      tags:
+        - pdf
+      summary: Materias de un cuatrimestre por turno
+      description: Obtener el documento PDF de las materias existentes a un cuatrimestre por turno.
+      operationId: obtenerMateriaTurno
+      parameters:
+        - name: cuatrimestre
+          in: query
+          description: Indica el cuatrimestre a filtrar
+          required: true
+          schema:
+            type: string
+            enum:
+              - PRIMERO
+              - SEGUNDO
+        - name: turno
+          in: query
+          description: Indica el turno a filtrar
+          required: true
+          schema:
+            type: string
+            enum:
+              - DIA
+              - TARDE
+              - NOCHE
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /pdf/analitico:
+    get:
+      tags:
+        - pdf
+      summary: Analítico de un alumno
+      description: Obtener el documento PDF del analítico de un alumno.
+      operationId: obtenerAnalitico
+      parameters:
+        - name: idEstudiante
+          in: query
+          description: Indica el id de estudiante a filtrar
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /pdf/llamado-final:
+    get:
+      tags:
+        - pdf
+      summary: Llamado a mesas de examen final
+      description: Obtener el documento PDF de los llamados a mesas de examen final disponibles.
+      operationId: obtenerLlamadoFinal
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /excel/cursada-materia:
+    get:
+      tags:
+        - excel
+      summary: Alumnos inscriptos a la cursada de una materia
+      description: Obtener el documento Excel de los alumnos inscriptos a la cursada de una materia.
+      operationId: obtenerCursadaMateria
+      parameters:
+        - name: idMateria
+          in: query
+          description: Indica el id de la materia a filtrar
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
+  /excel/cursada-materia-notas:
+    get:
+      tags:
+        - excel
+      summary: Alumnos inscriptos a la cursada de una materia con sus notas
+      description: Obtener el documento Excel de los alumnos inscriptos a la cursada de una materia con sus notas.
+      operationId: obtenerCursadaMateriaNotas
+      parameters:
+        - name: idMateria
+          in: query
+          description: Indica el id de la materia a filtrar
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /excel/carga-cursada-materia-notas:
+    post:
+      tags:
+        - excel
+      summary: Carga de alumnos inscriptos a la cursada de una materia con sus notas
+      description: Carga masiva mediante documento Excel de los alumnos inscriptos a la cursada de una materia con sus notas.
+      operationId: cargarCursadaMateriaNotas
+      requestBody:
+        content:
+          file:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
+  /excel/inscriptos-final:
+    get:
+      tags:
+        - excel
+      summary: Alumnos inscriptos al final de una materia
+      description: Obtener el documento Excel de los alumnos inscriptos al final de una materia
+      operationId: obtenerInscriptosFinal
+      parameters:
+        - name: idMateria
+          in: query
+          description: Indica el id de la materia a filtrar
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /excel/inscriptos-final-notas:
+    get:
+      tags:
+        - excel
+      summary: Alumnos inscriptos al final de una materia con sus notas
+      description: Obtener el documento Excel de los alumnos inscriptos al final de una materia con sus notas
+      operationId: obtenerInscriptosFinalNotas
+      parameters:
+        - name: idMateria
+          in: query
+          description: Indica el id de la materia a filtrar
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+  /excel/carga-iscriptos-final-notas:
+    post:
+      tags:
+        - excel
+      summary: Carga de alumnos inscriptos al final de una materia con sus notas
+      description: Carga masiva mediante documento Excel de los alumnos inscriptos al final de una materia con sus notas.
+      operationId: cargarInscriptosFinalNotas
+      requestBody:
+        content:
+          file:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/file_base_64'
+        '500':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+                
+                
+
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Must send param'
+    file_base_64:
+      type: string
+      example: "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"

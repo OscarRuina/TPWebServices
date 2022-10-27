@@ -1,15 +1,25 @@
 from flask import Flask, request, Response
 from flask_cors import CORS
-from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
-from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator
+from werkzeug.utils import secure_filename
 import json
 import requests
 import logging
+import os
 
+from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
+from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator, final_exam_students_qualifications_excel_generator
+from excel_reader import final_exam_students_qualifications_excel_parser, students_subject_qualifications_excel_parser
+
+ALLOWED_EXTENSIONS = {'xlsx'}
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route("/pdf/materias", methods=["GET"])
@@ -132,6 +142,30 @@ def subject_students_qualifications_excel():
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
 
 
+@app.route("/excel/cursada-materia-notas", methods=["POST"])
+def subject_students_qualifications_excel_reader():
+    try:
+        subject_id = request.args.get('idMateria')
+
+        if 'file' not in request.files:
+            raise Exception('Must send excel file (.xlsx)')
+        file = request.files['file']
+        if file.filename == '':
+            raise Exception('Must select an excel file (.xlsx)')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(filename))
+        else:
+            raise Exception('File must be .xlsx')
+
+        excel_data = students_subject_qualifications_excel_parser(filename)
+
+        return Response('todo ok', status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
 @app.route("/excel/inscriptos-final", methods=["GET"])
 def final_exam_students_excel():
     try:
@@ -147,6 +181,47 @@ def final_exam_students_excel():
             subject, final_exam_students)
 
         return Response(encoded_excel, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/excel/inscriptos-final-notas", methods=["GET"])
+def final_exam_students_qualifications_excel():
+    try:
+        final_exam_id = request.args.get('idMesaExamen')
+
+        final_exam = requests.get(
+            f'http://localhost:8081/api/mesas-examen/{final_exam_id}').json()
+
+        encoded_excel = final_exam_students_qualifications_excel_generator(
+            final_exam)
+
+        return Response(encoded_excel, status=200, mimetype='application/json')
+
+    except Exception as e:
+        return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
+
+
+@app.route("/excel/inscriptos-final-notas", methods=["POST"])
+def final_exam_students_qualifications_excel_reader():
+    try:
+        final_exam_id = request.args.get('idMesaExamen')
+
+        if 'file' not in request.files:
+            raise Exception('Must send excel file (.xlsx)')
+        file = request.files['file']
+        if file.filename == '':
+            raise Exception('Must select an excel file (.xlsx)')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(filename))
+        else:
+            raise Exception('File must be .xlsx')
+
+        excel_data = final_exam_students_qualifications_excel_parser(filename)
+
+        return Response('todo ok', status=200, mimetype='application/json')
 
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')

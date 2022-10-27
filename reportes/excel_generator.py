@@ -97,7 +97,7 @@ def final_exam_students_excel_generator(subject, students):
     email_data = []
 
     for student in students:
-        names_data.append(student['estudiante'].capitalize().replace('_', ' '))
+        names_data.append(student['estudiante'])
         dni_data.append(str(student['dni']))
         email_data.append(str(student['email']))
 
@@ -116,6 +116,44 @@ def final_exam_students_excel_generator(subject, students):
 
     file = Path(
         f"estudiantes_inscriptos_a_final_{subject['nombre'].capitalize()}.xlsx")
+    file.unlink()
+
+    return encoded_excel
+
+
+def final_exam_students_qualifications_excel_generator(final_exam):
+
+    student_name = []
+    final_exam_qualification = []
+    final_subject_qualification = []
+    dni_data = []
+    email_data = []
+
+    for student in final_exam['notas']:
+        student_id = student['id']
+        student_data = requests.get(
+            f'http://localhost:8081/api/usuarios/{student_id}').json()
+        student_name.append(student['alumno'])
+        dni_data.append(student_data['dni'])
+        email_data.append(student_data['email'])
+        final_exam_qualification.append(student['notaExamen'])
+        final_subject_qualification.append(student['notaFinal'])
+
+    df = pd.DataFrame(
+        {'Nombre': student_name, 'Dni': dni_data, 'Email': email_data, 'Examen final': final_exam_qualification, 'Nota final': final_subject_qualification})
+
+    writer = pd.ExcelWriter(
+        f"estudiantes_inscriptos_a_final_{final_exam['materia'].capitalize().replace('_', ' ')}.xlsx", engine='xlsxwriter')
+
+    df.to_excel(writer, sheet_name='Hoja 1', index=False)
+
+    writer.close()
+
+    with open(f"estudiantes_inscriptos_a_final_{final_exam['materia'].capitalize().replace('_', ' ')}.xlsx", "rb") as excel_file:
+        encoded_excel = base64.b64encode(excel_file.read())
+
+    file = Path(
+        f"estudiantes_inscriptos_a_final_{final_exam['materia'].capitalize().replace('_', ' ')}.xlsx")
     file.unlink()
 
     return encoded_excel

@@ -27,10 +27,11 @@ $(document).ready( ()=> {
     
     const salir = () => {
         $(document).on('click','#btn_salir', function(){
+            var rol = sessionStorage.getItem("rol");
             sessionStorage.removeItem('id');
             sessionStorage.removeItem('nombreUsuario');
             sessionStorage.removeItem('rol');
-            window.location.replace("index.html");
+            window.location.replace("../index.html");  
         }) 
     }
     

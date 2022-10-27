@@ -4,7 +4,7 @@ btn_confirmar.addEventListener("click", (e) => {
 });
 
 function guardar() {    
-    var url = URLESTUDIANTE + "soapWS";
+    var url = URLESTUDIANTE;
     console.log(url);
     var id = sessionStorage.getItem("id");
     var mail = $('#mail').val()
@@ -40,7 +40,7 @@ function guardar() {
         }
     }).then(response => response.text()
         .then(data => {
-            success("indexEstudiante.html")
+            success("indexEstudiante.html");
     }))
     .catch(err => error(err))
 }

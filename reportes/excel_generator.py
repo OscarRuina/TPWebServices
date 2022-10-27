@@ -85,7 +85,7 @@ def students_subject_qualifications_excel_generator(subject_id, students):
 
     file = Path(
         f"estudiantes_inscriptos_a_materia_{subject_name.capitalize()}.xlsx")
-    #file.unlink()
+    file.unlink()
 
     return encoded_excel
 

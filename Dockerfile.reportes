@@ -1,5 +1,5 @@
 FROM python
-EXPOSE 5000
+EXPOSE 5000 5000
 WORKDIR /usr/TPWebServices
 COPY ./reportes ./reportes
 RUN pip install pandas

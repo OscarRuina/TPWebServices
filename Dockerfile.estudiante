@@ -1,5 +1,5 @@
 FROM openjdk:11
-EXPOSE 8082
+EXPOSE 8082 80
 WORKDIR /usr/TPWebServices
 COPY estudiante/target/dockerEstudiante.jar dockerEstudiante.jar
 ENTRYPOINT ["java", "-jar", "dockerEstudiante.jar"]

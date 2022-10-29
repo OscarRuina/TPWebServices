@@ -10,7 +10,7 @@ services:
       - mysqldb
 
   reportes:
-    image: tpweb/docker-reportes
+    image: tp/reportes
     restart: always
     ports:
       - "5000:5000"
@@ -18,7 +18,7 @@ services:
       - mysqldb
 
   administrador:
-    image: tpweb/docker-admin
+    image: tp/admin
     restart: always
     ports:
       - "8081:8083"
@@ -26,7 +26,7 @@ services:
       - mysqldb
 
   profesor:
-    image: tpweb/docker-docente
+    image: tp/docente
     restart: always
     ports:
       - "8083:8083"
@@ -34,7 +34,7 @@ services:
       - mysqldb
 
   estudiante:
-    image: tpweb/docker-estudiante
+    image: tp/estudiante
     restart: always
     ports:
       - "8082:8082"
@@ -43,12 +43,11 @@ services:
 
   mysqldb:
     platform: linux/x86_64
-    image: tpweb/docker-database
+    image: tp/db
     restart: always
     ports:
       - "3306:33060"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db
-      MYSQL_USER: root
       MYSQL_PASSWORD: root

@@ -6,5 +6,9 @@ RUN pip install pandas
 RUN pip install flask
 RUN pip install flask_cors
 RUN pip install borb
+RUN pip install flask-swagger
+RUN pip install openpyxl
+RUN pip install swagger-ui-py
+RUN pip install XlsxWriter
 CMD ["python", "reportes/app.py"]
 

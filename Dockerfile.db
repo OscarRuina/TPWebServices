@@ -1,2 +1,4 @@
 FROM mysql
 EXPOSE 3306 33060
+WORKDIR /usr/TPWebServices
+COPY services.sql /docker-entrypoint-initdb.d/services.sql/

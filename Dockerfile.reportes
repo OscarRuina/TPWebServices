@@ -1,14 +1,11 @@
-FROM python
-EXPOSE 5000 5000
-WORKDIR /usr/TPWebServices
-COPY ./reportes ./reportes
-RUN pip install pandas
-RUN pip install flask
-RUN pip install flask_cors
-RUN pip install borb
-RUN pip install flask-swagger
-RUN pip install openpyxl
-RUN pip install swagger-ui-py
-RUN pip install XlsxWriter
-CMD ["python", "reportes/app.py"]
+FROM python:3.9.5
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+# copy project
+COPY ./reportes .
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 

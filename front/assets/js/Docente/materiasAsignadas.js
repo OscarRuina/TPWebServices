@@ -1,10 +1,4 @@
 var urlGlobal;
-var tmppath;
-
-$('#fileCursada').change( function(event) {
-    tmppath = URL.createObjectURL(event.target.files[0]);
-    console.log(tmppath);
-}); 
 
 $(document).ready( ()=> {
     
@@ -146,22 +140,17 @@ $(document).ready( ()=> {
     //btn_enviar_notas_cursada
     const enviarExcelNotasCursadas=()=>{
         $(document).on('click','#btn_enviar_notas_cursada', function(){
-            //console.log($('#fileCursada').val()); 
-            
+
             var formdata = new FormData();
-            
-            //formdata.append("file", fileInput.files[0], "/C😕Users/Gonzalo/Downloads/estudiantes_inscriptos_a_final_Base de datos (2).xlsx");
-            
-            var mime = dataUrl.split(',')[0].split(':')[1].split(';')[0];
-            console.log(typeof tmppath);
-            var blob = new Blob([tmppath], { type: mime });
-            
-            formdata.append("file", blob);
-            console.log(formdata);
-            
+
+            const input = document.getElementById('fileCursada');
+            formdata.append('file', input.files[0])
+
+            console.log(formdata)
+
             var requestOptions = {
               method: 'POST',
-              body: formdata //file
+              body: formdata
             };
 
             console.log("Antes del fetch");

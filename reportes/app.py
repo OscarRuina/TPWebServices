@@ -169,7 +169,7 @@ def subject_students_qualifications_excel_reader():
                     <soapenv:Header/>
                     <soapenv:Body>
                         <us:SolicitudAlumnosCursada>
-                            <us:idD3ocente>{teacher_id}</us:idDocente>
+                            <us:idDocente>{teacher_id}</us:idDocente>
                             <us:idMateria>{subject_id}</us:idMateria>"""
 
         for excel_student in excel_data:

@@ -169,7 +169,7 @@ def subject_students_qualifications_excel_reader():
                     <soapenv:Header/>
                     <soapenv:Body>
                         <us:SolicitudAlumnosCursada>
-                            <us:idDocente>{teacher_id}</us:idDocente>
+                            <us:idD3ocente>{teacher_id}</us:idDocente>
                             <us:idMateria>{subject_id}</us:idMateria>"""
 
         for excel_student in excel_data:
@@ -238,8 +238,11 @@ def final_exam_students_qualifications_excel():
         final_exam = requests.get(
             f'http://localhost:8081/api/mesas-examen/{final_exam_id}').json()
 
+        final_exam_students = requests.get(
+            f'http://localhost:8081/api/mesas-examen/{final_exam_id}/estudiantes').json()
+
         encoded_excel = final_exam_students_qualifications_excel_generator(
-            final_exam)
+            final_exam['materia'], final_exam_students)
 
         return Response(encoded_excel, status=200, mimetype='application/json')
 

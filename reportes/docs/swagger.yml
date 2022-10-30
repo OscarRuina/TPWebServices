@@ -217,6 +217,21 @@ paths:
       summary: Carga de alumnos inscriptos a la cursada de una materia con sus notas
       description: Carga masiva mediante documento Excel de los alumnos inscriptos a la cursada de una materia con sus notas.
       operationId: cargarCursadaMateriaNotas
+      parameters:
+        - name: idMateria
+          in: query
+          description: Indica el id de la materia a la cual pertenece la materia a cursar
+          required: true
+          schema:
+            type: number
+            example: 1
+        - name: idDocente
+          in: query
+          description: Indica el id del docente que dicta la materia
+          required: true
+          schema:
+            type: number
+            example: 1
       requestBody:
         content:
           file:
@@ -302,6 +317,28 @@ paths:
       summary: Carga de alumnos inscriptos al final de una materia con sus notas
       description: Carga masiva mediante documento Excel de los alumnos inscriptos al final de una materia con sus notas.
       operationId: cargarInscriptosFinalNotas
+      parameters:
+        - name: idMateria
+          in: query
+          description: Indica el id de la materia a la cual pertenece la mesa de examen
+          required: true
+          schema:
+            type: number
+            example: 1
+        - name: idMesaExamen
+          in: query
+          description: Indica el id de la mesa de examen de la cual se quieren cargar las notas
+          required: true
+          schema:
+            type: number
+            example: 1
+        - name: idDocente
+          in: query
+          description: Indica el id del docente que participa en la mesa de examen
+          required: true
+          schema:
+            type: number
+            example: 1
       requestBody:
         content:
           file:

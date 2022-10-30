@@ -149,6 +149,7 @@ def subject_students_qualifications_excel():
 def subject_students_qualifications_excel_reader():
     try:
         subject_id = request.args.get('idMateria')
+        teacher_id = request.args.get('idDocente')
 
         if 'file' not in request.files:
             raise Exception('Must send excel file (.xlsx)')
@@ -163,7 +164,47 @@ def subject_students_qualifications_excel_reader():
 
         excel_data = students_subject_qualifications_excel_parser(filename)
 
-        return Response('todo ok', status=200, mimetype='application/json')
+        payload = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:us="http://www.unla.com/docente/soapDocentes">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <us:SolicitudAlumnosCursada>
+                            <us:idDocente>{teacher_id}</us:idDocente>
+                            <us:idMateria>{subject_id}</us:idMateria>"""
+
+        for excel_student in excel_data:
+
+            students_data = requests.get(
+                'http://localhost:8081/api/usuarios?rol=ESTUDIANTE').json()
+
+            student_data = None
+
+            for json_student in students_data:
+                if int(json_student['dni']) == int(excel_student['dni']):
+                    student_data = json_student
+
+                    payload = payload + f"""<us:NotaAlumnoCursada>
+                                                <us:id>{student_data['id']}</us:id>
+                                                <us:notaParcial1>{excel_student['primer_parcial']}</us:notaParcial1>
+                                                <us:notaParcial2>{excel_student['segundo_parcial']}</us:notaParcial2>
+                                            </us:NotaAlumnoCursada>"""
+
+        payload = payload + """</us:SolicitudAlumnosCursada>
+                        </soapenv:Body>
+                    </soapenv:Envelope>"""
+
+        headers = {
+            'Content-Type': 'text/xml; charset=utf-8'
+        }
+
+        soap_response = requests.request(
+            "POST", 'http://localhost:8083/soapWS', headers=headers, data=payload)
+
+        if soap_response.status_code == 200:
+            return Response('Excel procesado correctamente.', status=200, mimetype='application/json')
+        else:
+            raise Exception(
+                f'El Excel no fue procesado correctamente. {soap_response} - {soap_response.status_code}')
 
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')
@@ -210,6 +251,8 @@ def final_exam_students_qualifications_excel():
 def final_exam_students_qualifications_excel_reader():
     try:
         final_exam_id = request.args.get('idMesaExamen')
+        subject_id = request.args.get('idMateria')
+        teacher_id = request.args.get('idDocente')
 
         if 'file' not in request.files:
             raise Exception('Must send excel file (.xlsx)')
@@ -224,7 +267,48 @@ def final_exam_students_qualifications_excel_reader():
 
         excel_data = final_exam_students_qualifications_excel_parser(filename)
 
-        return Response('todo ok', status=200, mimetype='application/json')
+        payload = f"""<?xml version=\"1.0\" encoding=\"utf-8\"?>
+                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                                    xmlns:us="http://www.unla.com/docente/soapDocentes">
+                        <soapenv:Header/>
+                        <soapenv:Body>
+                            <us:SolicitudAlumnosFinal>
+                                <us:idDocente>{teacher_id}</us:idDocente>
+                                <us:idMateria>{subject_id}</us:idMateria>
+                                <us:idMesaExamen>{final_exam_id}</us:idMesaExamen>"""
+
+        for excel_student in excel_data:
+
+            students_data = requests.get(
+                'http://localhost:8081/api/usuarios?rol=ESTUDIANTE').json()
+
+            student_data = None
+
+            for json_student in students_data:
+                if int(json_student['dni']) == int(excel_student['dni']):
+                    student_data = json_student
+
+                    payload = payload + f"""<us:NotaAlumnoFinal>
+                                            <us:id>{student_data['id']}</us:id>
+                                            <us:notaExamen>{excel_student['examen_final']}</us:notaExamen>
+                                        </us:NotaAlumnoFinal>"""
+
+        payload = payload + """</us:SolicitudAlumnosFinal>
+                        </soapenv:Body>
+                    </soapenv:Envelope>"""
+
+        headers = {
+            'Content-Type': 'text/xml; charset=utf-8'
+        }
+
+        soap_response = requests.request(
+            "POST", 'http://localhost:8083/soapWS', headers=headers, data=payload)
+
+        if soap_response.status_code == 200:
+            return Response('Excel procesado correctamente.', status=200, mimetype='application/json')
+        else:
+            raise Exception(
+                f'El Excel no fue procesado correctamente. {soap_response} - {soap_response.status_code}')
 
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), status=500, mimetype='application/json')

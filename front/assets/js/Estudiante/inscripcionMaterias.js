@@ -12,7 +12,7 @@ $(document).ready( ()=> {
 
         var data = dataHeader + dataBody + dataEnd;
         const beautifiedXmlText = new XmlBeautify().beautify(data);
-        console.log(beautifiedXmlText);
+        //console.log(beautifiedXmlText);
         
         fetch(url, {
             method: 'POST',
@@ -26,7 +26,7 @@ $(document).ready( ()=> {
                 var x2js = new X2JS();
                 var jsonObj = x2js.xml_str2json( respuesta );
                 //console.log(jsonObj.Envelope.Body.Materias.item);
-                console.log(jsonObj.Envelope.Body.Materias.item.length);  
+                //console.log(jsonObj.Envelope.Body.Materias.item.length);  
             
                 if (jsonObj.Envelope.Body.Materias.item.length !== "undefined"){
                     var datos = jsonObj.Envelope.Body.Materias.item;
@@ -43,7 +43,7 @@ $(document).ready( ()=> {
                     datos = array;
                 }
                 
-                console.log(datos);
+                //console.log(datos);
                 var table = $('#dataTables').DataTable({
                     destroy: true, 
                     autoWidth: false, 
@@ -104,9 +104,10 @@ $(document).ready( ()=> {
                 '<soapenv:Body>'+
                     '<us:SolicitudInscripcionMateriaEstudiante>'+
                         '<us:idEstudiante>'+idEstudiante+'</us:idEstudiante>'+
-                        '<us:idMesaExamen>'+id+'</us:idMesaExamen>'+
+                        '<us:idMateria>'+id+'</us:idMateria>'+
                     '</us:SolicitudInscripcionMateriaEstudiante>'+
                 '</soapenv:Body>';
+        
 
             var data = dataHeader + dataBody + dataEnd;
             const beautifiedXmlText = new XmlBeautify().beautify(data);
@@ -118,10 +119,15 @@ $(document).ready( ()=> {
                 headers: {
                     "Content-Type": "text/xml"
                 }
-            }).then(res => res.text()
+            }).then(response => response.text()
                 .then(data => {
-                    console.log(response);
-                    /*Swal.fire({
+                var respuesta = new XmlBeautify().beautify(data);
+                var x2js = new X2JS();
+                var jsonObj = x2js.xml_str2json( respuesta );
+                var verdad = jsonObj.Envelope.Body.RespuestaInscripcionMateriaEstudiante.inscripto.toString()
+                
+                if (verdad === "true"){
+                    Swal.fire({
                         position: 'center',
                         icon: 'success',
                         title: 'Se realizo la operación',
@@ -129,9 +135,24 @@ $(document).ready( ()=> {
                         timer: 1000
                     }).then( function() {
                           list();
-                    });*/
-                 }))
-                .catch(err => error(err))
+                    });
+                } 
+                else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Ya estas registrado',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then( function() {
+                          list();
+                    });
+                }
+                
+            }))
+            .catch(err => {
+                error(err)
+            })
         })
     }
     
@@ -171,7 +192,8 @@ $(document).ready( ()=> {
                         headers: {
                             "Content-Type": "text/xml"
                         }
-                    }).then((response) => {
+                    }).then(response => response.text()
+                    .then(data => {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
@@ -181,7 +203,8 @@ $(document).ready( ()=> {
                         }).then( function() {
                               list();
                         });
-                    }).catch(err => {
+                    }))
+                    .catch(err => {
                         error(err)
                     })
                 }

@@ -289,9 +289,9 @@ paths:
       description: Obtener el documento Excel de los alumnos inscriptos al final de una materia con sus notas
       operationId: obtenerInscriptosFinalNotas
       parameters:
-        - name: idMateria
+        - name: idMesaExamen
           in: query
-          description: Indica el id de la materia a filtrar
+          description: Indica el id de la mesa de examen a filtrar
           required: true
           schema:
             type: number

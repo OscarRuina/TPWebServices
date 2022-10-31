@@ -75,12 +75,18 @@ public class SoapEstudianteServicio {
 
         /** Verifico que no haya horarios superpuestos **/
         estudiante.getMaterias().forEach(usuarioMateria -> {
-            if (usuarioMateria.getMateria().getHoraInicio().equals(materia.getHoraInicio())) {
+            if (usuarioMateria.getMateria().getDia().equals(materia.getDia())
+                    && usuarioMateria.getMateria().getHoraInicio()
+                    .equals(materia.getHoraInicio())) {
                 inscripto.set(false);
             }
         });
 
-        if (inscripto.get()) {
+        if (inscripto.get() && !usuarioMateriaRepositorio.existsById(
+                usuarioMateriaRepositorio.findByMateria_IdAndUsuario_Id(
+                        inscripcionMateriaEstudiante.getIdMateria(),
+                        inscripcionMateriaEstudiante.getIdEstudiante()).getId()
+        )) {
             UsuarioMateria usuarioMateria = new UsuarioMateria();
             usuarioMateria.setUsuario(estudiante);
             usuarioMateria.setMateria(materia);
@@ -92,6 +98,9 @@ public class SoapEstudianteServicio {
             estudiante.getMaterias().add(usuarioMateria);
             repositorio.save(estudiante);
         }
+
+        
+
         RespuestaInscripcionMateriaEstudiante respuesta =
                 new RespuestaInscripcionMateriaEstudiante();
 
@@ -220,7 +229,7 @@ public class SoapEstudianteServicio {
         return mesaExamen1;
     }
 
-    public MesasExamen getMesasExamen(SolicitudMesasExamen mesasExamen){
+    public MesasExamen getMesasExamen(SolicitudMesasExamen mesasExamen) {
         MesasExamen mesas = new MesasExamen();
         List<MesaExamen> db = mesaExamenRepositorio.findByActivo(mesasExamen.isActivo());
         db.forEach(mesaExamen -> {
@@ -241,7 +250,7 @@ public class SoapEstudianteServicio {
         return mesas;
     }
 
-    public Analitico getAnalitico(SolicitudIdEstudiante id){
+    public Analitico getAnalitico(SolicitudIdEstudiante id) {
         Analitico analitico = new Analitico();
         List<NotaFinal> notas = notaFinalRepositorio.findByEstudiante_IdAndAprobadoTrue(id.getId());
 

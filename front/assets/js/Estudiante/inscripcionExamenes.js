@@ -11,7 +11,7 @@ $(document).ready( ()=> {
 
         var data = dataHeader + dataBody + dataEnd;
         const beautifiedXmlText = new XmlBeautify().beautify(data);
-        console.log(beautifiedXmlText);
+        //console.log(beautifiedXmlText);
 
         fetch(url, {
             method: 'POST',
@@ -26,7 +26,7 @@ $(document).ready( ()=> {
                 var jsonObj = x2js.xml_str2json( respuesta );
                 //console.log(jsonObj.Envelope.Body.MesasExamen.item);
             
-                console.log(jsonObj.Envelope.Body.MesasExamen.item.length);  
+                //console.log(jsonObj.Envelope.Body.MesasExamen.item.length);  
 
                 if (typeof jsonObj.Envelope.Body.MesasExamen.item.length !== "undefined"){
                     var datos = jsonObj.Envelope.Body.MesasExamen.item;
@@ -43,7 +43,7 @@ $(document).ready( ()=> {
                     datos = array;
                 }
             
-                console.log(datos);
+                //console.log(datos);
                 var table = $('#dataTables').DataTable({
                     destroy: true, 
                     autoWidth: false, 
@@ -136,7 +136,6 @@ $(document).ready( ()=> {
     }
     
     const bajarse=()=>{
-        //Punto B materias
         $(document).on('click','#btn-bajar', function(){
             Swal.fire({
                 title: '¿Estas seguro?',

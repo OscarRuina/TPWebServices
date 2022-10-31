@@ -1,13 +1,15 @@
 var URLADMIN = "http://localhost:8081/";
 var URLESTUDIANTE = "http://localhost:8082/soapWS";
+var URLDOCENTE = "http://localhost:8083/soapWS";
 var URLREPORT = "http://localhost:5000/";
-var login = sessionStorage.getItem("nombreUsuario");
 
 var dataHeader = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:us="http://www.unla.com/estudiante/soapEstudiantes"> <soapenv:Header/>';
+var dataHeaderDocente = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:us="http://www.unla.com/docente/soapDocentes"> <soapenv:Header/>';
 
 var dataEnd = '</soapenv:Envelope>';
 
-if (login === null || login == "null"){
+var loginEspecial = sessionStorage.getItem("nombreUsuario");
+if (loginEspecial === null || loginEspecial == "null"){
     var URLactual = window.location.pathname;
     if (URLactual  != "/index.html") {
 		window.location.replace("index.html");

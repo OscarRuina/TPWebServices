@@ -33,13 +33,13 @@ async function confirmar() {
               timer: 1000
         }).then( function() {
             if (rol == "ROLE_ADMIN"){
-                window.location.replace("index.html");
+                window.location.replace("./Administrador/home.html");
             }
             if (rol == "ROLE_ESTUDIANTE"){
-                window.location.replace("./Estudiante/IndexEstudiante.html");
+                window.location.replace("./Estudiante/homeEstudiante.html");
             }
             if (rol == "ROLE_DOCENTE"){
-                window.location.replace("index.html");
+                window.location.replace("./Docente/homeDocente.html");
             }
         });
 

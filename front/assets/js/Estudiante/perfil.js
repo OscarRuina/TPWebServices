@@ -23,10 +23,6 @@ function guardar() {
     const beautifiedXmlText = new XmlBeautify().beautify(data);
     console.log(beautifiedXmlText);
     
-    //var codigo = new DOMParser();
-    //var oDOM = codigo.parseFromString(beautifiedXmlText, "text/xml");
-    //console.log(oDOM.documentElement);
-    
     fetch(url, {
         method: 'POST',
         body: beautifiedXmlText,

@@ -51,7 +51,8 @@ async function validarUsuario() {
                             window.location.replace("./Estudiante/homeEstudiante.html");
                         }
                         if (json.rol == "ROLE_DOCENTE"){
-                            window.location.replace("./Administrador/home.html");
+                            sessionStorage.setItem('carrera', json.carrera);
+                            window.location.replace("./Docente/homeDocente.html");
                         }
                     } 
                 }  

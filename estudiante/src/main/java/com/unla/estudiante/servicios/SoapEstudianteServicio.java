@@ -75,7 +75,11 @@ public class SoapEstudianteServicio {
 
         /** Verifico que no haya horarios superpuestos **/
         estudiante.getMaterias().forEach(usuarioMateria -> {
-            if (usuarioMateria.getMateria().getDia().equals(materia.getDia())
+            if (String.valueOf(usuarioMateria.getMateria().getAñoCuatrimestre())
+                    .equals(String.valueOf(materia.getAñoCuatrimestre()))
+                    && usuarioMateria.getMateria().getCuatrimestre()
+                    .equals(materia.getCuatrimestre())
+                    && usuarioMateria.getMateria().getDia().equals(materia.getDia())
                     && usuarioMateria.getMateria().getHoraInicio()
                     .equals(materia.getHoraInicio())) {
                 inscripto.set(false);
@@ -94,7 +98,7 @@ public class SoapEstudianteServicio {
             estudiante.getMaterias().add(usuarioMateria);
             repositorio.save(estudiante);
         }
-        
+
         RespuestaInscripcionMateriaEstudiante respuesta =
                 new RespuestaInscripcionMateriaEstudiante();
 

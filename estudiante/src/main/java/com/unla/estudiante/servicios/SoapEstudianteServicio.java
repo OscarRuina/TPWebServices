@@ -75,23 +75,42 @@ public class SoapEstudianteServicio {
 
         /** Verifico que no haya horarios superpuestos **/
         estudiante.getMaterias().forEach(usuarioMateria -> {
-            if (usuarioMateria.getMateria().getHoraInicio().equals(materia.getHoraInicio())) {
+            if (usuarioMateria.isInscripto() && String.valueOf(usuarioMateria.getMateria().getAñoCuatrimestre())
+                    .equals(String.valueOf(materia.getAñoCuatrimestre()))
+                    && usuarioMateria.getMateria().getCuatrimestre()
+                    .equals(materia.getCuatrimestre())
+                    && usuarioMateria.getMateria().getDia().equals(materia.getDia())
+                    && usuarioMateria.getMateria().getHoraInicio()
+                    .equals(materia.getHoraInicio())) {
                 inscripto.set(false);
             }
         });
 
-        if (inscripto.get()) {
-            UsuarioMateria usuarioMateria = new UsuarioMateria();
-            usuarioMateria.setUsuario(estudiante);
-            usuarioMateria.setMateria(materia);
-            usuarioMateria.setNotaParcial1(0);
-            usuarioMateria.setNotaParcial2(0);
-            usuarioMateria.setNotaCursada(0);
-            usuarioMateria.setInscripto(true);
+        UsuarioMateria usuarioMateriaDb = usuarioMateriaRepositorio.findByMateria_IdAndUsuario_Id(
+                inscripcionMateriaEstudiante.getIdMateria(),
+                inscripcionMateriaEstudiante.getIdEstudiante());
 
-            estudiante.getMaterias().add(usuarioMateria);
-            repositorio.save(estudiante);
+        if (inscripto.get()) {
+            /** Si no existe lo crea**/
+            if (usuarioMateriaDb == null) {
+                UsuarioMateria usuarioMateria = new UsuarioMateria();
+                usuarioMateria.setUsuario(estudiante);
+                usuarioMateria.setMateria(materia);
+                usuarioMateria.setNotaParcial1(0);
+                usuarioMateria.setNotaParcial2(0);
+                usuarioMateria.setNotaCursada(0);
+                usuarioMateria.setInscripto(true);
+
+                estudiante.getMaterias().add(usuarioMateria);
+                repositorio.save(estudiante);
+            }
+            /** Si existe lo modifica **/
+            if (usuarioMateriaDb != null && !usuarioMateriaDb.isInscripto()) {
+                usuarioMateriaDb.setInscripto(true);
+                usuarioMateriaRepositorio.save(usuarioMateriaDb);
+            }
         }
+
         RespuestaInscripcionMateriaEstudiante respuesta =
                 new RespuestaInscripcionMateriaEstudiante();
 
@@ -220,7 +239,7 @@ public class SoapEstudianteServicio {
         return mesaExamen1;
     }
 
-    public MesasExamen getMesasExamen(SolicitudMesasExamen mesasExamen){
+    public MesasExamen getMesasExamen(SolicitudMesasExamen mesasExamen) {
         MesasExamen mesas = new MesasExamen();
         List<MesaExamen> db = mesaExamenRepositorio.findByActivo(mesasExamen.isActivo());
         db.forEach(mesaExamen -> {
@@ -241,7 +260,7 @@ public class SoapEstudianteServicio {
         return mesas;
     }
 
-    public Analitico getAnalitico(SolicitudIdEstudiante id){
+    public Analitico getAnalitico(SolicitudIdEstudiante id) {
         Analitico analitico = new Analitico();
         List<NotaFinal> notas = notaFinalRepositorio.findByEstudiante_IdAndAprobadoTrue(id.getId());
 

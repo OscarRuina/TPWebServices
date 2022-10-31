@@ -56,7 +56,7 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Alumnos de la materia</h3>
+                    <h3 class="text-dark mb-4">Alumnos del examen final</h3>
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Información</p>
@@ -67,10 +67,9 @@
                                     <thead>
                                         <tr>
                                             <th>id</th>
-                                            <th>Nombre</th>
-                                            <th>Apellido<br></th>
+                                            <th>Estudiante</th>
                                             <th>DNI<br></th>
-                                            <th>email<br></th>
+                                            <th>Email<br></th>
                                             <th><br></th>
                                         </tr>
                                     </thead>
@@ -85,61 +84,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" role="dialog" tabindex="-1" id="modal1">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Notas</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Ingrese notas del alumno</p>
-                                <form>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3"><label class="form-label" for="email"><strong>Nota 1er Parcial</strong><br></label><input class="form-control" type="number" id="nota1" min="1" max="10" placeholder="0"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3"><label class="form-label" for="roles"><strong>Nota 2do Parcial</strong><br></label><input class="form-control" type="number" id="nota2" min="1" max="10" placeholder="0"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3"></div>
-                                </form>
-                            </div>
-                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" id="btn_enviar" type="button">Enviar</button></div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © TP2022</span></div>
                 </div>
             </footer>
-            <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+            <div class="modal fade" role="dialog" tabindex="-1" id="modal1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Reporte</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title">Notas</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Ingrese Cuatrimestre y año</p>
+                            <p>Ingrese la nota final</p>
                             <form>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="email"><strong>Cuatrimestre</strong><br></label><select class="form-select" id="cuatrimestre"></select></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Año&nbsp;Cuatrimestre</strong><br></label><input class="form-control" type="number" id="anioCuatrimestre"></div>
+                                        <div class="mb-3"><label class="form-label" for="roles"><strong>Nota Final</strong><br></label><input class="form-control" type="number" id="nota1" min="1" max="10" placeholder="0"></div>
                                     </div>
                                 </div>
                                 <div class="mb-3"></div>
                             </form>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" id="btn_descargar_reporte" type="button">Descargar</button></div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" id="btn_enviar" type="button">Enviar</button></div>
                     </div>
                 </div>
             </div>
@@ -149,7 +117,7 @@
     <script src="../assets/js/bs-init.js"></script>
     <script src="../assets/js/aini.js"></script>
     <script src="../assets/js/axml2json.js"></script>
-    <script src="../assets/js/Docente/alumnosMaterias.js"></script>
+    <script src="../assets/js/Docente/alumnosFinal.js"></script>
     <script src="../assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xml-beautify@1.2.1/dist/XmlBeautify.js"></script>

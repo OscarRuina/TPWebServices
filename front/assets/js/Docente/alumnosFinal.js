@@ -4,54 +4,20 @@ var idGlobal1;
 $(document).ready( ()=> {
     
     const list=()=>{
-        var idDocente = sessionStorage.getItem("id");
-        var url = URLDOCENTE;
+        //var idDocente = sessionStorage.getItem("id");
         var valores = getGET();
-        var idMateria = valores['idMateria']
+        var idMesa = valores['idMesa']
         
-        var dataBody = 
-            '<soapenv:Body>'+
-                '<us:SolicitudAlumnosPorMateria>'+
-                    '<us:idDocente>'+ idDocente +'</us:idDocente>'+
-                    '<us:idMateria>'+ idMateria +'</us:idMateria>'+
-                '</us:SolicitudAlumnosPorMateria>'+
-            '</soapenv:Body>';
+        var url = URLADMIN + "api/mesas-examen/"+ idMesa +"/estudiantes"
 
-        var data = dataHeaderDocente + dataBody + dataEnd;
-        const beautifiedXmlText = new XmlBeautify().beautify(data);
-        //console.log(beautifiedXmlText);
-        
         fetch(url, {
-            method: 'POST',
-            body: beautifiedXmlText,
+            method: 'GET',
             headers: {
-                "Content-Type": "text/xml"
+                "Content-Type": "application/json"
             }
-        }).then(response => response.text()
+        }).then(response => response.json()
             .then(data => {
-                var respuesta = new XmlBeautify().beautify(data);
-                var x2js = new X2JS();
-                var jsonObj = x2js.xml_str2json( respuesta );
-            
-                console.log(jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno);
-                //console.log(jsonObj.Envelope.Body.Materias.item.length);  
-            
-                if (jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno.length){
-                    var datos = jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno;
-                }else{
-                    var datos = {}
-                    var array  = [];
-                    array.push({ 
-                        "id": jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno.id.toString(),
-                        "nombre": jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno.nombre.toString(),
-                        "apellido": jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno.apellido.toString(),
-                        "dni": jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno.dni.toString(),
-                        "email": jsonObj.Envelope.Body.RespuestaAlumnosPorMateria.Alumno.email.toString()
-                    });
-                    datos = array;
-                }
-                
-                //console.log(datos);
+                var datos = data;
                 var table = $('#dataTables').DataTable({
                     destroy: true, 
                     autoWidth: false, 
@@ -78,8 +44,7 @@ $(document).ready( ()=> {
                     data: datos,
                     columns: [
                         {"data": 'id', defaultContent: "<i> </i>"}, 
-                        {"data": 'nombre', defaultContent: "<i> </i>"},       
-                        {"data": 'apellido', defaultContent: "<i> </i>"},
+                        {"data": 'estudiante', defaultContent: "<i> </i>"},       
                         {"data": 'dni', defaultContent: "<i> </i>"},
                         {"data": 'email', defaultContent: "<i> </i>"},
                     ],
@@ -89,7 +54,7 @@ $(document).ready( ()=> {
                           "defaultContent": '<div class="dropdown"><a class="btn btn-sm btn-icon-only text-dark" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">'+
                           '<a class="dropdown-item" id="btn_alumnos" href="#">Ingresar Notas</a>'+ 
                           '</div></div>',
-                          "targets": 5
+                          "targets": 4
                         },
                     ], 
                 });
@@ -111,23 +76,25 @@ $(document).ready( ()=> {
         $(document).on('click','#btn_enviar', function(){
             var idDocente = sessionStorage.getItem("id");
             var Valores = getGET();
-            var idMateria = parseInt(Valores['idMateria'])
+            var idMateria = parseInt(Valores['idMateria']);
+            var idMesa = parseInt(Valores['idMesa']);
+
             var dataBody = 
                 '<soapenv:Body>'+
-                    '<us:SolicitudAlumnosCursada>'+
+                    '<us:SolicitudAlumnosFinal>'+
                         '<us:idDocente>'+idDocente+'</us:idDocente>'+
                         '<us:idMateria>'+idMateria+'</us:idMateria>'+
-                        '<us:NotaAlumnoCursada>'+
+                        '<us:idMesaExamen>'+idMesa+'</us:idMesaExamen>'+
+                        '<us:NotaAlumnoFinal>'+
                             '<us:id>'+idGlobal1+'</us:id>'+
-                            '<us:notaParcial1>'+ $('#nota1').val() +'</us:notaParcial1>'+
-                            '<us:notaParcial2>'+ $('#nota2').val() +'</us:notaParcial2>'+
-                        '</us:NotaAlumnoCursada>'+
-                    '</us:SolicitudAlumnosCursada>'+
+                            '<us:notaExamen>'+ $('#nota1').val() +'</us:notaExamen>'+
+                        '</us:NotaAlumnoFinal>'+
+                    '</us:SolicitudAlumnosFinal>'+
                 '</soapenv:Body>';
-
+            
             var data = dataHeaderDocente + dataBody + dataEnd;
             const beautifiedXmlText = new XmlBeautify().beautify(data);
-            console.log(beautifiedXmlText);
+            //console.log(beautifiedXmlText);
 
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "text/xml");

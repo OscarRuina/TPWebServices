@@ -53,6 +53,7 @@ $(document).ready( ()=> {
                     {
                       "data": null,
                       "defaultContent": '<div class="dropdown"><a class="btn btn-sm btn-icon-only text-dark" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">'+
+                      '<a class="dropdown-item" id="btn-alumnos" href="#">Alumnos inscriptos</a>'+
                       '<a class="dropdown-item" id="btn-descargar" href="#">Descargar Excel</a>'+
                       '<a class="dropdown-item" id="btn-enviar" href="#">Enviar Excel</a>'+
                       '</div></div>',
@@ -134,20 +135,22 @@ $(document).ready( ()=> {
         })
     }     
     
-    const mesaExamenPorMateria=()=>{
-        $(document).on('click','#btn_mesa_examen', function(){
+    const alumnosPorMesaExamen=()=>{
+        $(document).on('click','#btn-alumnos', function(){
+            var Valores = getGET();
+            var idMateria = parseInt(Valores['idMateria']);
+            
             var idDocente = sessionStorage.getItem("id");
             let btn = $(this)[0].parentElement.parentElement.parentElement.parentElement;
-            let idMateria = $(btn).find("td").eq(0).html();
-            var url = "mesaDeExamen.html?idMateria=" + idMateria + '&idDocente=' + idDocente;
+            let id = $(btn).find("td").eq(0).html();
+            var url = "alumnosFinal.html?idMesa=" + id + "&idMateria="+idMateria;
             window.location.replace(url);
         })
     }
-         
          
     list(); 
     llamarModalNotasCursadas();
     descargarExcel();
     enviarExcelNotasCursadas();
-    mesaExamenPorMateria();
+    alumnosPorMesaExamen();
 })

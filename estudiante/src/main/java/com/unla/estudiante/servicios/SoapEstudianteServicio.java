@@ -86,17 +86,29 @@ public class SoapEstudianteServicio {
             }
         });
 
-        if (inscripto.get()) {
-            UsuarioMateria usuarioMateria = new UsuarioMateria();
-            usuarioMateria.setUsuario(estudiante);
-            usuarioMateria.setMateria(materia);
-            usuarioMateria.setNotaParcial1(0);
-            usuarioMateria.setNotaParcial2(0);
-            usuarioMateria.setNotaCursada(0);
-            usuarioMateria.setInscripto(true);
+        UsuarioMateria usuarioMateriaDb = usuarioMateriaRepositorio.findByMateria_IdAndUsuario_Id(
+                inscripcionMateriaEstudiante.getIdMateria(),
+                inscripcionMateriaEstudiante.getIdEstudiante());
 
-            estudiante.getMaterias().add(usuarioMateria);
-            repositorio.save(estudiante);
+        if (inscripto.get()) {
+            /** Si no existe lo crea**/
+            if (usuarioMateriaDb == null) {
+                UsuarioMateria usuarioMateria = new UsuarioMateria();
+                usuarioMateria.setUsuario(estudiante);
+                usuarioMateria.setMateria(materia);
+                usuarioMateria.setNotaParcial1(0);
+                usuarioMateria.setNotaParcial2(0);
+                usuarioMateria.setNotaCursada(0);
+                usuarioMateria.setInscripto(true);
+
+                estudiante.getMaterias().add(usuarioMateria);
+                repositorio.save(estudiante);
+            }
+            /** Si existe lo modifica **/
+            if (usuarioMateriaDb != null) {
+                usuarioMateriaDb.setInscripto(true);
+                usuarioMateriaRepositorio.save(usuarioMateriaDb);
+            }
         }
 
         RespuestaInscripcionMateriaEstudiante respuesta =

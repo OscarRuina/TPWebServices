@@ -82,11 +82,7 @@ public class SoapEstudianteServicio {
             }
         });
 
-        if (inscripto.get() && !usuarioMateriaRepositorio.existsById(
-                usuarioMateriaRepositorio.findByMateria_IdAndUsuario_Id(
-                        inscripcionMateriaEstudiante.getIdMateria(),
-                        inscripcionMateriaEstudiante.getIdEstudiante()).getId()
-        )) {
+        if (inscripto.get()) {
             UsuarioMateria usuarioMateria = new UsuarioMateria();
             usuarioMateria.setUsuario(estudiante);
             usuarioMateria.setMateria(materia);
@@ -98,9 +94,7 @@ public class SoapEstudianteServicio {
             estudiante.getMaterias().add(usuarioMateria);
             repositorio.save(estudiante);
         }
-
         
-
         RespuestaInscripcionMateriaEstudiante respuesta =
                 new RespuestaInscripcionMateriaEstudiante();
 

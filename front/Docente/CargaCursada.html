@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>Usuario</title>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
@@ -35,10 +35,8 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="homeEstudiante.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" id="InscripcionMaterias"><i class="fa fa-asterisk"></i><span>Inscripcion Materias</span></a></li>
-                    <li class="nav-item"><a class="nav-link" id="InscripcionExamenes"><i class="fa fa-asterisk"></i><span>Inscripcion Examenes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="InformeAnalitico.html"><i class="fa fa-asterisk"></i><span>Informe Analítico </span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="homeDocente.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="materiaAsignada.html"><i class="fa fa-asterisk"></i><span>Materias</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -58,8 +56,14 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-dark mb-0">Dashboard</h3>
+                    <h3 class="text-dark mb-4">Carga de notas de Cursada</h3>
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-auto col-xl-5 text-start">
+                            <div class="row">
+                                <div class="col"><span>Enviar Excel cargado:&nbsp;</span><input type="file"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +78,7 @@
     <script src="../assets/js/bs-init.js"></script>
     <script src="../assets/js/aini.js"></script>
     <script src="../assets/js/axml2json.js"></script>
-    <script src="../assets/js/Estudiante/EstudianteDashboard.js"></script>
+    <script src="../assets/js/Docente/cargaNotasCursada.js"></script>
     <script src="../assets/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xml-beautify@1.2.1/dist/XmlBeautify.js"></script>

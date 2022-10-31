@@ -13,12 +13,12 @@ $(document).ready( ()=> {
         var rol = sessionStorage.getItem("rol");
         var data = '';
         
-        if (rol === 'ROLE_ADMIN'){
-            data = '<a id="btn_salir" class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Salir</a> </div>';
-        } else {
+        if (rol === 'ROLE_ESTUDIANTE'){
             data = '<a id="btn_perfil" class="dropdown-item" href="perfilEstudiante.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Perfil</a>'+
             '<div class="dropdown-divider"></div>'+
             '<a id="btn_salir" class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Salir</a> </div>';
+        } else {
+            data = '<a id="btn_salir" class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i> Salir</a> </div>';
         }
         
         $('#menu').html(data);

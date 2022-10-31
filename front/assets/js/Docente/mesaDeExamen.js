@@ -148,6 +148,8 @@ $(document).ready( ()=> {
         })
     }
          
+    
+         
     list(); 
     llamarModalNotasCursadas();
     descargarExcel();

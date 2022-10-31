@@ -75,7 +75,7 @@ public class SoapEstudianteServicio {
 
         /** Verifico que no haya horarios superpuestos **/
         estudiante.getMaterias().forEach(usuarioMateria -> {
-            if (String.valueOf(usuarioMateria.getMateria().getAñoCuatrimestre())
+            if (usuarioMateria.isInscripto() && String.valueOf(usuarioMateria.getMateria().getAñoCuatrimestre())
                     .equals(String.valueOf(materia.getAñoCuatrimestre()))
                     && usuarioMateria.getMateria().getCuatrimestre()
                     .equals(materia.getCuatrimestre())
@@ -105,7 +105,7 @@ public class SoapEstudianteServicio {
                 repositorio.save(estudiante);
             }
             /** Si existe lo modifica **/
-            if (usuarioMateriaDb != null) {
+            if (usuarioMateriaDb != null && !usuarioMateriaDb.isInscripto()) {
                 usuarioMateriaDb.setInscripto(true);
                 usuarioMateriaRepositorio.save(usuarioMateriaDb);
             }

@@ -2,35 +2,45 @@ version: "3.8"
 
 services:
   front:
-    image: tp/front
+    build:
+      context: .
+      dockerfile: Dockerfile.front
     restart: always
     container_name: front
     ports:
       - "5500:80"
 
   reportes:
-    image: tp/reportes
+    build:
+      context: .
+      dockerfile: Dockerfile.reportes
     restart: always
     container_name: reportes
     ports:
       - "5000:5000"
 
   administrador:
-    image: tp/admin
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
     restart: always
     container_name: admin
     ports:
       - "8081:8081"
 
   docente:
-    image: tp/docente
+    build:
+      context: .
+      dockerfile: Dockerfile.docente
     restart: always
     container_name: docente
     ports:
       - "8083:8083"
 
   estudiante:
-    image: tp/estudiante
+    build:
+      context: .
+      dockerfile: Dockerfile.estudiante
     restart: always
     container_name: estudiante
     ports:

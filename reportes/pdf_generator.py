@@ -56,26 +56,22 @@ def subjects(quarter_subjects):
 
 def academic_record_table_generator(qualifications):
     academic_record_table = Table(number_of_rows=len(
-        qualifications)+1, number_of_columns=4)
+        qualifications)+1, number_of_columns=3)
 
     academic_record_table.add(
         Paragraph("Materia", horizontal_alignment=Alignment.CENTERED))
     academic_record_table.add(
-        Paragraph("1er Parcial", horizontal_alignment=Alignment.CENTERED))
+        Paragraph("Nota Examen", horizontal_alignment=Alignment.CENTERED))
     academic_record_table.add(
-        Paragraph("2do Parcial", horizontal_alignment=Alignment.CENTERED))
-    academic_record_table.add(
-        Paragraph("Cursada", horizontal_alignment=Alignment.CENTERED))
+        Paragraph("Nota Final", horizontal_alignment=Alignment.CENTERED))
 
     for subject in qualifications:
         academic_record_table.add(
             Paragraph(subject['nombreMateria'].capitalize().replace('_', ' '), horizontal_alignment=Alignment.CENTERED))
         academic_record_table.add(
-            Paragraph(str(subject['notaParcial1']), horizontal_alignment=Alignment.CENTERED))
+            Paragraph(str(subject['notaExamen']), horizontal_alignment=Alignment.CENTERED))
         academic_record_table.add(
-            Paragraph(str(subject['notaParcial2']), horizontal_alignment=Alignment.CENTERED))
-        academic_record_table.add(
-            Paragraph(str(subject['notaCursada']), horizontal_alignment=Alignment.CENTERED))
+            Paragraph(str(subject['notaFinal']), horizontal_alignment=Alignment.CENTERED))
 
     academic_record_table.set_padding_on_all_cells(
         Decimal(1), Decimal(1), Decimal(1), Decimal(1))

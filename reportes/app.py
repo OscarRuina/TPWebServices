@@ -6,6 +6,7 @@ import json
 import requests
 import logging
 import os
+import xmltodict
 
 from pdf_generator import subjects_by_quarter_and_year_pdf_generator, subjects_by_quarter_pdf_generator, academic_record_pdf_generator, final_exams_pdf_generator
 from excel_generator import subject_students_excel_generator, final_exam_students_excel_generator, students_subject_qualifications_excel_generator, final_exam_students_qualifications_excel_generator
@@ -81,10 +82,36 @@ def academic_record():
         student_data = requests.get(
             f'http://localhost:8081/api/usuarios/{student_id}').json()
 
-        student_name = f'{student_data["nombre"]} {student_data["apellido"]}'
+        student_name = student_data['nombre'] + ' ' + student_data['apellido']
 
-        qualifications = requests.get(
-            f'http://localhost:8081/api/usuarios/{student_id}/materiasEstudiante').json()
+        payload = f"""<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:us="http://www.unla.com/estudiante/soapEstudiantes">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <us:SolicitudIdEstudiante>
+                            <us:id>{student_id}</us:id>
+                        </us:SolicitudIdEstudiante>
+                    </soapenv:Body>
+                </soapenv:Envelope>"""
+
+        headers = {
+            'Content-Type': 'text/xml; charset=utf-8'
+        }
+
+        soap_response = requests.request(
+            "POST", 'http://localhost:8082/soapWS', headers=headers, data=payload)
+
+        parsed_soap_response = xmltodict.parse(soap_response.content)
+        qualifications = []
+
+        for qualification in parsed_soap_response['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns2:Analitico']['ns2:nota']:
+            qualifications.append(
+                {
+                    'nombreMateria': qualification['ns2:materia'],
+                    'notaExamen': qualification['ns2:notaExamen'],
+                    'notaFinal': qualification['ns2:notaFinal'],
+                }
+            )
 
         encoded_pdf = academic_record_pdf_generator(
             student_name, qualifications)

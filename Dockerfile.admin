@@ -1,5 +1,5 @@
 FROM openjdk:11
 EXPOSE 8081
 WORKDIR /usr/TPWebServices
-COPY administrador/target/dockerAdmin.jar dockerAdmin.jar
+COPY administrador/dockerAdmin.jar dockerAdmin.jar
 ENTRYPOINT ["java", "-jar", "dockerAdmin.jar"]

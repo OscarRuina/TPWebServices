@@ -35,7 +35,7 @@ def pdf_download():
         quarter = request.args.get('cuatrimestre')
         subject_year = request.args.get('añoCuatrimestre')
         quarter_subjects = []
-        
+
         for subject in subject_data:
             if quarter in str(subject['cuatrimestre']) and subject_year in str(subject['añoCuatrimestre']):
                 quarter_subjects.append(subject)
@@ -102,10 +102,18 @@ def academic_record():
             "POST", 'http://localhost:8082/soapWS', headers=headers, data=payload)
 
         parsed_soap_response = xmltodict.parse(soap_response.content)
-        qualifications = []
 
-        for qualification in parsed_soap_response['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns2:Analitico']['ns2:nota']:
+        qualifications = []
+        qualifications_parsed = []
+
+        if (type(parsed_soap_response['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns2:Analitico']['ns2:nota']) is not list):
             qualifications.append(
+                parsed_soap_response['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns2:Analitico']['ns2:nota'])
+        else:
+            qualifications = parsed_soap_response['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns2:Analitico']['ns2:nota']
+
+        for qualification in qualifications:
+            qualifications_parsed.append(
                 {
                     'nombreMateria': qualification['ns2:materia'],
                     'notaExamen': qualification['ns2:notaExamen'],
@@ -114,7 +122,7 @@ def academic_record():
             )
 
         encoded_pdf = academic_record_pdf_generator(
-            student_name, qualifications)
+            student_name, qualifications_parsed)
 
         return Response(encoded_pdf, status=200, mimetype='application/json')
 

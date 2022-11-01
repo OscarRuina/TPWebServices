@@ -1,0 +1,9 @@
+flask
+pandas
+flask_cors
+borb
+flask-swagger
+openpyxl
+swagger-ui-py
+XlsxWriter
+xmltodict

@@ -1,0 +1,5 @@
+FROM nginx:1.19.5
+EXPOSE 5500
+WORKDIR /usr/TPWebServices
+COPY ./front /usr/share/nginx/html
+

@@ -1,0 +1,12 @@
+FROM python:3.9.5
+EXPOSE 5000
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+# copy project
+COPY ./reportes .
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+

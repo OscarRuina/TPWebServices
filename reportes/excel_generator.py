@@ -52,7 +52,7 @@ def students_subject_qualifications_excel_generator(subject_id, students):
         student_id = student['id']
 
         qualifications = requests.get(
-            f'http://localhost:8081/api/usuarios/{student_id}/materiasEstudiante').json()
+            f'http://admin:8081/api/usuarios/{student_id}/materiasEstudiante').json()
 
         subject_qualifications = next(
             (item for item in qualifications if int(item['id']) == int(subject_id)), None)

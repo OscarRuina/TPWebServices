@@ -13,6 +13,7 @@ from excel_generator import subject_students_excel_generator, final_exam_student
 from excel_reader import final_exam_students_qualifications_excel_parser, students_subject_qualifications_excel_parser
 
 ALLOWED_EXTENSIONS = {'xlsx'}
+BASE_URL='http://admin:8081'
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -30,7 +31,7 @@ def allowed_file(filename):
 def pdf_download():
     try:
         subject_data = requests.get(
-            'http://localhost:8081/api/materias').json()
+            BASE_URL+'/api/materias').json()
 
         quarter = request.args.get('cuatrimestre')
         subject_year = request.args.get('añoCuatrimestre')
@@ -52,7 +53,7 @@ def pdf_download():
 def quarter_shift_subjects():
     try:
         subject_data = requests.get(
-            'http://localhost:8081/api/materias').json()
+            BASE_URL+'/api/materias').json()
 
         quarter = request.args.get('cuatrimestre')
         shift = request.args.get('turno')
@@ -80,7 +81,7 @@ def academic_record():
         student_id = request.args.get('idEstudiante')
 
         student_data = requests.get(
-            f'http://localhost:8081/api/usuarios/{student_id}').json()
+            f'http://admin:8081/api/usuarios/{student_id}').json()
 
         student_name = student_data['nombre'] + ' ' + student_data['apellido']
 
@@ -99,7 +100,7 @@ def academic_record():
         }
 
         soap_response = requests.request(
-            "POST", 'http://localhost:8082/soapWS', headers=headers, data=payload)
+            "POST", 'http://estudiante:8082/soapWS', headers=headers, data=payload)
 
         parsed_soap_response = xmltodict.parse(soap_response.content)
 
@@ -134,7 +135,7 @@ def academic_record():
 def final_exams_pdf():
     try:
         final_exams = requests.get(
-            f'http://localhost:8081/api/mesas-examen').json()
+            f'http://admin:8081/api/mesas-examen').json()
 
         encoded_pdf = final_exams_pdf_generator(final_exams)
 
@@ -150,10 +151,10 @@ def subject_students_excel():
         subject_id = request.args.get('idMateria')
 
         subject = requests.get(
-            f'http://localhost:8081/api/materias/{subject_id}').json()
+            f'http://admin:8081/api/materias/{subject_id}').json()
 
         students = requests.get(
-            f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
+            f'http://admin:8081/api/materias/{subject_id}/estudiantes').json()
 
         encoded_excel = subject_students_excel_generator(subject, students)
 
@@ -169,7 +170,7 @@ def subject_students_qualifications_excel():
         subject_id = request.args.get('idMateria')
 
         students = requests.get(
-            f'http://localhost:8081/api/materias/{subject_id}/estudiantes').json()
+            f'http://admin:8081/api/materias/{subject_id}/estudiantes').json()
 
         encoded_excel = students_subject_qualifications_excel_generator(
             subject_id, students)
@@ -210,7 +211,7 @@ def subject_students_qualifications_excel_reader():
         for excel_student in excel_data:
 
             students_data = requests.get(
-                'http://localhost:8081/api/usuarios?rol=ESTUDIANTE').json()
+                'http://admin:8081/api/usuarios?rol=ESTUDIANTE').json()
 
             student_data = None
 
@@ -233,7 +234,7 @@ def subject_students_qualifications_excel_reader():
         }
 
         soap_response = requests.request(
-            "POST", 'http://localhost:8083/soapWS', headers=headers, data=payload)
+            "POST", 'http://docente:8083/soapWS', headers=headers, data=payload)
 
         if soap_response.status_code == 200:
             return Response('Excel procesado correctamente.', status=200, mimetype='application/json')
@@ -251,10 +252,10 @@ def final_exam_students_excel():
         subject_id = request.args.get('idMateria')
 
         final_exam_students = requests.get(
-            f'http://localhost:8081/api/mesas-examen/{subject_id}/estudiantes').json()
+            f'http://admin:8081/api/mesas-examen/{subject_id}/estudiantes').json()
 
         subject = requests.get(
-            f'http://localhost:8081/api/materias/{subject_id}').json()
+            f'http://admin:8081/api/materias/{subject_id}').json()
 
         encoded_excel = final_exam_students_excel_generator(
             subject, final_exam_students)
@@ -271,10 +272,10 @@ def final_exam_students_qualifications_excel():
         final_exam_id = request.args.get('idMesaExamen')
 
         final_exam = requests.get(
-            f'http://localhost:8081/api/mesas-examen/{final_exam_id}').json()
+            f'http://admin:8081/api/mesas-examen/{final_exam_id}').json()
 
         final_exam_students = requests.get(
-            f'http://localhost:8081/api/mesas-examen/{final_exam_id}/estudiantes').json()
+            f'http://admin:8081/api/mesas-examen/{final_exam_id}/estudiantes').json()
 
         encoded_excel = final_exam_students_qualifications_excel_generator(
             final_exam['materia'], final_exam_students)
@@ -318,7 +319,7 @@ def final_exam_students_qualifications_excel_reader():
         for excel_student in excel_data:
 
             students_data = requests.get(
-                'http://localhost:8081/api/usuarios?rol=ESTUDIANTE').json()
+                'http://admin:8081/api/usuarios?rol=ESTUDIANTE').json()
 
             student_data = None
 
@@ -340,7 +341,7 @@ def final_exam_students_qualifications_excel_reader():
         }
 
         soap_response = requests.request(
-            "POST", 'http://localhost:8083/soapWS', headers=headers, data=payload)
+            "POST", 'http://docente:8083/soapWS', headers=headers, data=payload)
 
         if soap_response.status_code == 200:
             return Response('Excel procesado correctamente.', status=200, mimetype='application/json')

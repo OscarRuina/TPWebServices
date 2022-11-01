@@ -94,7 +94,7 @@ $(document).ready( ()=> {
                     ], 
                 });
             }))
-            .catch(err => error(err))
+            //.catch(err => error(err))
     }
     
     const ingresoNotasCursada =()=>{

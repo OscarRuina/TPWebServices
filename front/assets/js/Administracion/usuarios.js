@@ -50,7 +50,11 @@ $(document).ready( ()=> {
                 "columnDefs": [
                     {
                       "data": null,
-                      "defaultContent": '<div class="dropdown"><a class="btn btn-sm btn-icon-only text-dark" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"><a class="dropdown-item" id="btn-edit" href="#">Editar</a><a class="dropdown-item" id="btn-delete" href="#">Borrar</a></div></div>',
+                      "defaultContent": '<div class="dropdown"><a class="btn btn-sm btn-icon-only text-dark" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">'+
+                      '<a class="dropdown-item" id="btn-edit" href="#">Editar</a>'+
+                      '<a class="dropdown-item" id="btn-delete" href="#">Borrar</a>'+
+                      '<a class="dropdown-item" id="btn_descargar_reporte" href="#">Descargar Analitico</a>'+
+                      '</div></div>',
                       "targets": 8
                     },
                 ], 
@@ -107,7 +111,8 @@ $(document).ready( ()=> {
     
     const reporteDescargar = () => {
         $(document).on('click','#btn_descargar_reporte', function(){
-            var id = sessionStorage.getItem("id");
+            let btnDelete = $(this)[0].parentElement.parentElement.parentElement.parentElement;
+            let id = $(btnDelete).find("td").eq(0).html();
             
             var url = URLREPORT + "pdf/analitico?idEstudiante=" + id;
             

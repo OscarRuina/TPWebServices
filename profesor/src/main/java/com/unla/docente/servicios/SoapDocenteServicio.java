@@ -53,7 +53,7 @@ public class SoapDocenteServicio {
     public RespuestaAlumnosPorMateria traerAlumnosPorMateria(SolicitudAlumnosPorMateria solicitudAlumnosPorMateria){
         Materia materia = materiaRepositorio.findById(solicitudAlumnosPorMateria.getIdMateria()).orElseThrow();
         //aca hacer
-        List<UsuarioMateria> usuarioMateriaList = usuarioMateriaRepositorio.findByMateria_Id(materia.getId());
+        List<UsuarioMateria> usuarioMateriaList = usuarioMateriaRepositorio.findByMateria_IdAndInscriptoTrue(materia.getId());
 
         RespuestaAlumnosPorMateria respuestaAlumnosPorMateria = new RespuestaAlumnosPorMateria();
         respuestaAlumnosPorMateria.setNombre(materia.getNombre());

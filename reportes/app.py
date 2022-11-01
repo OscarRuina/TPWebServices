@@ -34,9 +34,9 @@ def pdf_download():
         quarter = request.args.get('cuatrimestre')
         subject_year = request.args.get('añoCuatrimestre')
         quarter_subjects = []
-
+        
         for subject in subject_data:
-            if quarter in str(subject['cuatrimestre']) and subject_year in str(subject['añoMateria']):
+            if quarter in str(subject['cuatrimestre']) and subject_year in str(subject['añoCuatrimestre']):
                 quarter_subjects.append(subject)
 
         encoded_pdf = subjects_by_quarter_and_year_pdf_generator(

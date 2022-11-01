@@ -15,5 +15,5 @@ public interface UsuarioMateriaRepositorio extends JpaRepository<UsuarioMateria,
 
     UsuarioMateria findByUsuario_IdAndMateria_Id(long usuarioId, long materiaId);
 
-    List<UsuarioMateria> findByMateria_Id(long id);
+    List<UsuarioMateria> findByMateria_IdAndInscriptoTrue(long id);
 }
